@@ -5,12 +5,12 @@ module.exports = {
     'pages/**/*.vue',
     'app.vue',
     'error.vue',
-    'nuxt-classes.js',
+    'nuxtClasses.js',
   ],
   theme: {
     fontFamily: {
       body: [
-        'Inter',
+        'Sample',
         '-apple-system',
         'BlinkMacSystemFont',
         '"Segoe UI"',

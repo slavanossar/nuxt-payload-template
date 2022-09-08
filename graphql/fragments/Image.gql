@@ -1,0 +1,36 @@
+fragment Image on Image {
+  description
+  id
+  transforms: sizes {
+    xs {
+      url
+      width
+    }
+    sm {
+      url
+      width
+    }
+    md {
+      url
+      width
+    }
+    lg {
+      url
+      width
+    }
+    xl {
+      url
+      width
+    }
+    xxl {
+      url
+      width
+    }
+    xxxl {
+      url
+      width
+    }
+  }
+  url
+  width
+}

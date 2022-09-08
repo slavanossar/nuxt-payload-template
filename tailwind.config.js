@@ -5,7 +5,6 @@ module.exports = {
     'pages/**/*.vue',
     'app.vue',
     'error.vue',
-    'nuxtClasses.js',
   ],
   theme: {
     fontFamily: {

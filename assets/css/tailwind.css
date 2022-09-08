@@ -1,0 +1,22 @@
+@import 'tailwindcss/base';
+@import './fonts.css';
+
+@import 'tailwindcss/components';
+@import './components/container.css';
+@import './components/rich-text.css';
+
+@import 'tailwindcss/utilities';
+
+.layout-enter-active,
+.layout-leave-active,
+.page-enter-active,
+.page-leave-active {
+  @apply transition-opacity duration-500 ease-out;
+}
+
+.layout-enter,
+.layout-leave-to,
+.page-enter,
+.page-leave-to {
+  @apply opacity-0;
+}

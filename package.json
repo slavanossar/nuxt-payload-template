@@ -1,0 +1,61 @@
+{
+  "name": "nuxt3-payload-template",
+  "private": true,
+  "engine": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "dev:nuxt": "yarn generate-types && nuxt dev",
+    "dev:payload": "node payload/server.js",
+    "build": "npm-run-all build:payload build:nuxt",
+    "build:nuxt": "NODE_ENV=production nuxt build",
+    "build:payload": "NODE_ENV=production payload build",
+    "start:nuxt": "NODE_ENV=production node .output/server/index.mjs",
+    "start:payload": "NODE_ENV=production node payload/server.js",
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint:fix": "eslint --fix --ext .js,.ts,.vue .",
+    "generate-types": "graphql-codegen -r dotenv/config && mv graphql-exports.d.ts graphql-exports.js",
+    "postinstall": "cp -R apollo-module-dist node_modules/@nuxtjs/apollo/dist && rm -rf node_modules/@types/react"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix",
+    "*": "prettier -w -u"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.11.6",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-codegen/typescript-vue-apollo": "^3.3.3",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@nuxtjs/tailwindcss": "^5.3.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-nuxt": "^3.2.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.12",
+    "typescript": "^4.7.4",
+    "vite-plugin-vue-type-imports": "^0.2.0"
+  },
+  "dependencies": {
+    "@nuxtjs/apollo": "Diizzayy/apollo-module#chore/nuxt3",
+    "@pinia/nuxt": "^0.4.1",
+    "animejs": "^3.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "lodash-es": "^4.17.21",
+    "npm-run-all": "^4.1.5",
+    "nuxt": "3.0.0-rc.9",
+    "payload": "^1.0.11",
+    "pinia": "^2.0.16"
+  }
+}

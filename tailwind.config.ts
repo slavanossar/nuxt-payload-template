@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   content: [
     'components/**/*.vue',
     'layouts/**/*.vue',

@@ -5,8 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import nuxtClasses from './nuxtClasses'
-
 const title = '{{ SITE_TITLE }}'
 const description = '{{ SITE_DESCRIPTION }}'
 const url = '{{ SITE_URL }}'
@@ -17,10 +15,10 @@ useHead({
     return titleChunk ? `${titleChunk} | ${title}` : `${title}`
   },
   bodyAttrs: {
-    class: nuxtClasses.body,
+    class: 'min-h-full font-body antialiased',
   },
   htmlAttrs: {
-    class: nuxtClasses.html,
+    class: 'h-full',
     lang: 'en',
   },
   meta: [

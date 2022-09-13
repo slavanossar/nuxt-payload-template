@@ -1,10 +1,10 @@
 // import type { ImageFragment } from '@/payload-types'
 
-// export function useGeneratePayloadImageSrcset({
+// export const useGeneratePayloadImageSrcset = ({
 //   transforms,
 //   url,
 //   width,
-// }: ImageFragment): string {
+// }: ImageFragment): string => {
 //   return Object.values({
 //     ...transforms,
 //     ...(width <= 2400 && { original: { url, width } }),

@@ -15,7 +15,7 @@
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue .",
     "generate-types": "graphql-codegen -r dotenv/config && mv graphql-exports.d.ts graphql-exports.js",
-    "postinstall": "cp -R apollo-module-dist node_modules/@nuxtjs/apollo/dist && rm -rf node_modules/@types/react"
+    "postinstall": "cp -R lib/apollo-module node_modules/@nuxtjs/apollo/dist && rm -rf node_modules/@types/react"
   },
   "husky": {
     "hooks": {

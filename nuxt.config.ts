@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 import possibleTypes from './possibleTypes.json'
 
 const isDev = process.env.NODE_ENV !== 'production'

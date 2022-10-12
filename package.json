@@ -15,7 +15,7 @@
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue .",
     "generate-types": "graphql-codegen -r dotenv/config && mv graphql-exports.d.ts graphql-exports.js",
-    "postinstall": "cp -R lib/apollo-module node_modules/@nuxtjs/apollo/dist && rm -rf node_modules/@types/react"
+    "postinstall": "rm -rf node_modules/@types/react"
   },
   "husky": {
     "hooks": {
@@ -46,7 +46,7 @@
     "vite-plugin-vue-type-imports": "^0.2.0"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "Diizzayy/apollo-module#chore/nuxt3",
+    "@nuxtjs/apollo": "^5.0.0-alpha.2",
     "@pinia/nuxt": "^0.4.1",
     "animejs": "^3.2.1",
     "cors": "^2.8.5",

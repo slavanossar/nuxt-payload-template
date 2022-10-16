@@ -1,0 +1,10 @@
+#import "@/graphql/fragments/Image.gql"
+
+query GetGlobals {
+  Opengraph {
+    description
+    image {
+      ...Image
+    }
+  }
+}

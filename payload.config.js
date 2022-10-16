@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { buildConfig } from 'payload/config'
 
 import * as collections from './payload/collections'
+import * as globals from './payload/globals'
 import { Icon, Logo } from './payload/components'
 
 dotenv.config()
@@ -32,5 +33,5 @@ export default buildConfig({
     },
   },
   collections: Object.values(collections),
-  globals: [],
+  globals: Object.values(globals),
 })

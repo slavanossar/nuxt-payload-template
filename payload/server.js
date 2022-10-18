@@ -63,7 +63,7 @@ function generatePossibleTypes() {
     })
 }
 
-payload.init({
+payload.initAsync({
   secret: process.env.PAYLOAD_SECRET_KEY,
   mongoURL: process.env.MONGODB_URL,
   express: app,

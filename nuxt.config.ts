@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     clients: {
       default: {
         httpEndpoint: `${process.env.SERVER_URL}/api/graphql`,
-        inMemoryCacheOptions: { possibleTypes: possibleTypes.__schema },
+        inMemoryCacheOptions: { possibleTypes },
         connectToDevTools: isDev,
       },
     },

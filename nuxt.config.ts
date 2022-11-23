@@ -8,8 +8,12 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
   },
   css: [],
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/apollo'],
-  buildModules: ['vite-plugin-vue-type-imports/nuxt'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    '@nuxtjs/apollo',
+    'vite-plugin-vue-type-imports/nuxt',
+  ],
   apollo: {
     clients: {
       default: {
@@ -19,8 +23,10 @@ export default defineNuxtConfig({
       },
     },
   },
-  publicRuntimeConfig: {
-    serverUrl: process.env.SERVER_URL,
+  runtimeConfig: {
+    public: {
+      serverUrl: process.env.SERVER_URL,
+    },
   },
   experimental: {
     reactivityTransform: true,

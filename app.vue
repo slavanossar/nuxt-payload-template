@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import type { GetGlobalsQuery } from '@/payload-types'
-import { GetGlobalsDocument } from '@/graphql-exports'
+// import type { GetGlobalsQuery } from '@/payload-types'
+// import { GetGlobalsDocument } from '@/graphql-exports'
 
 const title = '{{ SITE_TITLE }}'
 const url = '{{ SITE_URL }}'
 const themeColour = '#000000'
 
-const { data } = await useAsyncQuery<GetGlobalsQuery>(GetGlobalsDocument)
-const { Opengraph } = unref(data)
+// const { data } = await useAsyncQuery<GetGlobalsQuery>(GetGlobalsDocument)
+// const { Opengraph } = unref(data)
 
 useHead({
   titleTemplate(titleChunk) {

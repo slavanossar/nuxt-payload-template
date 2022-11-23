@@ -5,7 +5,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev:nuxt": "yarn generate-types && nuxt dev",
+    "dev:nuxt": "nuxt dev",
     "dev:payload": "node payload/server.js",
     "build": "npm-run-all build:payload build:nuxt",
     "build:nuxt": "nuxt build",
@@ -32,7 +32,6 @@
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@graphql-codegen/typescript-vue-apollo": "^3.3.3",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
-    "@nuxtjs/tailwindcss": "^5.3.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
@@ -47,6 +46,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^5.0.0-alpha.4",
+    "@nuxtjs/tailwindcss": "^6.1.3",
     "@pinia/nuxt": "^0.4.1",
     "animejs": "^3.2.1",
     "cors": "^2.8.5",

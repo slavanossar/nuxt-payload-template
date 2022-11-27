@@ -5,10 +5,10 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev:nuxt": "nuxt dev",
+    "dev:nuxt": "nuxi dev",
     "dev:payload": "node payload/server.js",
     "build": "npm-run-all build:payload build:nuxt",
-    "build:nuxt": "nuxt build",
+    "build:nuxt": "nuxi build",
     "build:payload": "NODE_ENV=production payload build",
     "start:nuxt": "node .output/server/index.mjs",
     "start:payload": "NODE_ENV=production node payload/server.js",

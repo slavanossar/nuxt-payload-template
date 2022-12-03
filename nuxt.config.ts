@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/apollo',
-    'vite-plugin-vue-type-imports/nuxt',
+    '@vue-macros/nuxt',
+    '@vueuse/nuxt',
   ],
   apollo: {
     clients: {

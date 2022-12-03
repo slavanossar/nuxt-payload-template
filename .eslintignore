@@ -2,7 +2,7 @@
 .nitro
 .output
 build
+graphql/exports.js
 node_modules
-graphql-exports.js
 payload-types.d.ts
 possibleTypes.json

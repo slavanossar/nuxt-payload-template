@@ -14,7 +14,7 @@
     "start:payload": "NODE_ENV=production node payload/server.js",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue .",
-    "generate-types": "graphql-codegen --config config.ts && mv graphql/exports.d.ts graphql/exports.js",
+    "generate-types": "graphql-codegen --config config.ts -r dotenv/config && mv graphql/exports.d.ts graphql/exports.js",
     "postinstall": "rm -rf node_modules/@types/react"
   },
   "husky": {

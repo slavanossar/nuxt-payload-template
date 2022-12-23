@@ -6,7 +6,6 @@ A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript start
 - [VueUse](https://vueuse.org/guide/)
 - [Tailwind CSS](https://tailwindcss.com/docs/installation)
 - [Pinia](https://pinia.vuejs.org/introduction.html)
-- [Anime.js](https://animejs.com/documentation/) with `useAnime` composable
 - [GraphQL Code Generator](https://the-guild.dev/graphql/codegen/docs/getting-started)
 
 ## Usage

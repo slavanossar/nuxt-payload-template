@@ -1,4 +1,4 @@
-import possibleTypes from './possibleTypes.json'
+import possibleTypes from './graphql/possibleTypes.json'
 
 const isDev = process.env.NODE_ENV !== 'production'
 

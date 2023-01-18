@@ -1,6 +1,7 @@
-const cors = require('cors')
-const express = require('express')
-const payload = require('payload')
+import cors from 'cors'
+import express from 'express'
+import payload from 'payload'
+
 require('dotenv').config()
 
 const isDev = process.env.NODE_ENV !== 'production'

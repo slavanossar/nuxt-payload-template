@@ -1,6 +1,7 @@
+import type { Field } from 'payload/types'
 import { SlugInput } from '../components'
 
-export default {
+const slug: Field = {
   name: 'slug',
   label: 'Slug',
   type: 'text',
@@ -12,3 +13,5 @@ export default {
     description: 'The slug is set automatically based on the Title field.',
   },
 }
+
+export default slug

@@ -1,6 +1,7 @@
+import type { GlobalConfig } from 'payload/types'
 import { image } from '../fields'
 
-const Opengraph = {
+const Opengraph: GlobalConfig = {
   slug: 'opengraph',
   label: 'Opengraph',
   access: {

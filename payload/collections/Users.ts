@@ -1,3 +1,5 @@
+import type { CollectionConfig } from 'payload/types'
+
 const roleOptions = [
   {
     label: 'Admin',
@@ -13,7 +15,7 @@ function getRoleIndex(role) {
   return roleOptions.findIndex(({ value }) => role === value)
 }
 
-const Users = {
+const Users: CollectionConfig = {
   slug: 'users',
   labels: {
     singular: 'User',

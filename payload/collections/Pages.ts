@@ -1,7 +1,9 @@
+import type { CollectionConfig } from 'payload/types'
+
 import { slug } from '../fields'
 import { Home } from '../pages'
 
-export default {
+const Pages: CollectionConfig = {
   slug: 'pages',
   labels: {
     singular: 'Page',
@@ -57,3 +59,5 @@ export default {
     Home,
   ],
 }
+
+export default Pages

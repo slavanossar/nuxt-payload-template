@@ -1,4 +1,6 @@
-export default {
+import type { Field } from 'payload/types'
+
+const Home: Field = {
   name: 'homeFields',
   label: 'Home Fields',
   type: 'group',
@@ -7,3 +9,5 @@ export default {
   },
   fields: [],
 }
+
+export default Home

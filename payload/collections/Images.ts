@@ -1,4 +1,6 @@
-export default {
+import type { CollectionConfig } from 'payload/types'
+
+const Images: CollectionConfig = {
   slug: 'images',
   labels: {
     singular: 'Image',
@@ -55,3 +57,5 @@ export default {
     },
   ],
 }
+
+export default Images

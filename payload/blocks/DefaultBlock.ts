@@ -1,4 +1,6 @@
-const Block = {
+import type { Block } from 'payload/types'
+
+const DefaultBlock: Block = {
   slug: 'block',
   labels: {
     singular: 'block',
@@ -8,4 +10,4 @@ const Block = {
   fields: [],
 }
 
-export default Block
+export default DefaultBlock

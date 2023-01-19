@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
 import { TextInput, useWatchForm, useField } from 'payload/components/forms'
 import { kebabCase, noop } from 'lodash'
+import React, { useEffect } from 'react'
 
 export default ({ name, path, label }) => {
   const { getDataByPath } = useWatchForm()

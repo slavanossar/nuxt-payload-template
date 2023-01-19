@@ -1,6 +1,6 @@
-import { Component } from 'react'
+import React from 'react'
 
-export default class Logo extends Component {
+export default class Logo extends React.Component {
   render() {
     return (
       <svg

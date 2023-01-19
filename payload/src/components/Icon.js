@@ -1,6 +1,6 @@
-import { Component } from 'react'
+import React from 'react'
 
-export default class Icon extends Component {
+export default class Icon extends React.Component {
   render() {
     return (
       <svg

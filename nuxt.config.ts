@@ -1,5 +1,7 @@
 import possibleTypes from './graphql/possibleTypes.json'
 
+const { SITE_NAME, SITE_URL } = process.env
+
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
@@ -26,7 +28,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      serverUrl: process.env.SERVER_URL,
+      site: {
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
     },
   },
   experimental: {

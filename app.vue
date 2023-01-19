@@ -8,8 +8,10 @@
 // import type { GetGlobalsQuery } from '@/payload-types'
 // import { GetGlobalsDocument } from '@/graphql-exports'
 
-const title = '{{ SITE_TITLE }}'
-const url = '{{ SITE_URL }}'
+const config = useRuntimeConfig()
+
+const title = config.public.site.name
+const url = config.public.site.url
 const themeColour = '#000000'
 
 // const { data } = await useAsyncQuery<GetGlobalsQuery>(GetGlobalsDocument)

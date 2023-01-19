@@ -1,20 +1,18 @@
-import { TextInput, useWatchForm, useField } from 'payload/components/forms'
-import { kebabCase, noop } from 'lodash'
 import React, { useEffect } from 'react'
+import { TextInput, useFormFields, useField } from 'payload/components/forms'
+import dashify from 'dashify'
 
 export default ({ name, path, label }) => {
-  const { getDataByPath } = useWatchForm()
+  const titleField = useFormFields(([fields]) => fields.title)
 
   const { showError, value, setValue } = useField({
     path,
     enableDebouncedValue: true,
   })
 
-  const titleValue = getDataByPath('title')
-
   useEffect(() => {
     const charLimit = 40
-    const slug = kebabCase(titleValue)
+    const slug = dashify(titleField.value || '')
 
     if (value === undefined && !slug.length) {
       setValue('')
@@ -39,7 +37,7 @@ export default ({ name, path, label }) => {
         setValue(trimmedSlugSegments.join('-'))
       }
     }
-  }, [titleValue])
+  }, [titleField])
 
   return (
     <TextInput
@@ -49,7 +47,7 @@ export default ({ name, path, label }) => {
       label={label}
       readOnly
       showError={showError}
-      onChange={noop}
+      onChange={() => undefined}
     />
   )
 }

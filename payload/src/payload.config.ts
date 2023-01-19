@@ -1,12 +1,11 @@
 import path from 'path'
-import dotenv from 'dotenv'
 import { buildConfig } from 'payload/config'
 
-import * as collections from './payload/collections'
-import * as globals from './payload/globals'
-import { Icon, Logo } from './payload/components'
+import * as collections from './collections'
+import * as globals from './globals'
+import { Icon, Logo } from './components'
 
-dotenv.config()
+require('dotenv').config()
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -20,7 +19,7 @@ export default buildConfig({
         Logo,
       },
     },
-    css: path.resolve(__dirname, './payload/styles.css'),
+    css: path.resolve(__dirname, './styles.css'),
     meta: {
       favicon: '/favicon/safari-pinned-tab.svg',
       titleSuffix: '| {{ SITE_TITLE }}',

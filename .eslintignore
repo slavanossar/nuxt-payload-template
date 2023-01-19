@@ -4,5 +4,4 @@
 build
 graphql/exports.js
 node_modules
-payload-types.d.ts
-possibleTypes.json
+graphql/possibleTypes.json

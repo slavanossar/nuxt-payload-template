@@ -10,12 +10,13 @@ lerna-debug.log*
 .output
 .nuxt
 node_modules
+build
 dist
 *.local
 public
-graphql-exports.js
-payload-types.d.ts
-possibleTypes.json
+graphql/exports.js
+graphql/possibleTypes.json
+payload/payload-types.ts
 
 # Editor directories and files
 .vscode/*

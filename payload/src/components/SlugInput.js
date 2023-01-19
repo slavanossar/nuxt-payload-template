@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { TextInput, useWatchForm, useField } from 'payload/components/forms'
 import { kebabCase, noop } from 'lodash'
 

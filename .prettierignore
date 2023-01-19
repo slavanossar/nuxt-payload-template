@@ -7,15 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+*.local
 .output
 .nuxt
 node_modules
-build
-dist
-*.local
 public
 graphql/exports.js
 graphql/possibleTypes.json
+payload/build
+payload/dist
 payload/payload-types.ts
 
 # Editor directories and files

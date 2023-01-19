@@ -1,11 +1,12 @@
 import path from 'path'
+import dotenv from 'dotenv'
 import { buildConfig } from 'payload/config'
 
 import * as collections from './collections'
 import * as globals from './globals'
 import { Icon, Logo } from './components'
 
-require('dotenv').config()
+dotenv.config()
 
 const isDev = process.env.NODE_ENV !== 'production'
 

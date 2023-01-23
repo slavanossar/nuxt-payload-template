@@ -1,10 +1,9 @@
 import { writeFileSync } from 'fs'
 import fetch from 'node-fetch'
-import payload from 'payload'
 
 console.log('Generating GraphQL possibleTypes...')
 
-fetch(`${payload.getAPIURL()}/graphql`, {
+fetch(`${process.env.SITE_URL}/graphql`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

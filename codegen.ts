@@ -1,12 +1,13 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
 
-const { SERVER_URL } = process.env
-
 const config: CodegenConfig = {
-  schema: `${SERVER_URL}/api/graphql`,
-  documents: 'graphql/**/*.gql',
+  schema: 'http://localhost:3001/api/graphql',
+  documents: 'graphql/payload/**/*.gql',
   generates: {
-    './graphql/exports.d.ts': {
+    './payload-types.d.ts': {
+      plugins: ['typescript', 'typescript-operations'],
+    },
+    './graphql/payload/exports.d.ts': {
       plugins: ['typescript-vue-apollo'],
       config: {
         withCompositionFunctions: false,

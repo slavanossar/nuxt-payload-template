@@ -21,7 +21,7 @@ interface Props {
 
 const { image, lazy = false, sizes = '100vw' } = defineProps<Props>()
 
-const srcset = computed(() => useGenerateSrcset(image))
+const srcset = computed(() => generateSrcset(image))
 
 const root = $ref<HTMLImageElement | null>(null)
 const emit = defineEmits(['load'])

@@ -11,7 +11,7 @@ const Images: CollectionConfig = {
   },
   upload: {
     staticURL: '/media/images',
-    staticDir: 'payload/uploads/images',
+    staticDir: 'uploads/images',
     imageSizes: [
       {
         name: 'xs',

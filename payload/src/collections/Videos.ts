@@ -14,7 +14,7 @@ const Videos: CollectionConfig = {
   },
   upload: {
     staticURL: '/media/videos',
-    staticDir: 'payload/uploads/videos',
+    staticDir: 'uploads/videos',
     mimeTypes: ['video/mp4'],
   },
   fields: [],

@@ -11,7 +11,7 @@ dotenv.config()
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default buildConfig({
-  serverURL: process.env.SERVER_URL,
+  serverURL: process.env.SITE_URL,
   debug: isDev,
   admin: {
     components: {

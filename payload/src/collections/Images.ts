@@ -41,6 +41,11 @@ const Images: CollectionConfig = {
         name: 'xxxl',
         width: 2400,
       },
+      {
+        name: 'opengraph',
+        width: 1200,
+        height: 630,
+      },
     ],
     adminThumbnail: 'xs',
     mimeTypes: ['image/jpeg', 'image/png'],

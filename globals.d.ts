@@ -9,3 +9,13 @@ declare module '*.graphql' {
   const Schema: DocumentNode
   export = Schema
 }
+
+declare type RichTextNode = {
+  bold: boolean
+  children: RichTextNode[]
+  code: boolean
+  italic: boolean
+  text: string
+  type: string
+  url: string
+}

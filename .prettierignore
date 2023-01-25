@@ -12,7 +12,7 @@ lerna-debug.log*
 .nuxt
 node_modules
 public
-graphql/exports.js
+graphql/index.js
 graphql/possibleTypes.json
 payload/build
 payload/dist

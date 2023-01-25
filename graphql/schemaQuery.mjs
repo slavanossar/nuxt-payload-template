@@ -1,9 +1,12 @@
 import { writeFileSync } from 'fs'
 import fetch from 'node-fetch'
+import { config } from 'dotenv'
+
+config()
 
 console.log('Generating GraphQL possibleTypes...')
 
-fetch(`${process.env.SITE_URL}/graphql`, {
+fetch(`${process.env.SITE_URL}/api/graphql`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

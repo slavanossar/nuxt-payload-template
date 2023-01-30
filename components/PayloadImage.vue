@@ -11,10 +11,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ImageFragment } from '@/payload-types'
+import type { Image } from '@/payload/types'
 
 interface Props {
-  image: ImageFragment
+  image: Image
   lazy?: boolean
   sizes?: string
 }

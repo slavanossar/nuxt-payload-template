@@ -1,4 +1,7 @@
+import dotenv from 'dotenv'
 import type { CollectionConfig } from 'payload/types'
+
+dotenv.config()
 
 const roleOptions = [
   {
@@ -48,7 +51,7 @@ const Users: CollectionConfig = {
         }
 
         const { role: currentUserRole } = await fetch(
-          `/api/users/${user.id}`,
+          `${process.env.SITE_URL || ''}/api/users/${user.id}`,
         ).then((res) => res.json())
 
         const isDowngradingRole =

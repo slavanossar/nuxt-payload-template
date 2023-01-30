@@ -16,7 +16,7 @@ graphql/index.js
 graphql/possibleTypes.json
 payload/build
 payload/dist
-payload-types.ts
+payload/types.ts
 
 # Editor directories and files
 .vscode/*

@@ -6,7 +6,7 @@ dotenv.config()
 
 const app = express()
 
-payload.initAsync({
+payload.init({
   secret: process.env.PAYLOAD_SECRET,
   mongoURL: process.env.MONGODB_URI,
   express: app,

@@ -2,52 +2,54 @@ import React, { useEffect } from 'react'
 import { TextInput, useFormFields, useField } from 'payload/components/forms'
 import dashify from 'dashify'
 
-export default ({ name, path, label }) => {
-  const titleField = useFormFields(([fields]) => fields.title)
+export default function (fieldName = 'title') {
+  return ({ name, path, label }) => {
+    const titleField = useFormFields(([fields]) => fields[fieldName])
 
-  const { showError, value, setValue } = useField({
-    path,
-    enableDebouncedValue: true,
-  })
+    const { showError, value, setValue } = useField({
+      path,
+      enableDebouncedValue: true,
+    })
 
-  useEffect(() => {
-    const charLimit = 40
-    const slug = dashify(titleField.value || '')
+    useEffect(() => {
+      const charLimit = 40
+      const slug = dashify(titleField.value || '')
 
-    if (value === undefined && !slug.length) {
-      setValue('')
-    } else if (value !== undefined && value !== slug) {
-      if (slug.length <= charLimit) {
-        setValue(slug)
-      } else {
-        const trimmedSlugSegments = []
+      if (value === undefined && !slug.length) {
+        setValue('')
+      } else if (value !== undefined && value !== slug) {
+        if (slug.length <= charLimit) {
+          setValue(slug)
+        } else {
+          const trimmedSlugSegments = []
 
-        slug.split('-').forEach((segment) => {
-          let trimmedSlugLength = trimmedSlugSegments.join('-').length
+          slug.split('-').forEach((segment) => {
+            let trimmedSlugLength = trimmedSlugSegments.join('-').length
 
-          if (trimmedSlugSegments.length > 1) {
-            trimmedSlugLength++
-          }
+            if (trimmedSlugSegments.length > 1) {
+              trimmedSlugLength++
+            }
 
-          if (segment.length + trimmedSlugLength <= charLimit) {
-            trimmedSlugSegments.push(segment)
-          }
-        })
+            if (segment.length + trimmedSlugLength <= charLimit) {
+              trimmedSlugSegments.push(segment)
+            }
+          })
 
-        setValue(trimmedSlugSegments.join('-'))
+          setValue(trimmedSlugSegments.join('-'))
+        }
       }
-    }
-  }, [titleField])
+    }, [titleField])
 
-  return (
-    <TextInput
-      path={path}
-      name={name}
-      value={value || ''}
-      label={label}
-      readOnly
-      showError={showError}
-      onChange={() => undefined}
-    />
-  )
+    return (
+      <TextInput
+        path={path}
+        name={name}
+        value={value || ''}
+        label={label}
+        readOnly
+        showError={showError}
+        onChange={() => undefined}
+      />
+    )
+  }
 }

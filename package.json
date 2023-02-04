@@ -8,7 +8,7 @@
     "dev": "nuxi dev",
     "build": "nuxi build",
     "serve": "node .output/server/index.mjs",
-    "generate:graphQLExports": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js && node ./graphql/schemaQuery.mjs",
+    "generate:graphQL": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js && node ./graphql/schemaQuery.mjs",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue ."
   },

@@ -48,7 +48,7 @@ const Pages: CollectionConfig = {
           return user.role === 'admin'
         },
       },
-      options: ['Home'],
+      options: Object.keys(PageTemplates),
       admin: {
         description:
           'A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.',

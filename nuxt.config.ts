@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: `${process.env.SITE_URL}/api/graphql`,
+        httpEndpoint: `${SITE_URL}/api/graphql`,
         inMemoryCacheOptions: { possibleTypes },
         connectToDevTools: isDev,
       },

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 
 import { slug } from '../fields'
-import { Home } from '../pages'
+import * as PageTemplates from '../pages'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -55,8 +55,8 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    slug,
-    Home,
+    slug(),
+    ...Object.values(PageTemplates),
   ],
 }
 

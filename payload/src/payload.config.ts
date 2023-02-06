@@ -28,7 +28,7 @@ export default buildConfig({
     user: collections.Users.slug,
   },
   typescript: {
-    outputFile: path.resolve(__dirname, '../types.ts'),
+    outputFile: path.resolve(__dirname, '../types.d.ts'),
   },
   upload: {
     limits: {

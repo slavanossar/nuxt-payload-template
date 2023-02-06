@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-// import type { GetHomePageQuery } from '@/payload-types'
-// import { GetHomePageDocument } from '@/graphql-exports'
+// import { GetHomePageDocument } from '@/graphql'
 
-// const { data } = await useAsyncQuery<GetHomePageQuery>(GetHomePageDocument)
+// const { data } = $(await useAsyncQuery<PayloadQuery>(GetHomePageDocument))
 </script>

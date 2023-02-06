@@ -1,21 +1,31 @@
+import type { DocumentNode } from 'graphql'
+import type { Opengraph, Page } from '@/payload/types'
+
 declare module '*.gql' {
-  import { DocumentNode } from 'graphql'
   const Schema: DocumentNode
   export = Schema
 }
 
 declare module '*.graphql' {
-  import { DocumentNode } from 'graphql'
   const Schema: DocumentNode
   export = Schema
 }
 
-declare type RichTextNode = {
-  bold: boolean
-  children: RichTextNode[]
-  code: boolean
-  italic: boolean
-  text: string
-  type: string
-  url: string
+declare global {
+  interface PayloadQuery {
+    Opengraph?: Opengraph
+    Pages?: {
+      docs: Page[]
+    }
+  }
+
+  interface RichTextNode {
+    bold: boolean
+    children: RichTextNode[]
+    code: boolean
+    italic: boolean
+    text: string
+    type: string
+    url: string
+  }
 }

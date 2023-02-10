@@ -43,9 +43,12 @@
     "@types/escape-html": "^1.0.2",
     "@vue-macros/nuxt": "^0.2.16",
     "@vueuse/nuxt": "^9.6.0",
+    "@vueuse/schema-org": "^2.1.1",
     "dotenv": "^16.0.1",
     "escape-html": "^1.0.3",
     "nuxt": "^3.0.0",
+    "nuxt-schema-org": "^2.1.1",
+    "nuxt-simple-sitemap": "^1.0.7",
     "pinia": "^2.0.16",
     "slate": "^0.88.1"
   }

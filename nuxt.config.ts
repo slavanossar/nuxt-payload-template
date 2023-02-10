@@ -16,6 +16,8 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo',
     '@vue-macros/nuxt',
     '@vueuse/nuxt',
+    'nuxt-schema-org',
+    'nuxt-simple-sitemap',
   ],
   apollo: {
     clients: {
@@ -26,6 +28,8 @@ export default defineNuxtConfig({
       },
     },
   },
+  schemaOrg: { host: SITE_URL },
+  sitemap: { hostname: SITE_URL },
   runtimeConfig: {
     public: {
       site: {

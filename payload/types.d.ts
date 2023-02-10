@@ -13,7 +13,7 @@ export interface Config {}
 export interface Opengraph {
   id: string;
   description: string;
-  image: string | Image;
+  image: Image;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -5,10 +5,17 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "serve": "node .output/server/index.mjs",
+    "dev": "concurrently --kill-others \"yarn dev:nuxt\" \"yarn dev:payload\"",
+    "dev:nuxt": "nuxi dev",
+    "dev:payload": "cd payload && yarn dev",
+    "build": "yarn build:payload && concurrently --kill-others \"yarn serve:payload\" \"yarn build:nuxt\"",
+    "build:nuxt": "nuxi build",
+    "build:payload": "cd payload && yarn build",
+    "serve": "concurrently --kill-others \"yarn serve:nuxt\" \"yarn serve:payload\"",
+    "serve:nuxt": "node .output/server/index.mjs",
+    "serve:payload": "cd payload && yarn serve",
     "generate:graphQL": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js && node ./graphql/schemaQuery.mjs",
+    "generate:types": "cd payload && yarn generate:types",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue ."
   },
@@ -26,6 +33,7 @@
     "@graphql-codegen/typescript-vue-apollo": "^3.3.3",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
+    "concurrently": "^7.6.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
@@ -47,8 +55,7 @@
     "dotenv": "^16.0.1",
     "escape-html": "^1.0.3",
     "nuxt": "^3.0.0",
-    "nuxt-schema-org": "^2.1.1",
-    "nuxt-simple-sitemap": "^1.0.7",
+    "nuxt-seo-kit": "^1.2.3",
     "pinia": "^2.0.16",
     "slate": "^0.88.1"
   }

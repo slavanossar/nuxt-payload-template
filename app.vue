@@ -1,26 +1,26 @@
 <template>
   <NuxtLayout>
+    <SeoKit :site-description="Opengraph?.description" />
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-// import type { GetGlobalsQuery } from '@/payload-types'
-// import { GetGlobalsDocument } from '@/graphql-exports'
+import { GetGlobalsDocument } from '@/graphql'
 
 const config = useRuntimeConfig()
-
-const title = config.public.site.name
-const url = config.public.site.url
+const siteName = config.public.siteName
 const themeColour = '#000000'
 
-// const { data } = await useAsyncQuery<GetGlobalsQuery>(GetGlobalsDocument)
-// const { Opengraph } = unref(data)
+const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
+const { Opengraph } = data!
+
+defineOgImageDynamic({
+  component: 'OpengraphImage',
+  backgroundImage: Opengraph?.image.sizes.opengraph.url,
+})
 
 useHead({
-  titleTemplate(titleChunk) {
-    return titleChunk ? `${titleChunk} | ${title}` : `${title}`
-  },
   bodyAttrs: {
     class: 'min-h-full font-body antialiased',
   },
@@ -31,22 +31,7 @@ useHead({
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'description', content: Opengraph?.description },
-    { property: 'og:title', content: title },
-    { property: 'og:site_name', content: title },
-    { property: 'og:description', content: Opengraph?.description },
-    { property: 'og:url', content: url },
-    {
-      property: 'og:image',
-      content: Opengraph?.image.transforms.opengraph.url,
-    },
-    { property: 'og:image:width', content: '1200' },
-    { property: 'og:image:height', content: '630' },
-    { name: 'twitter:card', content: 'summary_image_large' },
-    { name: 'twitter:url', content: url },
-    { name: 'twitter:title', content: title },
-    { name: 'twitter:description', content: Opengraph?.description },
-    { name: 'apple-mobile-web-app-title', content: title },
+    { name: 'apple-mobile-web-app-title', content: siteName },
     { name: 'msapplication-TileColor', content: themeColour },
     { name: 'msapplication-config', content: '/favicon/browserconfig.xml' },
     { name: 'theme-color', content: themeColour },

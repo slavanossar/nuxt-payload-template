@@ -27,6 +27,9 @@ export default buildConfig({
     },
     user: collections.Users.slug,
   },
+  routes: {
+    api: '/_payload',
+  },
   typescript: {
     outputFile: path.resolve(__dirname, '../types.d.ts'),
   },

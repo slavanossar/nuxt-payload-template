@@ -6,7 +6,7 @@ config()
 
 console.log('Generating GraphQL possibleTypes...')
 
-fetch('http://localhost:3001/api/graphql', {
+fetch('http://localhost:3001/_payload/graphql', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

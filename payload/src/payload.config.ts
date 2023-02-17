@@ -1,17 +1,14 @@
 import path from 'path'
-import dotenv from 'dotenv'
 import { buildConfig } from 'payload/config'
 
 import * as collections from './collections'
 import * as globals from './globals'
 import { Icon, Logo } from './components'
 
-dotenv.config()
-
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default buildConfig({
-  serverURL: process.env.SITE_URL,
+  serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
   debug: isDev,
   admin: {
     components: {

@@ -51,7 +51,7 @@ const Users: CollectionConfig = {
         }
 
         const { role: currentUserRole } = await fetch(
-          `${process.env.SITE_URL || ''}/api/users/${user.id}`,
+          `${process.env.PAYLOAD_PUBLIC_SITE_URL}/api/users/${user.id}`,
         ).then((res) => res.json())
 
         const isDowngradingRole =

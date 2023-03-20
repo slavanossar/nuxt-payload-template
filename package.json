@@ -14,12 +14,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\""
   },
   "devDependencies": {
-    "prettier": "latest",
-    "turbo": "latest"
+    "prettier": "^2.8.4",
+    "turbo": "^1.8.3"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {},
   "packageManager": "pnpm@7.25.0"
 }

@@ -11,10 +11,13 @@
       "outputs": [".output/**", "build/**", "dist/**"]
     },
     "serve": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
-    "lint": {
-      "outputs": []
-    }
+    "generate": {
+      "outputs": ["graphql/index.js", "graphql/possibleTypes.json", "types.d.ts"]
+    },
+    "lint": {},
+    "format": {}
   }
 }

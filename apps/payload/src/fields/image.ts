@@ -4,7 +4,7 @@ function image({
   description = '',
   name = 'image',
   label = 'Image',
-  required = true,
+  required = false,
 } = {}): Field {
   return {
     name,

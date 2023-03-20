@@ -6,21 +6,6 @@ node_modules
 # testing
 coverage
 
-# nuxt
-.nuxt
-.nitro
-.cache
-.output
-.env
-
-# payload
-build
-dist
-
-# misc
-.DS_Store
-*.pem
-
 # debug
 *.log*
 npm-debug.log*
@@ -29,10 +14,25 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# misc
+.DS_Store
+*.pem
+
+# nuxt
+.nuxt
+.nitro
+.cache
+.output
+
+# payload
+build
+dist
 
 # pm2
 ecosystem.config.js

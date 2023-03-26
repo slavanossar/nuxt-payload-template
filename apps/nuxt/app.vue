@@ -1,24 +1,18 @@
 <template>
   <NuxtLayout>
-    <SeoKit :site-description="Opengraph?.description" />
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-import { GetGlobalsDocument } from '@/graphql'
+// import { GetGlobalsDocument } from '@/graphql'
 
 const config = useRuntimeConfig()
 const siteName = config.public.siteName
 const themeColour = '#000000'
 
-const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
-const { Opengraph } = data!
-
-defineOgImageDynamic({
-  component: 'OpengraphImage',
-  backgroundImage: Opengraph?.image.sizes.opengraph.url,
-})
+// const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
+// const { Opengraph } = data!
 
 useHead({
   bodyAttrs: {

@@ -4,7 +4,6 @@ const { SITE_NAME, SITE_DESCRIPTION, SITE_URL } = process.env
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
-  extends: ['nuxt-seo-kit'],
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' },
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -31,8 +30,6 @@ export default defineNuxtConfig({
       siteName: SITE_NAME,
       siteUrl: SITE_URL,
       siteDescription: SITE_DESCRIPTION,
-      language: 'en-AU',
-      titleSeparator: '|',
     },
   },
   vite: {

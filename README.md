@@ -12,20 +12,17 @@ A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript start
 
 ```bash
 # Install packages
-yarn
+pnpm install
 
 # Start Vite dev server for Nuxt, and dev server for Payload
-yarn dev
+pnpm run dev
 
-# Generate GraphQL documents and possibleTypes (Payload must be running)
-yarn generate:graphQL
-
-# Generate Payload types
-yarn generate:types
+# Generate ...
+pnpm run generate
 
 # Build for production
-yarn build
+pnpm run build
 
 # Start Nitro server for Nuxt, and Express server for Payload
-yarn start
+pnpm run serve
 ```

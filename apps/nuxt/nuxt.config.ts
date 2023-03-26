@@ -3,6 +3,9 @@ import possibleTypes from './graphql/possibleTypes.json'
 const { SITE_NAME, SITE_DESCRIPTION, SITE_URL } = process.env
 const isDev = process.env.NODE_ENV !== 'production'
 
+const payloadProxyRoutes = ['/_payload', '/admin', '/media']
+const payloadUrl = 'http://localhost:3001'
+
 export default defineNuxtConfig({
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' },
@@ -31,6 +34,20 @@ export default defineNuxtConfig({
       siteUrl: SITE_URL,
       siteDescription: SITE_DESCRIPTION,
     },
+  },
+  nitro: {
+    devProxy: payloadProxyRoutes.reduce((routeRules, route) => {
+      return {
+        ...routeRules,
+        [route]: `${payloadUrl}${route}`,
+      }
+    }, {}),
+    routeRules: payloadProxyRoutes.reduce((routeRules, route) => {
+      return {
+        ...routeRules,
+        [route]: { proxy: `${payloadUrl}${route}` },
+      }
+    }, {}),
   },
   vite: {
     server: {

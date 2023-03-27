@@ -23,4 +23,4 @@ app.use('*', (req, res, next) => {
   }
 })
 
-app.listen(process.env.PAYLOAD_PUBLIC_PORT || 3001)
+app.listen(process.env.PAYLOAD_PUBLIC_PORT)

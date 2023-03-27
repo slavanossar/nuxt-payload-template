@@ -1,10 +1,22 @@
 import possibleTypes from './graphql/possibleTypes.json'
 
-const { SITE_NAME, SITE_DESCRIPTION, SITE_URL } = process.env
-const isDev = process.env.NODE_ENV !== 'production'
+const {
+  NODE_ENV,
+  PAYLOAD_PUBLIC_SITE_NAME,
+  PAYLOAD_PUBLIC_SITE_URL,
+  PAYLOAD_PUBLIC_PORT,
+  PAYLOAD_PUBLIC_API_ROUTE,
+  PAYLOAD_PUBLIC_UPLOAD_ROUTE,
+} = process.env
 
-const payloadProxyRoutes = ['/_payload', '/admin', '/media']
-const payloadUrl = 'http://localhost:3001'
+const isDev = NODE_ENV !== 'production'
+
+const payloadProxyRoutes = [
+  '/admin',
+  PAYLOAD_PUBLIC_API_ROUTE,
+  PAYLOAD_PUBLIC_UPLOAD_ROUTE,
+]
+const payloadUrl = `http://localhost:${PAYLOAD_PUBLIC_PORT}`
 
 export default defineNuxtConfig({
   app: {
@@ -22,7 +34,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: `${SITE_URL}/_payload/graphql`,
+        httpEndpoint: `${PAYLOAD_PUBLIC_SITE_URL}/_payload/graphql`,
         inMemoryCacheOptions: { possibleTypes },
         connectToDevTools: isDev,
       },
@@ -30,18 +42,24 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      siteName: SITE_NAME,
-      siteUrl: SITE_URL,
-      siteDescription: SITE_DESCRIPTION,
+      siteName: PAYLOAD_PUBLIC_SITE_NAME,
+      siteUrl: PAYLOAD_PUBLIC_SITE_URL,
     },
   },
   nitro: {
-    devProxy: payloadProxyRoutes.reduce((routeRules, route) => {
-      return {
-        ...routeRules,
-        [route]: `${payloadUrl}${route}`,
-      }
-    }, {}),
+    devProxy: {
+      ...payloadProxyRoutes.reduce((routeRules, route) => {
+        return {
+          ...routeRules,
+          [route]: `${payloadUrl}${route}`,
+        }
+      }, {}),
+      // Websockets currently unsupported https://github.com/unjs/nitro/issues/678
+      // '/__webpack_hmr': {
+      //   target: `${payloadUrl}/__webpack_hmr`,
+      //   ws: true,
+      // },
+    },
     routeRules: payloadProxyRoutes.reduce((routeRules, route) => {
       return {
         ...routeRules,

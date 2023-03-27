@@ -5,10 +5,19 @@ import * as collections from './collections'
 import * as globals from './globals'
 import { Icon, Logo } from './components'
 
-const isDev = process.env.NODE_ENV !== 'production'
+console.dir(process.env)
+
+const {
+  NODE_ENV,
+  PAYLOAD_PUBLIC_API_ROUTE,
+  PAYLOAD_PUBLIC_SITE_URL,
+  SITE_NAME
+} = process.env
+
+const isDev = NODE_ENV !== 'production'
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
+  serverURL: PAYLOAD_PUBLIC_SITE_URL,
   debug: isDev,
   admin: {
     components: {
@@ -20,12 +29,12 @@ export default buildConfig({
     css: path.resolve(__dirname, './styles.css'),
     meta: {
       favicon: '/favicon/safari-pinned-tab.svg',
-      titleSuffix: '| {{ SITE_TITLE }}',
+      titleSuffix: `| ${SITE_NAME}`,
     },
     user: collections.Users.slug,
   },
   routes: {
-    api: '/_payload',
+    api: PAYLOAD_PUBLIC_API_ROUTE,
   },
   typescript: {
     outputFile: path.resolve(__dirname, '../types.d.ts'),

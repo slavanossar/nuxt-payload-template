@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": [],
   "pipeline": {
     "dev": {
       "cache": false,
@@ -8,7 +8,17 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".output/**", "build/**", "dist/**"]
+      "env": ["PAYLOAD_PUBLIC_SITE_URL", "PAYLOAD_PUBLIC_PORT", "PAYLOAD_PUBLIC_API_ROUTE", "PAYLOAD_PUBLIC_UPLOAD_ROUTE"]
+    },
+    "nuxt#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".output/**"],
+      "env": ["NITRO_HOST", "NITRO_PORT", "SITE_NAME", "SITE_DESCRIPTION"]
+    },
+    "payload#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**", "dist/**"],
+      "env": ["MONGODB_URI", "PAYLOAD_SECRET"]
     },
     "serve": {
       "cache": false,

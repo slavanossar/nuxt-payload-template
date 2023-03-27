@@ -1,7 +1,7 @@
 import type { Field } from 'payload/types'
 import { SlugInput } from '../components'
 
-function slug(fieldName = 'title'): Field {
+function slug(fieldName: string): Field {
   return {
     name: 'slug',
     label: 'Slug',

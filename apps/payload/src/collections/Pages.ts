@@ -55,7 +55,7 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    slug(),
+    slug('title'),
     ...Object.values(PageTemplates),
   ],
 }

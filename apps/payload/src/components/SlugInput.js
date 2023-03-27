@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { TextInput, useFormFields, useField } from 'payload/components/forms'
 import dashify from 'dashify'
 
-export default function (fieldName = 'title') {
+export default function (fieldName) {
   return ({ name, path, label }) => {
     const titleField = useFormFields(([fields]) => fields[fieldName])
 
@@ -13,7 +13,7 @@ export default function (fieldName = 'title') {
 
     useEffect(() => {
       const charLimit = 40
-      const slug = dashify(titleField.value || '')
+      const slug = dashify(titleField.value.replace(/[^A-Za-z\s]/g, '') || '', { condense: true })
 
       if (value === undefined && !slug.length) {
         setValue('')

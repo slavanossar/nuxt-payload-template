@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Image } from '@/payload/types'
+import type { Image } from '@/../payload/types'
 
 interface Props {
   image: Image

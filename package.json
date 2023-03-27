@@ -6,19 +6,22 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "serve": "turbo run serve",
-    "generate": "turbo run generate",
+    "dev": "dotenv -- turbo run dev",
+    "build": "dotenv -- turbo run build",
+    "serve": "dotenv -- turbo run serve",
+    "generate": "dotenv -- turbo run generate",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\""
   },
   "devDependencies": {
-    "prettier": "^2.8.4",
-    "turbo": "^1.8.3"
+    "prettier": "^2.8.7",
+    "turbo": "^1.8.5"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "pnpm@7.25.0"
+  "packageManager": "pnpm@7.25.0",
+  "dependencies": {
+    "dotenv-cli": "^7.1.0"
+  }
 }

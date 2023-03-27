@@ -10,7 +10,7 @@ const Images: CollectionConfig = {
     read: (_) => true,
   },
   upload: {
-    staticURL: '/media/images',
+    staticURL: `${process.env.PAYLOAD_PUBLIC_UPLOAD_ROUTE}/images`,
     staticDir: '../uploads/images',
     imageSizes: [
       {

@@ -13,7 +13,7 @@ const Videos: CollectionConfig = {
     enableRichTextRelationship: false,
   },
   upload: {
-    staticURL: '/media/videos',
+    staticURL: `${process.env.PAYLOAD_PUBLIC_UPLOAD_ROUTE}/videos`,
     staticDir: '../uploads/videos',
     mimeTypes: ['video/mp4'],
   },

@@ -5,13 +5,11 @@ import * as collections from './collections'
 import * as globals from './globals'
 import { Icon, Logo } from './components'
 
-console.dir(process.env)
-
 const {
   NODE_ENV,
   PAYLOAD_PUBLIC_API_ROUTE,
+  PAYLOAD_PUBLIC_SITE_NAME,
   PAYLOAD_PUBLIC_SITE_URL,
-  SITE_NAME
 } = process.env
 
 const isDev = NODE_ENV !== 'production'

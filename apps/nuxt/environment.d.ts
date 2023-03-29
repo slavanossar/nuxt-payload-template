@@ -8,6 +8,5 @@ declare namespace NodeJS {
     PAYLOAD_PUBLIC_API_ROUTE: string
     PAYLOAD_PUBLIC_UPLOAD_ROUTE: string
     SITE_NAME: string
-    SITE_DESCRIPTION: string
   }
 }

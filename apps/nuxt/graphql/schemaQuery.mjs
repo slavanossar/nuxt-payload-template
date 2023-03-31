@@ -6,14 +6,16 @@ config()
 
 console.log('Generating GraphQL possibleTypes...')
 
-fetch('http://localhost:3001/_payload/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    variables: {},
-    query: `{
+fetch(
+  `http://localhost:${process.env.PAYLOAD_PUBLIC_PORT}${process.env.PAYLOAD_PUBLIC_API_ROUTE}/graphql`,
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      variables: {},
+      query: `{
       __schema {
         types {
           kind
@@ -24,8 +26,9 @@ fetch('http://localhost:3001/_payload/graphql', {
         }
       }
     }`,
-  }),
-})
+    }),
+  },
+)
   .then((res) => {
     return res.json()
   })

@@ -28,7 +28,7 @@
     "@graphql-codegen/typescript-vue-apollo": "^3.3.7",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.6",
-    "@nuxtjs/tailwindcss": "^6.6.4",
+    "@nuxtjs/tailwindcss": "^6.6.5",
     "@pinia/nuxt": "^0.4.7",
     "@types/escape-html": "^1.0.2",
     "@vue-macros/nuxt": "^0.2.16",

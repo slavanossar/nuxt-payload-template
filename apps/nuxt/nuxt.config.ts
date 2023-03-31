@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import possibleTypes from './graphql/possibleTypes.json'
 
 const {
@@ -31,6 +32,9 @@ export default defineNuxtConfig({
     '@vue-macros/nuxt',
     '@vueuse/nuxt',
   ],
+  alias: {
+    '#payload': resolve(__dirname, '../payload'),
+  },
   apollo: {
     clients: {
       default: {

@@ -1,4 +1,3 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
-  "exclude": ["payload"]
+  "extends": "./.nuxt/tsconfig.json"
 }

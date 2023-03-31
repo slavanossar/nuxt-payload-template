@@ -42,6 +42,7 @@ export default buildConfig({
       collections: ['pages'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
+      // tabbedUI: true,
     }),
     computeBlurhash()
   ]

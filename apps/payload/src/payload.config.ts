@@ -50,7 +50,7 @@ export default buildConfig({
     seo({
       collections: ['pages'],
       uploadsCollection: 'images',
-      generateTitle: ({ doc }) => `${doc?.title?.value} | ${PAYLOAD_PUBLIC_SITE_NAME}`,
+      // generateTitle: ({ doc }) => `${doc?.title?.value} | ${PAYLOAD_PUBLIC_SITE_NAME}`,
     }),
     computeBlurhash()
   ]

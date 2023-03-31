@@ -1,1 +1,1 @@
-export { default as Opengraph } from './Opengraph'
+export { default as Seo } from './Seo'

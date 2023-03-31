@@ -56,7 +56,7 @@ const Pages: CollectionConfig = {
       },
     },
     slug('title'),
-    ...Object.values(PageTemplates),
+    // ...Object.values(PageTemplates),
   ],
 }
 

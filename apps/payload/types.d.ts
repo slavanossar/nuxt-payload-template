@@ -5,31 +5,29 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
-export interface Config {}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "opengraph".
- */
-export interface Opengraph {
-  id: string;
-  description: string;
-  image: Image;
+export interface Config {
+  collections: {
+    images: Image;
+    pages: Page;
+    users: User;
+    videos: Video;
+  };
+  globals: {
+    seo: Seo;
+  };
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "images".
- */
 export interface Image {
   id: string;
   description?: string;
+  blurhash?: string;
   url?: string;
   filename?: string;
   mimeType?: string;
   filesize?: number;
   width?: number;
   height?: number;
-  sizes: {
-    xs: {
+  sizes?: {
+    xs?: {
       url?: string;
       width?: number;
       height?: number;
@@ -37,7 +35,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    sm: {
+    sm?: {
       url?: string;
       width?: number;
       height?: number;
@@ -45,7 +43,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    md: {
+    md?: {
       url?: string;
       width?: number;
       height?: number;
@@ -53,7 +51,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    lg: {
+    lg?: {
       url?: string;
       width?: number;
       height?: number;
@@ -61,7 +59,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    xl: {
+    xl?: {
       url?: string;
       width?: number;
       height?: number;
@@ -69,7 +67,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    xxl: {
+    xxl?: {
       url?: string;
       width?: number;
       height?: number;
@@ -77,7 +75,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    xxxl: {
+    xxxl?: {
       url?: string;
       width?: number;
       height?: number;
@@ -85,7 +83,7 @@ export interface Image {
       filesize?: number;
       filename?: string;
     };
-    opengraph: {
+    opengraph?: {
       url?: string;
       width?: number;
       height?: number;
@@ -97,23 +95,19 @@ export interface Image {
   createdAt: string;
   updatedAt: string;
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
 export interface Page {
   id: string;
   title: string;
   template: 'Home';
   slug?: string;
-  homeFields: {};
+  meta?: {
+    title?: string;
+    description?: string;
+    image?: string | Image;
+  };
   createdAt: string;
   updatedAt: string;
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
 export interface User {
   id: string;
   fullName?: string;
@@ -125,13 +119,11 @@ export interface User {
   lockUntil?: string;
   createdAt: string;
   updatedAt: string;
+  password?: string;
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos".
- */
 export interface Video {
   id: string;
+  blurhash?: string;
   url?: string;
   filename?: string;
   mimeType?: string;
@@ -140,4 +132,14 @@ export interface Video {
   height?: number;
   createdAt: string;
   updatedAt: string;
+}
+export interface Seo {
+  id: string;
+  meta: {
+    description: string;
+  };
+  opengraph: {
+    description: string;
+    image?: string | Image;
+  };
 }

@@ -1,5 +1,5 @@
 import type { DocumentNode } from 'graphql'
-import type { Opengraph, Page } from '@/payload/types'
+import type { Seo, Page } from '@/../payload/types'
 
 declare module '*.gql' {
   const Schema: DocumentNode
@@ -13,7 +13,7 @@ declare module '*.graphql' {
 
 declare global {
   interface PayloadQuery {
-    Opengraph?: Opengraph
+    Seo?: Seo
     Pages?: {
       docs: Page[]
     }

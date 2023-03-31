@@ -5,14 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-// import { GetGlobalsDocument } from '@/graphql'
+import { GetGlobalsDocument } from '@/graphql'
 
 const config = useRuntimeConfig()
 const siteName = config.public.siteName
+const siteUrl = config.public.siteUrl
 const themeColour = '#000000'
 
-// const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
-// const { Opengraph } = data!
+const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
+const { Seo } = data!
 
 useHead({
   bodyAttrs: {
@@ -22,9 +23,27 @@ useHead({
     class: 'h-full',
     lang: 'en',
   },
+  titleTemplate(titleChunk) {
+    return titleChunk ? `${titleChunk} | ${siteName}` : `${siteName}`
+  },
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: Seo?.meta.description ?? '' },
+    { property: 'og:title', content: siteName },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:description', content: Seo?.opengraph.description ?? '' },
+    { property: 'og:url', content: siteUrl },
+    {
+      property: 'og:image',
+      content: Seo?.opengraph.image?.sizes?.opengraph?.url ?? '',
+    },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
+    { name: 'twitter:card', content: 'summary_image_large' },
+    { name: 'twitter:url', content: siteUrl },
+    { name: 'twitter:title', content: siteName },
+    { name: 'twitter:description', content: Seo?.opengraph.description ?? '' },
     { name: 'apple-mobile-web-app-title', content: siteName },
     { name: 'msapplication-TileColor', content: themeColour },
     { name: 'msapplication-config', content: '/favicon/browserconfig.xml' },

@@ -39,10 +39,15 @@ export const ImageFragmentDoc = gql`
     `;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
-  Opengraph {
-    description
-    image {
-      ...Image
+  Seo {
+    meta {
+      description
+    }
+    opengraph {
+      description
+      image {
+        ...Image
+      }
     }
   }
 }

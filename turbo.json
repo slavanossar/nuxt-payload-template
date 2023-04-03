@@ -20,7 +20,7 @@
       "outputs": ["build/**", "dist/**"],
       "env": ["MONGODB_URI", "PAYLOAD_SECRET"]
     },
-    "serve": {
+    "start": {
       "cache": false,
       "persistent": true
     },

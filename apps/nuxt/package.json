@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "serve": "node .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js",
     "generate:schema": "node ./graphql/schemaQuery.mjs",
     "generate": "npm run generate:types && npm run generate:schema",

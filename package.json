@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "dotenv -- turbo run dev",
     "build": "dotenv -- turbo run build",
-    "serve": "dotenv -- turbo run serve",
+    "start": "dotenv -- turbo run start",
     "generate": "dotenv -- turbo run generate",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\""

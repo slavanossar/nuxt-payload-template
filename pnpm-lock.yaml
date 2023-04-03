@@ -4998,7 +4998,7 @@ packages:
       postcss-value-parser: 4.2.0
       schema-utils: 3.1.1
       semver: 7.3.8
-      webpack: 5.77.0_nd2bg3cuduglork7tofbkfoq7y
+      webpack: 5.77.0
     dev: false
 
   /css-minimizer-webpack-plugin/3.4.1_webpack@5.77.0:

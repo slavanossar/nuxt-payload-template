@@ -103,7 +103,7 @@ export interface Page {
   meta?: {
     title?: string;
     description?: string;
-    image?: string | Image;
+    image?: Image;
   };
   createdAt: string;
   updatedAt: string;
@@ -140,6 +140,6 @@ export interface Seo {
   };
   opengraph: {
     description: string;
-    image?: string | Image;
+    image?: Image;
   };
 }

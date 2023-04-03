@@ -1,4 +1,4 @@
-# nuxt3-payload-template
+# nuxt-payload-template
 
 A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 
@@ -14,15 +14,21 @@ A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript start
 # Install packages
 pnpm install
 
-# Start Vite dev server for Nuxt, and dev server for Payload
+# Update root packages
+pnpm up
+
+# Update workspace packages
+pnpm up --filter nuxt payload
+
+# Start dev server
 pnpm run dev
 
-# Generate ...
+# Generate gql exports, possibleTypes, and Payload types
 pnpm run generate
 
 # Build for production
 pnpm run build
 
-# Start Nitro server for Nuxt, and Express server for Payload
-pnpm run serve
+# Start server
+pnpm run start
 ```

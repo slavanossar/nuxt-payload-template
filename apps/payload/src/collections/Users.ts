@@ -26,6 +26,7 @@ const Users: CollectionConfig = {
   },
   auth: true,
   admin: {
+    group: 'Admin',
     useAsTitle: 'fullName',
   },
   access: {

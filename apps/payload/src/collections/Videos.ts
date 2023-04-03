@@ -11,6 +11,7 @@ const Videos: CollectionConfig = {
   },
   admin: {
     enableRichTextRelationship: false,
+    group: 'Media',
   },
   upload: {
     staticURL: `${process.env.PAYLOAD_PUBLIC_UPLOAD_ROUTE}/videos`,

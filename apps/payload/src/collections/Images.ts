@@ -9,6 +9,9 @@ const Images: CollectionConfig = {
   access: {
     read: (_) => true,
   },
+  admin: {
+    group: 'Media',
+  },
   upload: {
     staticURL: `${process.env.PAYLOAD_PUBLIC_UPLOAD_ROUTE}/images`,
     staticDir: '../uploads/images',

@@ -48,7 +48,7 @@
     "@vueuse/schema-org": "^2.1.2",
     "dotenv": "^16.0.3",
     "escape-html": "^1.0.3",
-    "nuxt": "^3.3.2",
+    "nuxt": "^3.3.3",
     "pinia": "^2.0.33",
     "slate": "^0.88.1"
   }

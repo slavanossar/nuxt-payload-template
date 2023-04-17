@@ -11,9 +11,11 @@
     "start": "dotenv -- turbo run start",
     "generate": "dotenv -- turbo run generate",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,js,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
+    "configure-env": "configure-env"
   },
   "devDependencies": {
+    "configure-env": "^1.0.0",
     "prettier": "^2.8.7",
     "turbo": "^1.9.1"
   },

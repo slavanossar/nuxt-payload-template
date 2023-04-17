@@ -13,7 +13,7 @@ A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript start
 - [Node 18](https://nodejs.org/en/download)
 - [PNPM](https://pnpm.io/installation)
 - [MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/)
-- [NGINX](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) (optional)
+- [NGINX](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
 - [mkcert](https://github.com/FiloSottile/mkcert) (optional)
 
 ## Usage
@@ -49,9 +49,9 @@ pnpm run start
 
 ## Setup
 
-### Nitro Proxy
+### Nitro Dev Proxy
 
-Nitro acts as a proxy for all Payload requests, using the `nitro.devProxy` and `nitro.routeRules` options in `nuxt.config.js`
+Nitro acts as a proxy for all Payload requests during development, using the `nitro.devProxy` option in `nuxt.config.js`. If you need to proxy additional routes, you can add the to the `payloadProxyRoutes` array.
 
 ### Environment Variables
 
@@ -73,11 +73,18 @@ Running `pnpm configure-env` will guide you through creating a `.env` file.
 
 ### Custom Local Hostname
 
-You can optionally set up a local hostname (e.g. http://example.test) using the provided `nginx-local-example.conf` config, making sure to update the `server_name` directive.
+You will need to set up a custom local hostname for local development, using NGINX and the provided `nginx-local-example.conf` config. If you use [`mkcert`](https://github.com/FiloSottile/mkcert) for local SSL certificates, you can use the provided `nginx-local-mkcert-example.conf`.
 
-If you use [`mkcert`](https://github.com/FiloSottile/mkcert) for local SSL certificates, you can use the provided `nginx-local-mkcert-example.conf`. Make sure the update the `server_name` directive, the `ssl_certificate` and `ssl_certificate_key` paths, and any changes to the default ports.
+Make sure the update the `server_name` directive, any changes to the default ports, and the `ssl_certificate` and `ssl_certificate_key` paths if required.
 
-Both options also require updating your hosts file so the custom hostname resolves to `127.0.0.1`.
+You will also need our hosts file so the custom hostname resolves to `127.0.0.1`:
+
+```
+# /private/etc/hosts
+
+127.0.0.1       example.test
+::1             example.test
+```
 
 ## Thanks
 

@@ -45,7 +45,6 @@
     "@types/escape-html": "^1.0.2",
     "@vue-macros/nuxt": "^0.2.16",
     "@vueuse/nuxt": "^9.13.0",
-    "@vueuse/schema-org": "^2.1.2",
     "dotenv": "^16.0.3",
     "escape-html": "^1.0.3",
     "nuxt": "^3.4.1",

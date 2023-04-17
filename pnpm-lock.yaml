@@ -27,7 +27,6 @@ importers:
       '@vue-macros/nuxt': ^0.2.16
       '@vue/eslint-config-prettier': ^7.1.0
       '@vueuse/nuxt': ^9.13.0
-      '@vueuse/schema-org': ^2.1.2
       dotenv: ^16.0.3
       escape-html: ^1.0.3
       eslint: ^8.38.0
@@ -49,7 +48,6 @@ importers:
       '@types/escape-html': 1.0.2
       '@vue-macros/nuxt': 0.2.16_3ujc4xjzcfgwoqtzlzastnhkka
       '@vueuse/nuxt': 9.13.0_nuxt@3.4.1+vue@3.2.47
-      '@vueuse/schema-org': 2.1.2_rglaeo6fq7dnazgyken7ikewvy
       dotenv: 16.0.3
       escape-html: 1.0.3
       nuxt: 3.4.1_iq7syv7leo4ekfwdk5cgesokve
@@ -2962,15 +2960,6 @@ packages:
       '@unhead/shared': 1.1.25
     dev: false
 
-  /@unhead/schema-org-vue/0.5.0_@unhead+vue@1.1.25:
-    resolution: {integrity: sha512-UEB54jF2+HBoHKqyqdw7oNLqdhDfEX/FSImtPT3oTDTfGBWpc7RGUPe2RG/j4N78Kk3SsfnHxxJO0GKIGPJRwQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      '@unhead/vue': '>=1.1.9'
-    dependencies:
-      '@unhead/vue': 1.1.25_vue@3.2.47
-    dev: false
-
   /@unhead/schema/1.1.25:
     resolution: {integrity: sha512-ygmaxWgGTAq9CcB6zGY4+0HlGdQt/oMq+CM18tTnvOBY0Og/uPGt7roW8eH717GpTPibKRTpagSYzZYdL0tWeg==}
     dependencies:
@@ -3486,18 +3475,6 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/head/1.1.23_vue@3.2.47:
-    resolution: {integrity: sha512-bJiiQXrICvCI740jR2CLK+FhXyvMx2dIfyeF3FdOsYJn6OtexdBI2wchyuKNYmiAQ8cibAHxmDUytAFqIdIRJg==}
-    peerDependencies:
-      vue: '>=2.7 || >=3'
-    dependencies:
-      '@unhead/dom': 1.1.25
-      '@unhead/schema': 1.1.25
-      '@unhead/ssr': 1.1.25
-      '@unhead/vue': 1.1.25_vue@3.2.47
-      vue: 3.2.47
-    dev: false
-
   /@vueuse/metadata/9.13.0:
     resolution: {integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==}
     dev: false
@@ -3518,20 +3495,6 @@ packages:
       - rollup
       - supports-color
       - vue
-    dev: false
-
-  /@vueuse/schema-org/2.1.2_rglaeo6fq7dnazgyken7ikewvy:
-    resolution: {integrity: sha512-ZaVZ6RCeG4nTCbpruDv6GEzKxE3BH/V+x3yOAcSlLzK3CSuqZQjF0EAgV0PrlNVemN+whSSRqBG9wiWp6AOtoQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      '@vueuse/head': '>=1.0.21'
-      vue: '>=3.2.0'
-    dependencies:
-      '@unhead/schema-org-vue': 0.5.0_@unhead+vue@1.1.25
-      '@vueuse/head': 1.1.23_vue@3.2.47
-      vue: 3.2.47
-    transitivePeerDependencies:
-      - '@unhead/vue'
     dev: false
 
   /@vueuse/shared/9.13.0_vue@3.2.47:
@@ -4994,7 +4957,7 @@ packages:
       postcss-value-parser: 4.2.0
       schema-utils: 3.1.2
       semver: 7.4.0
-      webpack: 5.79.0_ixkyn7llsi2slk5o2hk4yruira
+      webpack: 5.79.0
     dev: false
 
   /css-minimizer-webpack-plugin/3.4.1_webpack@5.79.0:

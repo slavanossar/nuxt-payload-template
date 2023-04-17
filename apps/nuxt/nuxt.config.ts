@@ -64,12 +64,6 @@ export default defineNuxtConfig({
       //   ws: true,
       // },
     },
-    routeRules: payloadProxyRoutes.reduce((routeRules, route) => {
-      return {
-        ...routeRules,
-        [`${route}/**`]: { proxy: `${payloadUrl}${route}/**` },
-      }
-    }, {}),
   },
   vite: {
     server: {

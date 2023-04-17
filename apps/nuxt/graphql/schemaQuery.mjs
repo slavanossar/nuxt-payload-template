@@ -16,16 +16,16 @@ fetch(
     body: JSON.stringify({
       variables: {},
       query: `{
-      __schema {
-        types {
-          kind
-          name
-          possibleTypes {
+        __schema {
+          types {
+            kind
             name
+            possibleTypes {
+              name
+            }
           }
         }
-      }
-    }`,
+      }`,
     }),
   },
 )

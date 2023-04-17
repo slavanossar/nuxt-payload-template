@@ -75,4 +75,4 @@ pnpm run start
 
 ## Thanks
 
-@sifferhans
+[@sifferhans](https://github.com/sifferhans) for telling me about Turborepo and Nitro proxy configs.

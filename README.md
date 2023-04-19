@@ -59,17 +59,17 @@ Environment variables are defined in `.env` and shared between apps with `dotenv
 
 Running `pnpm configure-env` will guide you through creating a `.env` file.
 
-| Variable                      | Default                          | Description                                                 |
-| ----------------------------- | -------------------------------- | ----------------------------------------------------------- |
-| `NITRO_HOST`                  | `0.0.0.0`                        | Host for Nuxt's Nitro server                                |
-| `NITRO_PORT`                  | `3000`                           | Port used by Nitro's server                                 |
-| `PAYLOAD_PUBLIC_SITE_NAME`    | `Nuxt x Payload Template`        | The title of the site (used for page title templates, etc.) |
-| `PAYLOAD_PUBLIC_SITE_URL`     | `https://localhost:3000`         | URL of the site, including protocol                         |
-| `PAYLOAD_PUBLIC_PORT`         | `3001`                           | Port used by Payload's Express app                          |
-| `PAYLOAD_PUBLIC_API_ROUTE`    | `/_payload`                      | Route used for Payload's API                                |
-| `PAYLOAD_PUBLIC_UPLOAD_ROUTE` | `/media`                         | Route used for Payload's upload collections                 |
-| `MONGODB_URI`                 | `mongodb://0.0.0.0/nuxt-payload` | The URI of the MongoDB database                             |
-| `PAYLOAD_SECRET`              | -                                | A secret key used for encrypting Payload data/sessions      |
+| Variable                      | Default                   | Description                                                 |
+| ----------------------------- | ------------------------- | ----------------------------------------------------------- |
+| `NITRO_HOST`                  | `0.0.0.0`                 | Host for Nuxt's Nitro server                                |
+| `NITRO_PORT`                  | `3000`                    | Port used by Nitro's server                                 |
+| `PAYLOAD_PUBLIC_SITE_NAME`    | `Nuxt x Payload Template` | The title of the site (used for page title templates, etc.) |
+| `PAYLOAD_PUBLIC_SITE_URL`     | `https://localhost:3000`  | URL of the site, including protocol                         |
+| `PAYLOAD_PUBLIC_PORT`         | `3001`                    | Port used by Payload's Express app                          |
+| `PAYLOAD_PUBLIC_API_ROUTE`    | `/_payload`               | Route used for Payload's API                                |
+| `PAYLOAD_PUBLIC_UPLOAD_ROUTE` | `/media`                  | Route used for Payload's upload collections                 |
+| `DATABASE_NAME`               | `nuxt-payload`            | The name of the MongoDB database                            |
+| `PAYLOAD_SECRET`              | -                         | A secret key used for encrypting Payload data/sessions      |
 
 ### Custom Local Hostname
 

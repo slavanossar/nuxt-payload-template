@@ -5,7 +5,7 @@ declare namespace NodeJS {
     PAYLOAD_PUBLIC_PORT: string
     PAYLOAD_PUBLIC_API_ROUTE: string
     PAYLOAD_PUBLIC_UPLOAD_ROUTE: string
-    MONGODB_URI: string
+    DATABASE_NAME: string
     PAYLOAD_SECRET: string
   }
 }

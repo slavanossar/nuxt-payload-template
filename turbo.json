@@ -18,7 +18,7 @@
     "payload#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
-      "env": ["MONGODB_URI", "PAYLOAD_SECRET"]
+      "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
     },
     "start": {
       "cache": false,

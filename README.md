@@ -75,8 +75,6 @@ Running `pnpm configure-env` will guide you through creating a `.env` file.
 
 ### Custom Local Hostname
 
-> ⚠️ Currently a custom hostname is required due to issues with Nitro [routeRules](https://nitro.unjs.io/config#routerules) not working as a proxy
-
 You will need to set up a custom local hostname for local development, using NGINX and the provided `nginx-local-example.conf` config. If you use [`mkcert`](https://github.com/FiloSottile/mkcert) for local SSL certificates, you can use the provided `nginx-local-mkcert-example.conf`.
 
 Make sure the update the `server_name` directive, any changes to the default ports, and the `ssl_certificate` and `ssl_certificate_key` paths if required.

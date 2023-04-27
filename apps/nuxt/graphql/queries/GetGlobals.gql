@@ -1,0 +1,15 @@
+#import "@/graphql/fragments/Image.gql"
+
+query GetGlobals {
+  Seo {
+    meta {
+      description
+    }
+    opengraph {
+      description
+      image {
+        ...Image
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [],
+  "pipeline": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "env": ["PAYLOAD_PUBLIC_SITE_URL", "PAYLOAD_PUBLIC_PORT", "PAYLOAD_PUBLIC_API_ROUTE", "PAYLOAD_PUBLIC_UPLOAD_ROUTE"]
+    },
+    "nuxt#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".output/**"],
+      "env": ["NITRO_HOST", "NITRO_PORT", "SITE_NAME", "SITE_DESCRIPTION"]
+    },
+    "payload#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**", "dist/**"],
+      "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "generate": {
+      "outputs": ["graphql/index.js", "graphql/possibleTypes.json", "types.d.ts"]
+    },
+    "lint": {},
+    "format": {}
+  }
+}

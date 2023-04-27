@@ -1,0 +1,54 @@
+{
+  "name": "nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs",
+    "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js",
+    "generate:schema": "node ./graphql/schemaQuery.mjs",
+    "generate": "npm run generate:types && npm run generate:schema",
+    "lint": "eslint --ext .js,.ts,.vue ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix",
+    "*": "prettier -w -u"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/typescript-vue-apollo": "^3.3.7",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-nuxt": "^3.2.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@nuxtjs/apollo": "5.0.0-alpha.6",
+    "@nuxtjs/tailwindcss": "^6.6.6",
+    "@pinia/nuxt": "^0.4.8",
+    "@types/escape-html": "^1.0.2",
+    "@vue-macros/nuxt": "^0.2.16",
+    "@vueuse/nuxt": "^9.13.0",
+    "dotenv": "^16.0.3",
+    "escape-html": "^1.0.3",
+    "nuxt": "^3.4.1",
+    "pinia": "^2.0.34",
+    "slate": "^0.88.1"
+  }
+}

@@ -1,5 +1,7 @@
 # nuxt-payload-template
 
+> ⚠️ Work In Progress
+
 A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 
 - [Vue Macros](https://vue-macros.sxzz.moe/guide/getting-started.html)

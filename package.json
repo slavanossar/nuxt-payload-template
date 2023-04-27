@@ -1,6 +1,6 @@
 {
   "name": "nuxt3-payload-template",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "workspaces": [
     "apps/*"

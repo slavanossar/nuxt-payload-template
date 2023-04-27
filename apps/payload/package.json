@@ -1,6 +1,6 @@
 {
   "name": "payload",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "main": "dist/server.js",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "dashify": "^2.0.0",
     "dotenv": "^8.6.0",
     "express": "^4.18.2",
-    "payload": "^1.6.32",
+    "payload": "^1.7.2",
     "payload-blurhash-plugin": "^1.2.0"
   },
   "devDependencies": {

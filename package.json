@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
-    "prettier": "^2.8.7",
-    "turbo": "^1.9.1"
+    "prettier": "^2.8.8",
+    "turbo": "^1.9.9"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -12,8 +12,8 @@ const siteName = config.public.siteName
 const siteUrl = config.public.siteUrl
 const themeColour = '#000000'
 
-const { data } = $(await useAsyncQuery<PayloadQuery>(GetGlobalsDocument))
-const { Seo } = data!
+const { data } = await useAsyncQuery<PayloadQuery>(GetGlobalsDocument)
+const { Seo } = data.value!
 
 useHead({
   bodyAttrs: {

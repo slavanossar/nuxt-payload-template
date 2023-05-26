@@ -19,30 +19,33 @@ interface Props {
   sizes?: string
 }
 
-const { image, lazy = false, sizes = '100vw' } = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  lazy: false,
+  sizes: '100vw',
+})
 
-const srcset = computed(() => generateSrcset(image))
+const srcset = computed(() => generateSrcset(props.image))
 
-const root = $ref<HTMLImageElement | null>(null)
+const root = ref<HTMLImageElement | null>(null)
 const emit = defineEmits(['load'])
-let hasLoaded = $ref(false)
-let isPreloading = $ref(!lazy)
+const hasLoaded = ref(false)
+const isPreloading = ref(!props.lazy)
 
 function onLoad() {
-  hasLoaded = true
+  hasLoaded.value = true
   emit('load')
 }
 
 onMounted(() => {
-  const { top } = $(useElementBounding(root))
+  const { top } = useElementBounding(root.value)
 
   watchEffect(() => {
-    if (lazy) {
-      isPreloading = hasLoaded || top < window.innerHeight * 2
+    if (props.lazy) {
+      isPreloading.value = hasLoaded.value || top.value < window.innerHeight * 2
     }
   })
 
-  if (root!.complete) {
+  if (root.value!.complete) {
     onLoad()
   }
 })

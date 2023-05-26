@@ -43,7 +43,6 @@
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@pinia/nuxt": "^0.4.11",
     "@types/escape-html": "^1.0.2",
-    "@vue-macros/nuxt": "^0.2.16",
     "@vueuse/nuxt": "^9.13.0",
     "dotenv": "^16.0.3",
     "escape-html": "^1.0.3",

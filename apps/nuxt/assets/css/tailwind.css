@@ -12,9 +12,9 @@
   @apply transition-opacity duration-500 ease-out;
 }
 
-.layout-enter,
+.layout-enter-from,
 .layout-leave-to,
-.page-enter,
+.page-enter-from,
 .page-leave-to {
   @apply opacity-0;
 }

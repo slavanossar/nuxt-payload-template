@@ -29,7 +29,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/apollo',
-    '@vue-macros/nuxt',
     '@vueuse/nuxt',
   ],
   alias: {

@@ -4,8 +4,8 @@ export default class Icon extends React.Component {
   render() {
     return (
       <svg
-        width="170"
-        height="48"
+        width="85"
+        height="24"
         viewBox="0 0 170 48"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"

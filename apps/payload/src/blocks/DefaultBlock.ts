@@ -3,10 +3,11 @@ import type { Block } from 'payload/types'
 const DefaultBlock: Block = {
   slug: 'block',
   labels: {
-    singular: 'block',
-    plural: 'block',
+    singular: 'Block',
+    plural: 'Block',
   },
-  imageURL: '/payload/block.svg',
+  interfaceName: 'DefaultBlock',
+  imageURL: '/payload/block-template.svg',
   fields: [],
 }
 

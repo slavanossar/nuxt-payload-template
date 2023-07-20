@@ -13,13 +13,12 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
     "upgrade": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payload",
-
     "configure-env": "configure-env"
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
     "prettier": "^2.8.8",
-    "turbo": "^1.10.1"
+    "turbo": "^1.10.9"
   },
   "engines": {
     "node": ">=18.0.0"

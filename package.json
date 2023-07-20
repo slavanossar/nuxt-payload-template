@@ -12,6 +12,8 @@
     "generate": "dotenv -- turbo run generate",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
+    "upgrade": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payload",
+
     "configure-env": "configure-env"
   },
   "devDependencies": {

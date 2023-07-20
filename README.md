@@ -26,14 +26,8 @@ pnpm install
 # Create .env
 pnpm configure-env
 
-# Update root packages
-pnpm up
-
-# Update Nuxt packages
-pnpm up --filter nuxt
-
-# Update Payload packages
-pnpm up --filter payload
+# Upgrade packages (interactive)
+pnpm run upgrade
 
 # Start dev server
 pnpm run dev

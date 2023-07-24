@@ -8,12 +8,12 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "env": ["PAYLOAD_PUBLIC_SITE_URL", "PAYLOAD_PUBLIC_PORT", "PAYLOAD_PUBLIC_API_ROUTE", "PAYLOAD_PUBLIC_UPLOAD_ROUTE"]
+      "env": ["PAYLOAD_PUBLIC_SITE_NAME", "PAYLOAD_PUBLIC_SITE_URL", "PAYLOAD_PUBLIC_PORT", "PAYLOAD_PUBLIC_API_ROUTE", "PAYLOAD_PUBLIC_UPLOAD_ROUTE"]
     },
     "nuxt#build": {
       "dependsOn": ["^build"],
       "outputs": [".output/**"],
-      "env": ["NITRO_HOST", "NITRO_PORT", "SITE_NAME", "SITE_DESCRIPTION"]
+      "env": ["NITRO_HOST", "NITRO_PORT"]
     },
     "payload#build": {
       "dependsOn": ["^build"],

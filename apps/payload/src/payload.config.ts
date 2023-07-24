@@ -7,9 +7,16 @@ import * as collections from './collections'
 import * as globals from './globals'
 import { Icon, Logo } from './components'
 
+const {
+  NODE_ENV,
+  PAYLOAD_PUBLIC_SITE_NAME,
+  PAYLOAD_PUBLIC_SITE_URL,
+  PAYLOAD_PUBLIC_API_ROUTE,
+} = process.env
+
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
-  debug: process.env.NODE_ENV !== 'production',
+  serverURL: PAYLOAD_PUBLIC_SITE_URL,
+  debug: NODE_ENV !== 'production',
   admin: {
     components: {
       graphics: {
@@ -20,14 +27,14 @@ export default buildConfig({
     css: path.resolve(__dirname, './styles.css'),
     meta: {
       favicon: '/favicon/safari-pinned-tab.svg',
-      titleSuffix: `| ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
+      titleSuffix: `| ${PAYLOAD_PUBLIC_SITE_NAME}`,
     },
     user: collections.Users.slug,
   },
   collections: Object.values(collections),
   globals: Object.values(globals),
   routes: {
-    api: process.env.PAYLOAD_PUBLIC_API_ROUTE,
+    api: PAYLOAD_PUBLIC_API_ROUTE,
   },
   typescript: {
     outputFile: path.resolve(__dirname, '../types.d.ts'),
@@ -41,7 +48,7 @@ export default buildConfig({
     seo({
       collections: ['pages'],
       uploadsCollection: 'images',
-      // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
+      // generateTitle: ({ doc }) => `${doc?.title?.value} | ${PAYLOAD_PUBLIC_SITE_NAME}`,
       // tabbedUI: true,
     }),
     computeBlurhash()

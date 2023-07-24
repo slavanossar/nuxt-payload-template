@@ -46,7 +46,7 @@ useHead({
     { name: 'twitter:description', content: Seo?.opengraph.description ?? '' },
     { name: 'apple-mobile-web-app-title', content: siteName },
     { name: 'msapplication-TileColor', content: themeColour },
-    { name: 'msapplication-config', content: '/favicon/browserconfig.xml' },
+    { name: 'msapplication-config', content: '/browserconfig.xml' },
     { name: 'theme-color', content: themeColour },
   ],
   link: [
@@ -67,7 +67,7 @@ useHead({
       sizes: '16x16',
       href: '/favicon/favicon-16x16.png',
     },
-    { rel: 'manifest', href: '/favicon/site.webmanifest' },
+    { rel: 'manifest', href: '/site.webmanifest' },
     {
       rel: 'mask-icon',
       href: '/favicon/safari-pinned-tab.svg',

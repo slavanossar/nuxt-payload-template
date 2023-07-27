@@ -28,6 +28,15 @@ const Pages: CollectionConfig = {
   versions: true,
   fields: [
     {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Page',
+          fields: Object.values(PageTemplates),
+        },
+      ],
+    },
+    {
       name: 'title',
       label: 'Page Title',
       type: 'text',
@@ -37,7 +46,9 @@ const Pages: CollectionConfig = {
           return user.role === 'admin'
         },
       },
+      admin: { position: 'sidebar' },
     },
+    slug('title'),
     {
       name: 'template',
       label: 'Template',
@@ -55,8 +66,6 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    slug('title'),
-    // ...Object.values(PageTemplates),
   ],
 }
 

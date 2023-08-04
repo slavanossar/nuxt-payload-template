@@ -13,7 +13,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
     "update": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payload",
-    "update-latest": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payload",
+    "update-latest": "pnpm up --interactive --latest; pnpm up --interactive --latest --filter nuxt; pnpm up --interactive --latest --filter payload",
     "configure-env": "configure-env"
   },
   "devDependencies": {

@@ -26,10 +26,10 @@ pnpm install
 # Create .env
 pnpm configure-env
 
-# Update packages (interactive)
+# Update packages interactively (minor versions)
 pnpm run update
 
-# Update packages to latest (interactive)
+# Update packages interactively (major versions)
 pnpm run update-latest
 
 # Start dev server

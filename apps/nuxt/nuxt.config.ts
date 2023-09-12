@@ -30,6 +30,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/apollo',
     '@vueuse/nuxt',
+    'nuxt-simple-robots',
+    'nuxt-simple-sitemap',
   ],
   alias: {
     '#payload': resolve(__dirname, '../payload'),
@@ -42,6 +44,12 @@ export default defineNuxtConfig({
         connectToDevTools: isDev,
       },
     },
+  },
+  robots: {
+    disallow: [],
+  },
+  sitemap: {
+    exclude: [],
   },
   runtimeConfig: {
     public: {

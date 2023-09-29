@@ -10,7 +10,7 @@
     "build:server": "tsc",
     "build": "npm run build:payload && npm run build:server",
     "start": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
-    "generate": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types && sed -i '' 's/string \\| //g' types.d.ts"
+    "generate": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types"
   },
   "dependencies": {
     "@payloadcms/plugin-seo": "^1.0.13",

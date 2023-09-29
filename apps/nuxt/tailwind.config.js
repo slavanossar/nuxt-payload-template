@@ -10,10 +10,10 @@ module.exports = {
   ],
   theme: {
     colors: {
-      white: '#ffffff',
-      black: '#000000',
       transparent: 'rgba(0, 0, 0, 0)',
       current: 'currentColor',
+      white: '#ffffff',
+      black: '#000000',
     },
     fontFamily: {
       body: [

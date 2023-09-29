@@ -51,10 +51,15 @@ export default defineNuxtConfig({
   sitemap: {
     exclude: [],
   },
+  tailwindcss: {
+    exposeConfig: true,
+  },
   runtimeConfig: {
     public: {
       siteName: PAYLOAD_PUBLIC_SITE_NAME,
       siteUrl: PAYLOAD_PUBLIC_SITE_URL,
+      language: 'en-AU',
+      isDev,
     },
   },
   nitro: {

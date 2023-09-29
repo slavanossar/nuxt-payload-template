@@ -1,11 +1,9 @@
 #import "@/graphql/fragments/Image.gql"
 
 query GetGlobals {
-  Seo {
+  Site {
     meta {
-      description
-    }
-    opengraph {
+      title
       description
       image {
         ...Image

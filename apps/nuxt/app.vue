@@ -5,49 +5,75 @@
 </template>
 
 <script lang="ts" setup>
-import { GetGlobalsDocument } from '@/graphql'
+import type { UseSeoMetaInput } from '@unhead/vue'
+
+import type { Image } from '#payload/types'
+import { useGlobalsStore } from '@/stores/globals'
+import { theme } from '#tailwind-config'
 
 const config = useRuntimeConfig()
-const siteName = config.public.siteName
-const siteUrl = config.public.siteUrl
-const themeColour = '#000000'
 
-const { data } = await useAsyncQuery<PayloadQuery>(GetGlobalsDocument)
-const { Seo } = data.value!
+const globalsStore = useGlobalsStore()
+await globalsStore.load()
 
+/**
+ * SEO / Meta
+ */
+const seoMeta: UseSeoMetaInput = {
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  twitterCard: 'summary_large_image',
+}
+
+seoMeta.title =
+  seoMeta.ogTitle =
+  seoMeta.twitterTitle =
+    globalsStore.site?.meta?.title || config.public.siteName
+
+seoMeta.description =
+  seoMeta.ogDescription =
+  seoMeta.twitterDescription =
+    globalsStore.site?.meta?.description || ''
+
+seoMeta.ogImage =
+  checkRelation<Image>(globalsStore.site?.meta?.image)?.sizes?.opengraph?.url ||
+  ''
+
+useSeoMeta(seoMeta)
+
+const title = globalsStore.site?.meta?.title || config.public.siteName
+const themeColour = theme.colors.black
+
+/**
+ * Head / Favicon
+ */
 useHead({
+  titleTemplate(titleChunk) {
+    return titleChunk ? `${titleChunk} | ${title}` : `${title}`
+  },
   bodyAttrs: {
-    class: 'min-h-full font-body antialiased',
+    class:
+      'min-h-full font-body antialiased bg-green-dark selection:bg-green selection:text-black',
   },
   htmlAttrs: {
     class: 'h-full',
-    lang: 'en',
-  },
-  titleTemplate(titleChunk) {
-    return titleChunk ? `${titleChunk} | ${siteName}` : `${siteName}`
+    lang: config.public.language,
   },
   meta: [
     { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'description', content: Seo?.meta.description ?? '' },
-    { property: 'og:title', content: siteName },
-    { property: 'og:site_name', content: siteName },
-    { property: 'og:description', content: Seo?.opengraph.description ?? '' },
-    { property: 'og:url', content: siteUrl },
     {
-      property: 'og:image',
-      content: Seo?.opengraph.image?.sizes?.opengraph?.url ?? '',
+      name: 'viewport',
+      content:
+        'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
     },
-    { property: 'og:image:width', content: '1200' },
-    { property: 'og:image:height', content: '630' },
-    { name: 'twitter:card', content: 'summary_image_large' },
-    { name: 'twitter:url', content: siteUrl },
-    { name: 'twitter:title', content: siteName },
-    { name: 'twitter:description', content: Seo?.opengraph.description ?? '' },
-    { name: 'apple-mobile-web-app-title', content: siteName },
+    { name: 'apple-mobile-web-app-title', content: title },
     { name: 'msapplication-TileColor', content: themeColour },
     { name: 'msapplication-config', content: '/browserconfig.xml' },
-    { name: 'theme-color', content: themeColour },
+    { name: 'theme-color', content: theme.colors.black },
+    {
+      name: 'facebook-domain-verification',
+      content: 'f28iui2rltx9blb0oochigb6mojhif',
+    },
   ],
   link: [
     {
@@ -72,6 +98,10 @@ useHead({
       rel: 'mask-icon',
       href: '/favicon/safari-pinned-tab.svg',
       color: themeColour,
+    },
+    {
+      rel: 'shortcut icon',
+      href: '/favicon/favicon.ico',
     },
   ],
 })

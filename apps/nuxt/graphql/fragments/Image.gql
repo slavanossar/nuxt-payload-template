@@ -1,6 +1,6 @@
 fragment Image on Image {
-  description
   id
+  url
   sizes {
     xs {
       url
@@ -30,7 +30,11 @@ fragment Image on Image {
       url
       width
     }
+    opengraph {
+      url
+      width
+    }
   }
-  url
   width
+  description
 }

@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="image"
     ref="root"
     :class="hasLoaded || !lazy ? '' : 'opacity-0'"
     :srcset="isPreloading ? srcset : ''"
@@ -14,7 +15,7 @@
 import type { Image } from '#payload/types'
 
 interface Props {
-  image: Image
+  image: string | Image
   lazy?: boolean
   sizes?: string
 }
@@ -24,7 +25,8 @@ const props = withDefaults(defineProps<Props>(), {
   sizes: '100vw',
 })
 
-const srcset = computed(() => generateSrcset(props.image))
+const image = checkRelation<Image>(props.image)
+const srcset = image ? generateSrcset(image) : ''
 
 const root = ref<HTMLImageElement | null>(null)
 const emit = defineEmits(['load'])
@@ -45,7 +47,7 @@ onMounted(() => {
     }
   })
 
-  if (root.value!.complete) {
+  if (root.value?.complete) {
     onLoad()
   }
 })

@@ -6,12 +6,14 @@ function slug(fieldName: string): Field {
     name: 'slug',
     label: 'Slug',
     type: 'text',
+    required: true,
+    unique: true,
     admin: {
       components: {
         Field: SlugInput(fieldName),
       },
       position: 'sidebar',
-      description: 'The slug is set automatically based on the Title field.',
+      description: `The slug is set automatically based on the ${fieldName} field.`,
     },
   }
 }

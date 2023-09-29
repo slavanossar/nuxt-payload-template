@@ -17,11 +17,11 @@
     "dashify": "^2.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "payload": "^1.15.5",
+    "payload": "^1.15.6",
     "payload-blurhash-plugin": "^1.2.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.17",
+    "@types/express": "^4.17.18",
     "cross-env": "^7.0.3",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",

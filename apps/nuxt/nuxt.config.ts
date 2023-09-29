@@ -72,13 +72,4 @@ export default defineNuxtConfig({
       // },
     },
   },
-  vite: {
-    server: {
-      hmr: {
-        protocol: 'wss',
-        clientPort: 443,
-        path: 'hmr/',
-      },
-    },
-  },
 })

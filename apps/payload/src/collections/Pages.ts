@@ -10,8 +10,8 @@ const Pages: CollectionConfig = {
     plural: 'Pages',
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'id', 'template'],
+    useAsTitle: 'template',
+    defaultColumns: ['template', 'id'],
   },
   access: {
     create: ({ req: { user } }) => {

@@ -35,7 +35,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.4",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -48,7 +48,7 @@
     "dotenv": "^16.3.1",
     "escape-html": "^1.0.3",
     "nuxt": "^3.7.4",
-    "nuxt-simple-robots": "^3.1.5",
+    "nuxt-simple-robots": "^3.1.6",
     "nuxt-simple-sitemap": "^3.3.5",
     "pinia": "^2.1.6",
     "slate": "^0.94.1"

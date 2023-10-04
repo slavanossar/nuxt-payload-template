@@ -77,4 +77,7 @@ export default defineNuxtConfig({
       // },
     },
   },
+  build: {
+    transpile: ['graphql', 'tslib'],
+  },
 })

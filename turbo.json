@@ -25,7 +25,14 @@
       "persistent": true
     },
     "generate": {
-      "outputs": ["graphql/index.js", "graphql/possibleTypes.json", "types.d.ts"]
+      "cache": false
+    },
+    "payload#generate": {
+      "outputs": ["types.d.ts"]
+    },
+    "nuxt#generate": {
+      "dependsOn": ["payload#generate"],
+      "outputs": ["graphql/index.js", "graphql/possibleTypes.json"]
     },
     "lint": {},
     "format": {}

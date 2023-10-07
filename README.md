@@ -71,7 +71,7 @@ Running `pnpm configure-env` will guide you through creating a `.env` file.
 
 ### Custom Local Hostname
 
-You will need to set up a custom local hostname for local development, using NGINX and the provided `nginx-local-example.conf` config. If you use [`mkcert`](https://github.com/FiloSottile/mkcert) for local SSL certificates, you can use the provided `nginx-local-mkcert-example.conf`.
+You will need to set up a custom local hostname for local development, using NGINX and the provided `nginx-conf-examples/local.conf` config. If you use [`mkcert`](https://github.com/FiloSottile/mkcert) for local SSL certificates, you can use the provided `nginx-conf-examples/local-mkcert.conf`.
 
 Make sure the update the `server_name` directive, any changes to the default ports, and the `ssl_certificate` and `ssl_certificate_key` paths if required.
 

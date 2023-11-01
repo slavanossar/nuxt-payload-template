@@ -1,7 +1,12 @@
 # nuxt-payload-template
 
 > ⚠️ Work In Progress
-> This template is slightly opinionated based on my main use case for client work, but the core monorepo structure is still a good basis for any Nuxt/Payload project
+>
+> This template is slightly opinionated based on my main use case for client work, but the core monorepo structure is still a good basis for any Nuxt/Payload project.
+>
+> I update the repo and packages manually as I continue to refine things during the course of my projects.
+>
+> If you have any questions/requests, feel free to open up an issue.
 
 A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 
@@ -99,7 +104,7 @@ pnpm run generate --filter payload
 You can easily access Payload's generated types within the Nuxt workspace using the `#payload` alias
 
 ```ts
-import type { Image } from "#payload/types";
+import type { Image } from '#payload/types'
 ```
 
 > 💡 Type imports must be explicity since Nuxt 3.8, so make sure to use `import type ...`
@@ -153,7 +158,7 @@ The `Pages` collection is set up for building predefined page templates, and the
 
 ```vue
 <script lang="ts" setup>
-import { GetHomePageDocument } from "@/graphql";
+import { GetHomePageDocument } from '@/graphql'
 
 const doc = await usePayloadPage(GetHomePageDocument);
 </script>

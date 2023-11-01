@@ -7,7 +7,13 @@ const Home: Field = {
   admin: {
     condition: (data) => data.template === 'Home',
   },
-  fields: [],
+  fields: [
+    {
+      name: 'myTextField',
+      label: 'My Text Field',
+      type: 'text',
+    },
+  ],
 }
 
 export default Home

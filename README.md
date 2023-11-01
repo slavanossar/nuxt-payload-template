@@ -140,6 +140,7 @@ import type { MyCollectionType } from '#payload/types'
 const obj = checkRelation<MyCollectionType>(data.doc.relationshipField) // MyCollectionType | null
 
 const arr = checkRelationArray<MyCollectionType>(data.doc.relationshipHasManyField) // MyCollectionType[]
+</script>
 ```
 
 ### GraphQL Exports

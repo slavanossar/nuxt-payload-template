@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
-    "turbo": "^1.10.14"
+    "turbo": "^1.10.16"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 export const ImageFragmentDoc = gql`
     fragment Image on Image {
-  description
   id
+  url
   sizes {
     xs {
       url
@@ -32,18 +32,33 @@ export const ImageFragmentDoc = gql`
       url
       width
     }
+    opengraph {
+      url
+      width
+    }
   }
-  url
   width
+  description
 }
     `;
+export const PageFragmentDoc = gql`
+    fragment Page on Page {
+  id
+  meta {
+    description
+    image {
+      ...Image
+    }
+    title
+  }
+  template
+}
+    ${ImageFragmentDoc}`;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
-  Seo {
+  Site {
     meta {
-      description
-    }
-    opengraph {
+      title
       description
       image {
         ...Image
@@ -52,6 +67,18 @@ export const GetGlobalsDocument = gql`
   }
 }
     ${ImageFragmentDoc}`;
+export const GetHomePageDocument = gql`
+    query GetHomePage {
+  Pages(where: {template: {equals: Home}}) {
+    docs {
+      ...Page
+      homeFields {
+        myTextField
+      }
+    }
+  }
+}
+    ${PageFragmentDoc}`;
 export const GetImageDocument = gql`
     query GetImage($id: String!) {
   Image(id: $id) {

@@ -1,5 +1,10 @@
 import path from 'path'
+
 import { buildConfig } from 'payload/config'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { slateEditor } from '@payloadcms/richtext-slate'
+import { webpackBundler } from '@payloadcms/bundler-webpack'
+
 import seo from '@payloadcms/plugin-seo'
 import computeBlurhash from 'payload-blurhash-plugin'
 
@@ -11,6 +16,7 @@ export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
   debug: process.env.NODE_ENV !== 'production',
   admin: {
+    bundler: webpackBundler(),
     components: {
       graphics: {
         Icon,
@@ -24,6 +30,10 @@ export default buildConfig({
     },
     user: collections.Users.slug,
   },
+  db: mongooseAdapter({
+    url: `mongodb://0.0.0.0/${process.env.DATABASE_NAME}`,
+  }),
+  editor: slateEditor({}),
   collections: Object.values(collections),
   globals: Object.values(globals),
   routes: {

@@ -155,7 +155,7 @@ pnpm run generate --filter nuxt
 
 ### `usePayloadPage` composable
 
-The `Pages` collection is set up for building predefined page templates, and the `usePayloadPage` composable makes it easy to retrieve page data using Apollo, and also automatically set any SEO/Meta values provided by `@payloadcms/plugin-seo`
+The `Pages` collection is set up for building predefined page templates, and the `usePayloadPage` composable makes it easy to retrieve page data using Apollo, while also automatically set any SEO/Meta values provided by `@payloadcms/plugin-seo`
 
 ```vue
 <script lang="ts" setup>

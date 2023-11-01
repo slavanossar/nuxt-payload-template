@@ -1,0 +1,10 @@
+query GetHomePage {
+  Pages(where: { template: { equals: Home } }) {
+    docs {
+      ...Page
+      homeFields {
+        myTextField
+      }
+    }
+  }
+}

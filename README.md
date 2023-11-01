@@ -107,7 +107,7 @@ You can easily access Payload's generated types within the Nuxt workspace using 
 import type { Image } from '#payload/types'
 ```
 
-> 💡 Type imports must be explicity since Nuxt 3.8, so make sure to use `import type ...`
+> 💡 Type imports must be explicit since Nuxt 3.8, so make sure to use `import type ...`
 
 ### Type-safe Relationship Fields
 

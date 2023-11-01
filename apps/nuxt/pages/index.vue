@@ -5,5 +5,5 @@
 <script lang="ts" setup>
 // import { GetHomePageDocument } from '@/graphql'
 
-// const { data } = await useAsyncQuery<PayloadQuery>(GetHomePageDocument)
+// const doc = await usePayloadPage(GetHomePageDocument)
 </script>

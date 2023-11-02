@@ -138,7 +138,6 @@ This can cause type issues when using these fields within Nuxt, so there are two
 import type { MyCollectionType } from '#payload/types'
 
 const obj = checkRelation<MyCollectionType>(data.doc.relationshipField) // MyCollectionType | null
-
 const arr = checkRelationArray<MyCollectionType>(data.doc.relationshipHasManyField) // MyCollectionType[]
 </script>
 ```
@@ -161,7 +160,7 @@ The `Pages` collection is set up for building predefined page templates, and the
 <script lang="ts" setup>
 import { GetHomePageDocument } from '@/graphql'
 
-const doc = await usePayloadPage(GetHomePageDocument);
+const doc = await usePayloadPage(GetHomePageDocument)
 </script>
 ```
 

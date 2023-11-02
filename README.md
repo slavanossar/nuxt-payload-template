@@ -6,7 +6,7 @@
 >
 > I update the repo and packages manually as I continue to refine things during the course of my projects.
 >
-> If you have any questions/requests, feel free to open up an issue.
+> If you have any questions/suggestions, feel free to open up an issue.
 
 A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 

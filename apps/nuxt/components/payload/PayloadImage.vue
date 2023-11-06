@@ -42,12 +42,12 @@ onMounted(() => {
   const { top } = useElementBounding(root.value)
 
   watchEffect(() => {
-    if (props.lazy) {
+    if (props.lazy && !isPreloading.value && top.value) {
       isPreloading.value = hasLoaded.value || top.value < window.innerHeight * 2
     }
   })
 
-  if (root.value?.complete) {
+  if (!props.lazy && root.value?.complete) {
     onLoad()
   }
 })

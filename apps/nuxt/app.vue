@@ -52,8 +52,7 @@ useHead({
     return titleChunk ? `${titleChunk} | ${title}` : `${title}`
   },
   bodyAttrs: {
-    class:
-      'min-h-full font-body antialiased bg-green-dark selection:bg-green selection:text-black',
+    class: 'min-h-full font-body antialiased',
   },
   htmlAttrs: {
     class: 'h-full',

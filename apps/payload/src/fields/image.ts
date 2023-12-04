@@ -1,10 +1,10 @@
 import type { Field } from 'payload/types'
 
 function image({
-  description = '',
   name = 'image',
   label = 'Image',
   required = false,
+  admin = {},
 } = {}): Field {
   return {
     name,
@@ -12,7 +12,7 @@ function image({
     type: 'upload',
     relationTo: 'images',
     required,
-    ...(description && { admin: { description } }),
+    admin,
   }
 }
 

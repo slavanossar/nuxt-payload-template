@@ -1,6 +1,4 @@
 import type { CollectionConfig } from 'payload/types'
-
-import { slug } from '../fields'
 import * as PageTemplates from '../pages'
 
 const Pages: CollectionConfig = {
@@ -37,23 +35,11 @@ const Pages: CollectionConfig = {
       ],
     },
     {
-      name: 'title',
-      label: 'Page Title',
-      type: 'text',
-      required: true,
-      access: {
-        update: ({ req: { user } }) => {
-          return user.role === 'admin'
-        },
-      },
-      admin: { position: 'sidebar' },
-    },
-    slug('title'),
-    {
       name: 'template',
       label: 'Template',
       type: 'select',
       required: true,
+      unique: true,
       access: {
         update: ({ req: { user } }) => {
           return user.role === 'admin'

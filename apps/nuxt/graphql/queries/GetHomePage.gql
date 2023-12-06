@@ -1,3 +1,5 @@
+#import "../fragments/Page.gql"
+
 query GetHomePage {
   Pages(where: { template: { equals: Home } }) {
     docs {

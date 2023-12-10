@@ -2,9 +2,9 @@
   <img
     v-if="image"
     ref="root"
-    :class="hasLoaded || !lazy ? '' : 'opacity-0'"
+    :class="hasLoaded || !props.lazy ? '' : 'opacity-0'"
     :srcset="isPreloading ? srcset : ''"
-    :sizes="sizes"
+    :sizes="props.sizes"
     :alt="image.description || ''"
     class="block w-full transition-opacity duration-500"
     @load="onLoad"

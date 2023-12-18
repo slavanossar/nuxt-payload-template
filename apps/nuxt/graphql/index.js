@@ -2,43 +2,43 @@ import gql from 'graphql-tag';
 export const ImageFragmentDoc = gql`
     fragment Image on Image {
   id
-  url
-  sizes {
-    xs {
-      url
-      width
-    }
-    sm {
-      url
-      width
-    }
-    md {
-      url
-      width
-    }
-    lg {
-      url
-      width
-    }
-    xl {
-      url
-      width
-    }
-    xxl {
-      url
-      width
-    }
-    xxxl {
-      url
-      width
-    }
-    opengraph {
-      url
-      width
+  description
+  webp {
+    sizes {
+      xs {
+        url
+        width
+      }
+      sm {
+        url
+        width
+      }
+      md {
+        url
+        width
+      }
+      lg {
+        url
+        width
+      }
+      xl {
+        url
+        width
+      }
+      xxl {
+        url
+        width
+      }
+      xxxl {
+        url
+        width
+      }
+      opengraph {
+        url
+        width
+      }
     }
   }
-  width
-  description
 }
     `;
 export const PageFragmentDoc = gql`

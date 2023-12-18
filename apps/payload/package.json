@@ -24,7 +24,8 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "payload": "^2.3.1",
-    "payload-blurhash-plugin": "^2.0.0"
+    "payload-blurhash-plugin": "^2.0.0",
+    "payload-webp": "^1.1.6"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

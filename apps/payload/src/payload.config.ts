@@ -7,6 +7,7 @@ import { webpackBundler } from '@payloadcms/bundler-webpack'
 
 import seo from '@payloadcms/plugin-seo'
 import computeBlurhash from 'payload-blurhash-plugin'
+import webp from 'payload-webp'
 
 import * as collections from './collections'
 import * as globals from './globals'
@@ -56,5 +57,13 @@ export default buildConfig({
       tabbedUI: true,
     }),
     computeBlurhash(),
+    webp({
+      collections: ['images'],
+      sharpWebpOptions: {
+        nearLossless: true,
+        quality: 75,
+        force: true,
+      },
+    }),
   ],
 })

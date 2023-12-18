@@ -1,11 +1,10 @@
 import type { Image } from '#payload/types'
 
-export default function ({ sizes, url, width }: Image): string {
-  return Object.values({
-    ...sizes,
-    ...(width && width <= 2400 && { original: { url, width } }),
-  })
-    .filter(({ url }) => url)
-    .map(({ url, width }) => `${encodeURI(url!)} ${width}w`)
-    .join()
+export default function ({ webp }: Image): string {
+  return webp?.sizes
+    ? Object.entries(webp.sizes)
+        .filter(([name, { url }]) => url && name !== 'opengraph')
+        .map(([_, { url, width }]) => `${encodeURI(url!)} ${width}w`)
+        .join()
+    : ''
 }

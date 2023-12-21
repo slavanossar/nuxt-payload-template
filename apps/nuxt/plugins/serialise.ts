@@ -32,7 +32,7 @@ export default defineNuxtPlugin(() => {
             break
         }
       } else if (Text.isText(node)) {
-        text = escapeHTML(node.text)
+        text = escapeHTML(node.text).replace('\n', '<br />')
 
         if (node.bold) {
           text = `<strong>${text}</strong>`

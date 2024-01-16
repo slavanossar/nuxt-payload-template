@@ -15,15 +15,15 @@
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
-    "@payloadcms/bundler-webpack": "^1.0.5",
-    "@payloadcms/db-mongodb": "^1.2.0",
-    "@payloadcms/plugin-seo": "^1.0.15",
+    "@payloadcms/bundler-webpack": "^1.0.6",
+    "@payloadcms/db-mongodb": "^1.3.1",
+    "@payloadcms/plugin-seo": "^2.1.0",
     "@payloadcms/richtext-slate": "^1.3.1",
     "copyfiles": "^2.4.1",
     "dashify": "^2.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "payload": "^2.6.0",
+    "payload": "^2.8.1",
     "payload-blurhash-plugin": "^2.0.0",
     "payload-webp": "^1.1.6"
   },

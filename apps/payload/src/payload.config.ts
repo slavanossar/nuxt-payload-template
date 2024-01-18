@@ -43,6 +43,9 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(__dirname, '../types.d.ts'),
   },
+  rateLimit: {
+    trustProxy: true,
+  },
   upload: {
     limits: {
       fileSize: 20000000,

@@ -1,5 +1,5 @@
 import type { Field } from 'payload/types'
-import { SlugInput } from '../components'
+import SlugField from './SlugField'
 
 function slug(fieldName: string): Field {
   return {
@@ -10,7 +10,7 @@ function slug(fieldName: string): Field {
     unique: true,
     admin: {
       components: {
-        Field: SlugInput(fieldName),
+        Field: SlugField(fieldName),
       },
       position: 'sidebar',
       description: `The slug is set automatically based on the ${fieldName} field.`,

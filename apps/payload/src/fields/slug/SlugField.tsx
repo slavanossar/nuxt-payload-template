@@ -13,7 +13,7 @@ export default function (fieldName: string) {
 
     useEffect(() => {
       const charLimit = 40
-      const slug = dashify((String(titleField.value)).replace(/[^A-Za-z0-9\s]/g, '') || '', { condense: true })
+      const slug = titleField.value ? dashify((String(titleField.value)).replace(/[^A-Za-z0-9\s]/g, '') || '', { condense: true }): ''
 
       if (value === undefined && !slug.length) {
         setValue('')

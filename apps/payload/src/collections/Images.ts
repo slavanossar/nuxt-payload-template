@@ -1,4 +1,15 @@
 import type { CollectionConfig } from 'payload/types'
+import type { ImageSize } from 'payload/types'
+
+const sizes = {
+  xs: 320,
+  sm: 640,
+  md: 960,
+  lg: 1200,
+  xl: 1600,
+  xxl: 2000,
+  xxxl: 2400,
+}
 
 const Images: CollectionConfig = {
   slug: 'images',
@@ -15,43 +26,29 @@ const Images: CollectionConfig = {
   upload: {
     staticURL: `${process.env.PAYLOAD_PUBLIC_UPLOAD_ROUTE}/images`,
     staticDir: '../uploads/images',
+    adminThumbnail: 'xs',
     imageSizes: [
-      {
-        name: 'xs',
-        width: 320,
-      },
-      {
-        name: 'sm',
-        width: 640,
-      },
-      {
-        name: 'md',
-        width: 960,
-      },
-      {
-        name: 'lg',
-        width: 1200,
-      },
-      {
-        name: 'xl',
-        width: 1600,
-      },
-      {
-        name: 'xxl',
-        width: 2000,
-      },
-      {
-        name: 'xxxl',
-        width: 2400,
-      },
+      ...Object.entries(sizes).map(([name, width]) => {
+        return {
+          name,
+          width,
+          formatOptions: {
+            format: 'webp' as ImageSize['formatOptions']['format'],
+            options: {
+              nearLossless: true,
+              quality: 75,
+              force: true,
+            },
+          },
+        }
+      }),
       {
         name: 'opengraph',
         width: 1200,
         height: 630,
       },
     ],
-    adminThumbnail: 'xs',
-    mimeTypes: ['image/jpeg', 'image/png'],
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
   },
   fields: [
     {

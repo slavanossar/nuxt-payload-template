@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.10",
+    "@nuxtjs/seo": "2.0.0-rc.7",
     "@nuxtjs/tailwindcss": "^6.11.1",
     "@pinia/nuxt": "^0.5.1",
     "@types/escape-html": "^1.0.4",
@@ -48,8 +49,6 @@
     "dotenv": "^16.4.1",
     "escape-html": "^1.0.3",
     "nuxt": "^3.9.3",
-    "nuxt-simple-robots": "^3.1.10",
-    "nuxt-simple-sitemap": "^3.4.1",
     "pinia": "^2.1.7",
     "slate": "^0.101.5"
   }

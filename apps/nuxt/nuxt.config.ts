@@ -29,9 +29,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/apollo',
+    '@nuxtjs/seo',
     '@vueuse/nuxt',
-    'nuxt-simple-robots',
-    'nuxt-simple-sitemap',
   ],
   alias: {
     '#payload': resolve(__dirname, '../payload'),
@@ -46,10 +45,11 @@ export default defineNuxtConfig({
     },
   },
   robots: {
-    disallow: [],
+    disallow: ['/admin', '/api', '/_payload'],
   },
   sitemap: {
     exclude: [],
+    // sources: ['/api/__sitemap__/urls'],
   },
   tailwindcss: {
     exposeConfig: true,

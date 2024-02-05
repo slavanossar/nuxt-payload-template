@@ -35,9 +35,12 @@ seoMeta.description =
   seoMeta.twitterDescription =
     globalsStore.site?.meta?.description || ''
 
-seoMeta.ogImage =
-  checkRelation<Image>(globalsStore.site?.meta?.image)?.sizes?.opengraph?.url ||
-  ''
+const opengraphImage = checkRelation<Image>(globalsStore.site?.meta?.image)
+  ?.sizes?.opengraph?.url
+
+if (opengraphImage) {
+  seoMeta.ogImage = opengraphImage
+}
 
 useSeoMeta(seoMeta)
 
@@ -48,9 +51,6 @@ const themeColour = theme.colors.black
  * Head / Favicon
  */
 useHead({
-  titleTemplate(titleChunk) {
-    return titleChunk ? `${titleChunk} | ${title}` : `${title}`
-  },
   bodyAttrs: {
     class: 'min-h-full font-body antialiased',
   },

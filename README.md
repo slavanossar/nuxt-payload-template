@@ -8,8 +8,9 @@
 >
 > If you have any questions/suggestions, feel free to open up an issue.
 
-A [Nuxt 3](https://nuxt.com/docs/guide/concepts/auto-imports) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
+A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 
+- [Vue 3](https://vuejs.org/guide)
 - [VueUse](https://vueuse.org/guide/)
 - [Tailwind CSS](https://tailwindcss.com/docs/installation)
 - [Pinia](https://pinia.vuejs.org/introduction.html)

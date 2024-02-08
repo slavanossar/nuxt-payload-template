@@ -3,6 +3,9 @@ export const ImageFragmentDoc = gql`
     fragment Image on Image {
   id
   description
+  width
+  height
+  blurhash
   webp {
     sizes {
       xs {

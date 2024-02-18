@@ -47,6 +47,11 @@ export default defineNuxtConfig({
   robots: {
     disallow: ['/admin', '/api', '/_payload'],
   },
+  site: {
+    url: PAYLOAD_PUBLIC_SITE_URL,
+    name: PAYLOAD_PUBLIC_SITE_NAME,
+    defaultLocale: 'en-AU',
+  },
   sitemap: {
     exclude: [],
     // sources: ['/api/__sitemap__/urls'],

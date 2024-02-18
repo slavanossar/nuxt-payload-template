@@ -6,40 +6,38 @@ export const ImageFragmentDoc = gql`
   width
   height
   blurhash
-  webp {
-    sizes {
-      xs {
-        url
-        width
-      }
-      sm {
-        url
-        width
-      }
-      md {
-        url
-        width
-      }
-      lg {
-        url
-        width
-      }
-      xl {
-        url
-        width
-      }
-      xxl {
-        url
-        width
-      }
-      xxxl {
-        url
-        width
-      }
-      opengraph {
-        url
-        width
-      }
+  sizes {
+    xs {
+      url
+      width
+    }
+    sm {
+      url
+      width
+    }
+    md {
+      url
+      width
+    }
+    lg {
+      url
+      width
+    }
+    xl {
+      url
+      width
+    }
+    xxl {
+      url
+      width
+    }
+    xxxl {
+      url
+      width
+    }
+    opengraph {
+      url
+      width
     }
   }
 }

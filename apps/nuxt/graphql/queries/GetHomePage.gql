@@ -1,4 +1,4 @@
-#import "../fragments/Page.gql"
+#import "@/graphql/fragments/Page.gql"
 
 query GetHomePage {
   Pages(where: { template: { equals: Home } }) {

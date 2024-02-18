@@ -69,10 +69,6 @@ useHead({
     { name: 'msapplication-TileColor', content: themeColour },
     { name: 'msapplication-config', content: '/browserconfig.xml' },
     { name: 'theme-color', content: theme.colors.black },
-    {
-      name: 'facebook-domain-verification',
-      content: 'f28iui2rltx9blb0oochigb6mojhif',
-    },
   ],
   link: [
     {

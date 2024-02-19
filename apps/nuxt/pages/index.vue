@@ -5,5 +5,6 @@
 <script lang="ts" setup>
 // import { GetHomePageDocument } from '@/graphql'
 
-// const doc = await usePayloadPage(GetHomePageDocument)
+// const initialData = await usePayloadPage(GetHomePageDocument)
+// const { data: doc } = useLivePreview({ initialData })
 </script>

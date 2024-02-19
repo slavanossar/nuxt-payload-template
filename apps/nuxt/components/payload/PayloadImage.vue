@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   sizes: '100vw',
 })
 
-const image = checkRelation<Image>(props.image)
+const image = checkRelationship<Image>(props.image)
 const srcset = image ? generateSrcset(image) : ''
 
 const root = ref<HTMLImageElement | null>(null)

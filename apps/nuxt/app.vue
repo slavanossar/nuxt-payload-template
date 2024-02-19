@@ -35,7 +35,7 @@ seoMeta.description =
   seoMeta.twitterDescription =
     globalsStore.site?.meta?.description || ''
 
-const opengraphImage = checkRelation<Image>(globalsStore.site?.meta?.image)
+const opengraphImage = checkRelationship<Image>(globalsStore.site?.meta?.image)
   ?.sizes?.opengraph?.url
 
 if (opengraphImage) {

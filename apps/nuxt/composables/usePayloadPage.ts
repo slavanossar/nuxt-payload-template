@@ -33,7 +33,7 @@ export default async function (query: DocumentNode) {
 
     if (docMeta?.image) {
       seoMeta.ogImage =
-        checkRelation<Image>(docMeta?.image)?.sizes?.opengraph?.url || ''
+        checkRelationship<Image>(docMeta?.image)?.sizes?.opengraph?.url || ''
     }
 
     nuxtApp.runWithContext(() => useSeoMeta(seoMeta))

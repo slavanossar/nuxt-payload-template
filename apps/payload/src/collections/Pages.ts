@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import * as PageTemplates from '../pages'
+import { livePreviewBreakpoints } from '../util'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -10,6 +11,16 @@ const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'template',
     defaultColumns: ['template', 'id'],
+    livePreview: {
+      url: ({ data }) => {
+        if (data.template === 'Home') {
+          return process.env.PAYLOAD_PUBLIC_SITE_URL
+        } else {
+          return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${data.template.toLowerCase()}`
+        }
+      },
+      breakpoints: livePreviewBreakpoints,
+    },
   },
   access: {
     create: ({ req: { user } }) => {

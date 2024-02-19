@@ -1,5 +1,5 @@
 export function checkRelationship<Collection>(
-  obj: string | Collection,
+  doc: string | Collection,
 ): Collection | null {
-  return obj && typeof obj !== 'string' ? obj : null
+  return doc && typeof doc !== 'string' ? doc : null
 }

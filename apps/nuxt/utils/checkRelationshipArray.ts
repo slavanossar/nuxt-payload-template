@@ -1,7 +1,7 @@
 export function checkRelationshipArray<Collection>(
-  arr: (string | Collection)[],
+  docs: (string | Collection)[],
 ): Collection[] {
-  return arr
-    .map((item) => checkRelationship<Collection>(item))
-    .filter((item) => item !== null) as Collection[]
+  return docs
+    .map((doc) => checkRelationship<Collection>(doc))
+    .filter((doc) => doc !== null) as Collection[]
 }

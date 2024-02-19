@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: `${PAYLOAD_PUBLIC_SITE_URL}/_payload/graphql`,
+        httpEndpoint: `${PAYLOAD_PUBLIC_SITE_URL}${PAYLOAD_PUBLIC_API_ROUTE}/graphql`,
         inMemoryCacheOptions: { possibleTypes },
         connectToDevTools: isDev,
       },
@@ -63,6 +63,7 @@ export default defineNuxtConfig({
     public: {
       siteName: PAYLOAD_PUBLIC_SITE_NAME,
       siteUrl: PAYLOAD_PUBLIC_SITE_URL,
+      payloadApiRoute: PAYLOAD_PUBLIC_API_ROUTE,
       language: 'en-AU',
       isDev,
     },

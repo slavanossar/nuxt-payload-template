@@ -1,12 +1,4 @@
-# nuxt-payload-template
-
-> ⚠️ Work In Progress
->
-> This template is slightly opinionated based on my main use case for client work, but the core monorepo structure is still a good basis for any Nuxt/Payload project.
->
-> I update the repo and packages manually as I continue to refine things during the course of my projects.
->
-> If you have any questions/suggestions, feel free to open up an issue.
+# murray-bell-2024
 
 A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 
@@ -132,14 +124,14 @@ query GetRelationship {
 }
 ```
 
-This can cause type issues when using these fields within Nuxt, so there are two utility functions that can be used to check the type of relationship fields.
+This can cause type issues when using these fields within Nuxt, so there are two composables that can be used to check the type of relationship fields.
 
 ```vue
 <script lang="ts" setup>
 import type { MyCollectionType } from '#payload/types'
 
-const obj = checkRelation<MyCollectionType>(data.doc.relationshipField) // MyCollectionType | null
-const arr = checkRelationArray<MyCollectionType>(data.doc.relationshipHasManyField) // MyCollectionType[]
+const obj = useRelationshipField<MyCollectionType>(data.doc.relationshipField, 'collectionSlug') // MyCollectionType | null
+const arr = useRelationshipFieldArray<MyCollectionType>(data.doc.relationshipHasManyField, 'collectionSlug') // MyCollectionType[]
 </script>
 ```
 

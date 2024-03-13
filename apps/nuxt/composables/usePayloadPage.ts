@@ -1,7 +1,13 @@
 import type { DocumentNode } from 'graphql'
 import type { UseSeoMetaInput } from '@unhead/vue'
-import type { Image, Page } from '#payload/types'
+import type { Page } from '#payload/types'
 import { useGlobalsStore } from '@/stores/globals'
+
+interface PageQueryResult {
+  Pages: {
+    docs: Page[]
+  }
+}
 
 export default async function (query: DocumentNode) {
   const nuxtApp = useNuxtApp()
@@ -10,7 +16,7 @@ export default async function (query: DocumentNode) {
 
   const doc = ref<Page | null>(null)
 
-  const { data } = await useAsyncQuery<PayloadQuery>(query)
+  const { data } = await useAsyncQuery<PageQueryResult>(query)
 
   if (data.value?.Pages?.docs.length) {
     doc.value = data.value.Pages?.docs[0]
@@ -32,8 +38,8 @@ export default async function (query: DocumentNode) {
     }
 
     if (docMeta?.image) {
-      seoMeta.ogImage =
-        checkRelationship<Image>(docMeta?.image)?.sizes?.opengraph?.url || ''
+      const opengraphImage = useRelationshipField(docMeta?.image, 'images')
+      seoMeta.ogImage = opengraphImage.value?.sizes?.opengraph?.url || ''
     }
 
     nuxtApp.runWithContext(() => useSeoMeta(seoMeta))

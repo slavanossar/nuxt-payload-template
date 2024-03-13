@@ -35,11 +35,13 @@ seoMeta.description =
   seoMeta.twitterDescription =
     globalsStore.site?.meta?.description || ''
 
-const opengraphImage = checkRelationship<Image>(globalsStore.site?.meta?.image)
-  ?.sizes?.opengraph?.url
+const opengraphImage = useRelationshipField(
+  globalsStore.site?.meta?.image,
+  'images',
+)
 
-if (opengraphImage) {
-  seoMeta.ogImage = opengraphImage
+if (opengraphImage.value?.sizes?.opengraph?.url) {
+  seoMeta.ogImage = opengraphImage.value.sizes.opengraph.url
 }
 
 useSeoMeta(seoMeta)

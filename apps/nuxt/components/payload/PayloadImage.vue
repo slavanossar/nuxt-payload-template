@@ -4,36 +4,40 @@
     ref="root"
     :class="hasLoaded || !props.lazy ? '' : 'opacity-0'"
     :srcset="isPreloading ? srcset : ''"
-    :sizes="props.sizes"
+    :sizes="sizes"
     :alt="image.description || ''"
     class="block w-full transition-opacity duration-500"
     @load="onLoad"
   />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { Image } from '#payload/types'
 
-interface Props {
+interface PayloadImageProps {
   image: string | Image
   lazy?: boolean
-  sizes?: string
+  sizes?: SrcsetSizes
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<PayloadImageProps>(), {
+  aspectRatio: 'auto',
   lazy: false,
-  sizes: '100vw',
+  sizes: () => ({
+    default: '100vw',
+  }),
 })
 
-const image = checkRelationship<Image>(props.image)
-const srcset = image ? generateSrcset(image) : ''
+const image = useRelationshipField(props.image, 'images')
+const srcset = generateSrcset(image)
+const sizes = srcsetSizesToAttribute(props.sizes)
 
 const root = ref<HTMLImageElement | null>(null)
 const emit = defineEmits(['load'])
 const hasLoaded = ref(false)
 const isPreloading = ref(!props.lazy)
 
-function onLoad() {
+const onLoad = () => {
   hasLoaded.value = true
   emit('load')
 }

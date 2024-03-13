@@ -10,7 +10,7 @@ import computeBlurhash from 'payload-blurhash-plugin'
 
 import * as collections from './collections'
 import * as globals from './globals'
-import { Icon, Logo } from './components'
+import { Icon, Logo } from './graphics'
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
@@ -44,6 +44,9 @@ export default buildConfig({
   },
   rateLimit: {
     trustProxy: true,
+    skip(req) {
+      return req.user
+    },
   },
   upload: {
     limits: {

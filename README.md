@@ -1,4 +1,12 @@
-# murray-bell-2024
+# nuxt-payload-template
+
+> ⚠️ Work In Progress
+>
+> This template is slightly opinionated based on my main use case for client work, but the core monorepo structure is still a good basis for any Nuxt/Payload project.
+>
+> I update the repo and packages manually as I continue to refine things during the course of my projects.
+>
+> If you have any questions/suggestions, feel free to open up an issue.
 
 A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS](https://payloadcms.com/docs).
 

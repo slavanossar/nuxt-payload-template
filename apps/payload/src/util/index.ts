@@ -1,3 +1,15 @@
+/**
+ * Helpers
+ */
+export const getRelationshipID = <T extends { id: string }>(
+  field: string | T,
+) => {
+  return typeof field === 'string' ? field : field.id
+}
+
+/**
+ * Live Preview
+ */
 export const livePreviewBreakpoints = [
   {
     name: 'mobile',

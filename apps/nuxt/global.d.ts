@@ -12,11 +12,12 @@ declare module '*.graphql' {
 }
 
 declare global {
-  interface PayloadQuery {
-    Site?: Site
-    Pages?: {
-      docs: Page[]
-    }
+  interface SrcsetSizes {
+    default: string
+    md?: string
+    lg?: string
+    xl?: string
+    '2xl'?: string
   }
 
   interface RichTextNode {

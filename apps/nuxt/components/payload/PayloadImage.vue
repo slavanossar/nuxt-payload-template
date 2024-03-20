@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<PayloadImageProps>(), {
   }),
 })
 
-const image = useRelationshipField(props.image, 'images')
+const image = useRelationshipField(props.image)
 const srcset = generateSrcset(image)
 const sizes = srcsetSizesToAttribute(props.sizes)
 

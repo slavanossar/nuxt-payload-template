@@ -1,16 +1,10 @@
 export function useRelationshipField<Collection>(
   relationshipField: string | Collection | null | undefined,
-  collectionHandle: string,
 ) {
-  const doc = ref<Collection | null>(null)
+  const doc = ref<Collection | null>(null) as Ref<Collection | null>
 
-  watchEffect(async () => {
-    if (typeof relationshipField === 'string') {
-      doc.value = await fetchPayloadDoc<Collection>(
-        relationshipField,
-        collectionHandle,
-      )
-    } else if (relationshipField) {
+  watchEffect(() => {
+    if (relationshipField && typeof relationshipField !== 'string') {
       doc.value = relationshipField
     }
   })

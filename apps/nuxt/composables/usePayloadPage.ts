@@ -38,7 +38,7 @@ export default async function (query: DocumentNode) {
     }
 
     if (docMeta?.image) {
-      const opengraphImage = useRelationshipField(docMeta?.image, 'images')
+      const opengraphImage = useRelationshipField(docMeta?.image)
       seoMeta.ogImage = opengraphImage.value?.sizes?.opengraph?.url || ''
     }
 

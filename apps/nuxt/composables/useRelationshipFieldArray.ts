@@ -1,22 +1,13 @@
 export function useRelationshipFieldArray<Collection>(
   relationshipFieldArray: (string | Collection)[] | null | undefined,
-  collectionHandle: string,
 ) {
   const docs = ref<Collection[]>([]) as Ref<Collection[]>
 
-  watchEffect(async () => {
+  watchEffect(() => {
     if (relationshipFieldArray) {
-      const res = await Promise.all(
-        relationshipFieldArray.map((item) =>
-          useRelationshipField(item, collectionHandle),
-        ),
+      docs.value = relationshipFieldArray.filter(
+        (item): item is Collection => typeof item !== 'string',
       )
-
-      const filtered = res
-        .map((item) => unref(item))
-        .filter((item): item is Collection => item !== undefined)
-
-      docs.value = filtered
     }
   })
 

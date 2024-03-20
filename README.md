@@ -136,8 +136,8 @@ This can cause type issues when using these fields within Nuxt, so there are two
 
 ```vue
 <script lang="ts" setup>
-const obj = useRelationshipField(data.doc.relationshipField, 'collectionSlug') // RelationshipType | null
-const arr = useRelationshipFieldArray(data.doc.relationshipHasManyField, 'collectionSlug') // RelationshipType[]
+const obj = useRelationshipField(data.doc.relationshipField) // RelationshipType | null
+const arr = useRelationshipFieldArray(data.doc.relationshipHasManyField) // RelationshipType[]
 </script>
 ```
 

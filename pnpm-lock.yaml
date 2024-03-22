@@ -63,9 +63,6 @@ importers:
       pinia:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.4.2)(vue@3.4.21)
-      slate:
-        specifier: ^0.102.0
-        version: 0.102.0
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.2
@@ -141,7 +138,7 @@ importers:
         version: 2.11.2(typescript@5.4.2)(webpack@5.90.3)
       payload-blurhash-plugin:
         specifier: ^2.0.2
-        version: 2.0.2(sharp@0.33.2)
+        version: 2.0.2
     devDependencies:
       '@types/express':
         specifier: ^4.17.21
@@ -12017,10 +12014,6 @@ packages:
       queue: 6.0.2
     dev: false
 
-  /immer@10.0.4:
-    resolution: {integrity: sha512-cuBuGK40P/sk5IzWa9QPUaAdvPHjkk1c+xYsd9oZw+YQQEV+10G0P5uMpGctZZKnyQ+ibRO08bD25nWLmYi2pw==}
-    dev: false
-
   /immer@9.0.21:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
@@ -15038,14 +15031,13 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload-blurhash-plugin@2.0.2(sharp@0.33.2):
+  /payload-blurhash-plugin@2.0.2:
     resolution: {integrity: sha512-+SCA9WZH2Gv7cKFrxgFcjTS4+UyKVCHUML0ChPGv0WjhR78/xpSHy1nVRJhgnDrqEGmXCxHA4ZrBvz3NF8asdA==}
     peerDependencies:
-      sharp: 0.x
+      sharp: latest
     dependencies:
       blurhash: 2.0.5
       minimatch: 9.0.3
-      sharp: 0.33.2
       zod: 3.22.4
     dev: false
 
@@ -17803,14 +17795,6 @@ packages:
       scroll-into-view-if-needed: 2.2.31
       slate: 0.91.4
       tiny-invariant: 1.0.6
-    dev: false
-
-  /slate@0.102.0:
-    resolution: {integrity: sha512-RT+tHgqOyZVB1oFV9Pv99ajwh4OUCN9p28QWdnDTIzaN/kZxMsHeQN39UNAgtkZTVVVygFqeg7/R2jiptCvfyA==}
-    dependencies:
-      immer: 10.0.4
-      is-plain-object: 5.0.0
-      tiny-warning: 1.0.3
     dev: false
 
   /slate@0.91.4:

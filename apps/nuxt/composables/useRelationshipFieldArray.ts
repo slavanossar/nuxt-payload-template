@@ -1,11 +1,13 @@
 export function useRelationshipFieldArray<Collection>(
-  relationshipFieldArray: (string | Collection)[] | null | undefined,
+  field: MaybeRef<(string | Collection)[] | null | undefined>,
 ) {
   const docs = ref<Collection[]>([]) as Ref<Collection[]>
 
   watchEffect(() => {
-    if (relationshipFieldArray) {
-      docs.value = relationshipFieldArray.filter(
+    const fieldUnref = unref(field)
+
+    if (fieldUnref) {
+      docs.value = fieldUnref.filter(
         (item): item is Collection => typeof item !== 'string',
       )
     }

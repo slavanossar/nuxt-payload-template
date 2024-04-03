@@ -1,11 +1,13 @@
 export function useRelationshipField<Collection>(
-  relationshipField: string | Collection | null | undefined,
+  field: MaybeRef<string | Collection | null | undefined>,
 ) {
   const doc = ref<Collection | null>(null) as Ref<Collection | null>
 
   watchEffect(() => {
-    if (relationshipField && typeof relationshipField !== 'string') {
-      doc.value = relationshipField
+    const fieldUnref = unref(field)
+
+    if (fieldUnref && typeof fieldUnref !== 'string') {
+      doc.value = fieldUnref
     }
   })
 

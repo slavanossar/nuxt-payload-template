@@ -19,14 +19,4 @@ declare global {
     xl?: string
     '2xl'?: string
   }
-
-  interface RichTextNode {
-    bold: boolean
-    children: RichTextNode[]
-    code: boolean
-    italic: boolean
-    text: string
-    type: string
-    url: string
-  }
 }

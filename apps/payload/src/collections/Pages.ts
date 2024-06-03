@@ -27,9 +27,6 @@ const Pages: CollectionConfig = {
       return user.role === 'admin'
     },
     read: () => true,
-    update: ({ req: { user } }) => {
-      return user
-    },
     delete: ({ req: { user } }) => {
       return user.role === 'admin'
     },

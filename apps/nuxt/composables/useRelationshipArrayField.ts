@@ -1,4 +1,4 @@
-export function useRelationshipFieldArray<Collection>(
+export function useRelationshipArrayField<Collection>(
   field: MaybeRef<(string | Collection)[] | null | undefined>,
 ) {
   const docs = ref<Collection[]>([]) as Ref<Collection[]>

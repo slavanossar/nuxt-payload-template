@@ -16,9 +16,13 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   globals: {
-    site: Site;
+    settings: Setting;
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "images".
+ */
 export interface Image {
   id: string;
   description?: string | null;
@@ -31,6 +35,8 @@ export interface Image {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
   sizes?: {
     xs?: {
       url?: string | null;
@@ -98,6 +104,10 @@ export interface Image {
     };
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
 export interface Page {
   id: string;
   homeFields?: {
@@ -109,9 +119,14 @@ export interface Page {
     image?: string | Image | null;
   };
   template: 'Home';
+  route?: string | null;
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
   id: string;
   fullName?: string | null;
@@ -127,6 +142,10 @@ export interface User {
   lockUntil?: string | null;
   password: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos".
+ */
 export interface Video {
   id: string;
   blurhash?: string | null;
@@ -138,7 +157,13 @@ export interface Video {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
 export interface PayloadPreference {
   id: string;
   user: {
@@ -158,6 +183,10 @@ export interface PayloadPreference {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
 export interface PayloadMigration {
   id: string;
   name?: string | null;
@@ -165,13 +194,12 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
-export interface Site {
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
   id: string;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: string | Image | null;
-  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }

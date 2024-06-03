@@ -1,7 +1,7 @@
 #import "@/graphql/fragments/Image.gql"
 
 query GetGlobals {
-  Site {
+  Settings {
     meta {
       title
       description

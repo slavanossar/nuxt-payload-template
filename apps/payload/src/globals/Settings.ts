@@ -1,8 +1,8 @@
 import type { GlobalConfig } from 'payload/types'
 
-const Site: GlobalConfig = {
-  slug: 'site',
-  label: 'Site',
+const Settings: GlobalConfig = {
+  slug: 'settings',
+  label: 'Settings',
   access: {
     read: (_) => true,
   },
@@ -14,4 +14,4 @@ const Site: GlobalConfig = {
   ],
 }
 
-export default Site
+export default Settings

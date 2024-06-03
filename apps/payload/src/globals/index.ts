@@ -1,1 +1,1 @@
-export { default as Site } from './Site'
+export { default as Settings } from './Settings'

@@ -200,6 +200,11 @@ export interface PayloadMigration {
  */
 export interface Settings {
   id: string;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: string | Image | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }

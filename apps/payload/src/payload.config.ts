@@ -57,7 +57,7 @@ export default buildConfig({
   plugins: [
     seo({
       collections: ['pages'],
-      globals: ['site'],
+      globals: ['settings'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
       tabbedUI: true,

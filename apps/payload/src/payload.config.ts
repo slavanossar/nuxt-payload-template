@@ -2,8 +2,9 @@ import path from 'path'
 
 import { buildConfig } from 'payload/config'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { slateEditor } from '@payloadcms/richtext-slate'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
+
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import seo from '@payloadcms/plugin-seo'
 import computeBlurhash from 'payload-blurhash-plugin'
@@ -33,7 +34,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: `mongodb://0.0.0.0/${process.env.DATABASE_NAME}`,
   }),
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   collections: Object.values(collections),
   globals: Object.values(globals),
   routes: {

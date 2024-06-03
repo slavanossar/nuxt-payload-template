@@ -1,3 +1,12 @@
+import {
+  lexicalEditor,
+  BoldTextFeature,
+  ItalicTextFeature,
+  ParagraphFeature,
+  LinkFeature,
+} from '@payloadcms/richtext-lexical'
+import type { FeatureProvider } from '@payloadcms/richtext-lexical'
+
 /**
  * Helpers
  */
@@ -42,3 +51,19 @@ export const livePreviewBreakpoints = [
     height: 960,
   },
 ]
+
+/**
+ * Rich Text
+ */
+// TODO: Add FixedToolbarFeature after upgrading to Payload V3
+export const createBaseLexicalEditor = (features: FeatureProvider[] = []) => {
+  return lexicalEditor({
+    features: [
+      BoldTextFeature(),
+      ItalicTextFeature(),
+      ParagraphFeature(),
+      LinkFeature({}),
+      ...features,
+    ],
+  })
+}

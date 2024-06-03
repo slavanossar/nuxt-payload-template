@@ -1,14 +1,14 @@
-import type { Field } from 'payload/types'
+import type { UploadField } from 'payload/types'
 
 function image({
   name = 'image',
-  label = 'Image',
+  label = '',
   required = false,
   admin = {},
-} = {}): Field {
+} = {}): UploadField {
   return {
     name,
-    label,
+    ...(label && { label }),
     type: 'upload',
     relationTo: 'images',
     required,

@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import * as PageTemplates from '../pages'
-import { livePreviewBreakpoints } from '../util'
+import { livePreviewBreakpoints } from '../utils'
 
 const Pages: CollectionConfig = {
   slug: 'pages',

@@ -63,6 +63,28 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'route',
+      type: 'text',
+      hidden: true,
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            delete siblingData['route']
+          },
+        ],
+        afterRead: [
+          ({ data }) => {
+            switch (data.template) {
+              case 'Home':
+                return '/'
+              default:
+                return '/'
+            }
+          },
+        ],
+      },
+    },
   ],
 }
 

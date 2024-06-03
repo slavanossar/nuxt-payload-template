@@ -57,7 +57,7 @@ export const PageFragmentDoc = gql`
     ${ImageFragmentDoc}`;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
-  Site {
+  Settings {
     meta {
       title
       description

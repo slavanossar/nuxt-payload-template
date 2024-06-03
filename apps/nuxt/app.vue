@@ -7,7 +7,6 @@
 <script lang="ts" setup>
 import type { UseSeoMetaInput } from '@unhead/vue'
 
-import type { Image } from '#payload/types'
 import { useGlobalsStore } from '@/stores/globals'
 import { theme } from '#tailwind-config'
 
@@ -28,14 +27,14 @@ const seoMeta: UseSeoMetaInput = {
 seoMeta.title =
   seoMeta.ogTitle =
   seoMeta.twitterTitle =
-    globalsStore.site?.meta?.title || config.public.siteName
+    globalsStore.settings?.meta?.title || config.public.siteName
 
 seoMeta.description =
   seoMeta.ogDescription =
   seoMeta.twitterDescription =
-    globalsStore.site?.meta?.description || ''
+    globalsStore.settings?.meta?.description || ''
 
-const opengraphImage = useRelationshipField(globalsStore.site?.meta?.image)
+const opengraphImage = useRelationshipField(globalsStore.settings?.meta?.image)
 
 if (opengraphImage.value?.sizes?.opengraph?.url) {
   seoMeta.ogImage = opengraphImage.value.sizes.opengraph.url
@@ -43,7 +42,7 @@ if (opengraphImage.value?.sizes?.opengraph?.url) {
 
 useSeoMeta(seoMeta)
 
-const title = globalsStore.site?.meta?.title || config.public.siteName
+const title = globalsStore.settings?.meta?.title || config.public.siteName
 const themeColour = theme.colors.black
 
 /**

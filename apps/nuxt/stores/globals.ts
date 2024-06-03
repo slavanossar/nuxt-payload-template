@@ -1,25 +1,25 @@
 import { defineStore } from 'pinia'
 
-import type { Site } from '#payload/types'
+import type { Settings } from '#payload/types'
 import { GetGlobalsDocument } from '@/graphql'
 
 interface GlobalQueryResult {
-  Site: Site
+  Settings: Settings
 }
 
 export const useGlobalsStore = defineStore('globals', () => {
-  const site = ref<Site | undefined>()
+  const settings = ref<Settings | null>(null)
 
   function load() {
     return useAsyncQuery<GlobalQueryResult>(GetGlobalsDocument).then(
       ({ data }) => {
-        site.value = data.value.Site
+        settings.value = data.value?.Settings || null
       },
     )
   }
 
   return {
-    site,
+    settings,
     load,
   }
 })

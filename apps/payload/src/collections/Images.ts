@@ -53,7 +53,6 @@ const Images: CollectionConfig = {
   fields: [
     {
       name: 'description',
-      label: 'Description',
       type: 'text',
       admin: {
         description:

@@ -47,7 +47,6 @@ const Pages: CollectionConfig = {
     },
     {
       name: 'template',
-      label: 'Template',
       type: 'select',
       required: true,
       unique: true,

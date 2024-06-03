@@ -2,7 +2,6 @@ import type { GlobalConfig } from 'payload/types'
 
 const Settings: GlobalConfig = {
   slug: 'settings',
-  label: 'Settings',
   typescript: {
     interface: 'Settings',
   },

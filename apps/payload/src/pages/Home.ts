@@ -10,7 +10,6 @@ const Home: Field = {
   fields: [
     {
       name: 'myTextField',
-      label: 'My Text Field',
       type: 'text',
     },
   ],

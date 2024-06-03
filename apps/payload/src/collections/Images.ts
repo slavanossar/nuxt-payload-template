@@ -18,7 +18,7 @@ const Images: CollectionConfig = {
     plural: 'Images',
   },
   access: {
-    read: (_) => true,
+    read: () => true,
   },
   admin: {
     group: 'Media',

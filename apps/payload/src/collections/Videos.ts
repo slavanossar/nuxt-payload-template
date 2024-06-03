@@ -7,7 +7,7 @@ const Videos: CollectionConfig = {
     plural: 'Videos',
   },
   access: {
-    read: (_) => true,
+    read: () => true,
   },
   admin: {
     enableRichTextRelationship: false,

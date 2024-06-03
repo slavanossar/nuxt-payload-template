@@ -18,15 +18,15 @@
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
-    "turbo": "^1.12.5"
+    "turbo": "^1.13.3"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "packageManager": "pnpm@7.25.0",
   "dependencies": {
-    "dotenv-cli": "^7.4.1",
-    "prettier": "^3.2.5"
+    "dotenv-cli": "^7.4.2",
+    "prettier": "^3.3.0"
   },
   "resolutions": {
     "sharp": "latest"

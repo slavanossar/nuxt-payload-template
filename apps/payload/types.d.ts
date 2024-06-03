@@ -16,7 +16,7 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   globals: {
-    settings: Setting;
+    settings: Settings;
   };
 }
 /**
@@ -198,7 +198,7 @@ export interface PayloadMigration {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
  */
-export interface Setting {
+export interface Settings {
   id: string;
   updatedAt?: string | null;
   createdAt?: string | null;

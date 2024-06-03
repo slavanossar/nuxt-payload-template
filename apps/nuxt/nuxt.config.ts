@@ -86,7 +86,4 @@ export default defineNuxtConfig({
   build: {
     transpile: ['graphql'],
   },
-  future: {
-    typescriptBundlerResolution: false,
-  },
 })

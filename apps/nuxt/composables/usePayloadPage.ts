@@ -1,6 +1,6 @@
-import type { DocumentNode } from 'graphql'
 import type { UseSeoMetaInput } from '@unhead/vue'
 import type { Page } from '#payload/types'
+import { GetPageDocument } from '@/graphql'
 import { useGlobalsStore } from '@/stores/globals'
 
 interface PageQueryResult {
@@ -9,14 +9,16 @@ interface PageQueryResult {
   }
 }
 
-export default async function (query: DocumentNode) {
+export default async function (template: Page['template']) {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
   const doc = ref<Page | null>(null)
 
-  const { data } = await useAsyncQuery<PageQueryResult>(query)
+  const { data } = await useAsyncQuery<PageQueryResult>(GetPageDocument, {
+    template,
+  })
 
   if (data.value?.Pages?.docs.length) {
     doc.value = data.value.Pages?.docs[0]
@@ -27,7 +29,7 @@ export default async function (query: DocumentNode) {
     seoMeta.title = docMeta?.title || seoMeta.title
 
     seoMeta.ogTitle = seoMeta.twitterTitle = `${seoMeta.title} | ${
-      globalsStore.site?.meta?.title || config.public.siteName
+      globalsStore.settings?.meta?.title || config.public.siteName
     }`
 
     if (docMeta?.description) {

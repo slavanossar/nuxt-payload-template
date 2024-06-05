@@ -68,9 +68,16 @@ export const GetGlobalsDocument = gql`
   }
 }
     ${ImageFragmentDoc}`;
-export const GetHomePageDocument = gql`
-    query GetHomePage {
-  Pages(where: {template: {equals: Home}}) {
+export const GetImageDocument = gql`
+    query GetImage($id: String!) {
+  Image(id: $id) {
+    ...Image
+  }
+}
+    ${ImageFragmentDoc}`;
+export const GetPageDocument = gql`
+    query GetPage($template: Page_template_Input) {
+  Pages(where: {template: {equals: $template}}) {
     docs {
       ...Page
       homeFields {
@@ -80,10 +87,3 @@ export const GetHomePageDocument = gql`
   }
 }
     ${PageFragmentDoc}`;
-export const GetImageDocument = gql`
-    query GetImage($id: String!) {
-  Image(id: $id) {
-    ...Image
-  }
-}
-    ${ImageFragmentDoc}`;

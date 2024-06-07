@@ -15,7 +15,6 @@
 import type { PayloadImageProps } from './types'
 
 const props = withDefaults(defineProps<PayloadImageProps>(), {
-  aspectRatio: 'auto',
   lazy: false,
   sizes: () => ({
     default: '100vw',
@@ -23,7 +22,7 @@ const props = withDefaults(defineProps<PayloadImageProps>(), {
 })
 
 const image = useRelationshipField(toRef(props, 'image'))
-const srcset = useAspectRatioSrcset(image, props.aspectRatio)
+const srcset = useSrcset(image)
 const sizes = srcsetSizesToAttribute(props.sizes)
 
 const root = ref<HTMLImageElement | null>(null)

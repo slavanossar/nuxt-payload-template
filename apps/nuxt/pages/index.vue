@@ -3,8 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-// import { GetHomePageDocument } from '@/graphql'
-
-// const initialData = await usePayloadPage(GetHomePageDocument)
+// const initialData = await usePayloadPage('Home')
 // const { data: doc } = useLivePreview({ initialData })
 </script>

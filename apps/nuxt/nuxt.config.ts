@@ -20,6 +20,7 @@ const payloadProxyRoutes = [
 const payloadUrl = `http://localhost:${PAYLOAD_PUBLIC_PORT}`
 
 export default defineNuxtConfig({
+  compatibilityDate: '2024-09-12',
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' },
     pageTransition: { name: 'page', mode: 'out-in' },

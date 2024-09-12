@@ -24,6 +24,7 @@
     "dashify": "^2.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "graphql": "16.8.1",
     "payload": "^2.28.0",
     "payload-blurhash-plugin": "^2.0.2"
   },

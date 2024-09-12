@@ -133,6 +133,9 @@ importers:
       express:
         specifier: ^4.21.0
         version: 4.21.0
+      graphql:
+        specifier: 16.8.1
+        version: 16.8.1
       payload:
         specifier: ^2.28.0
         version: 2.28.0(typescript@5.4.5)(webpack@5.94.0(@swc/core@1.6.1)(webpack-cli@4.10.0))
@@ -13975,7 +13978,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
       upper-case-first: 2.0.2
 
   chalk@2.4.2:
@@ -14281,7 +14284,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
       upper-case: 2.0.2
 
   content-disposition@0.5.4:
@@ -14750,7 +14753,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   dot-prop@6.0.1:
     dependencies:
@@ -15994,7 +15997,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   help-me@5.0.0: {}
 
@@ -17206,7 +17209,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   node-addon-api@7.1.1: {}
 
@@ -17812,7 +17815,7 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   passport-anonymous@1.0.1:
     dependencies:
@@ -17845,7 +17848,7 @@ snapshots:
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   path-exists@3.0.0: {}
 
@@ -19194,7 +19197,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
       upper-case-first: 2.0.2
 
   serialize-javascript@6.0.2:
@@ -19373,7 +19376,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   socks@2.8.3:
     dependencies:

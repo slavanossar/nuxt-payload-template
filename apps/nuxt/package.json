@@ -28,28 +28,28 @@
     "@graphql-codegen/typescript-vue-apollo": "^4.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
-    "eslint": "^9.9.0",
+    "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "husky": "^9.1.4",
-    "lint-staged": "^15.2.8",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "typescript": "^5.4.5"
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.14",
     "@nuxtjs/seo": "2.0.0-rc.18",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@payloadcms/live-preview": "^0.2.2",
-    "@pinia/nuxt": "^0.5.3",
+    "@pinia/nuxt": "^0.5.4",
     "@types/escape-html": "^1.0.4",
     "@vueuse/core": "^10.11.1",
     "@vueuse/nuxt": "^10.11.1",
     "dotenv": "^16.4.5",
     "escape-html": "^1.0.3",
-    "nuxt": "^3.12.4",
-    "pinia": "^2.2.1"
+    "nuxt": "^3.13.1",
+    "pinia": "^2.2.2"
   }
 }

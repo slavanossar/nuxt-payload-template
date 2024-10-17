@@ -44,7 +44,6 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@payloadcms/live-preview": "^0.2.2",
     "@pinia/nuxt": "^0.5.5",
-    "@types/escape-html": "^1.0.4",
     "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^11.1.0",
     "dotenv": "^16.4.5",

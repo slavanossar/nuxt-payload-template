@@ -24,32 +24,32 @@
     "*": "prettier -w -u"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript-vue-apollo": "^4.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
-    "eslint": "^9.10.0",
+    "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "typescript": "^5.6.2"
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.14",
     "@nuxtjs/seo": "2.0.0-rc.21",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@payloadcms/live-preview": "^0.2.2",
-    "@pinia/nuxt": "^0.5.4",
+    "@pinia/nuxt": "^0.5.5",
     "@types/escape-html": "^1.0.4",
-    "@vueuse/core": "^11.0.3",
-    "@vueuse/nuxt": "^11.0.3",
+    "@vueuse/core": "^11.1.0",
+    "@vueuse/nuxt": "^11.1.0",
     "dotenv": "^16.4.5",
     "escape-html": "^1.0.3",
-    "nuxt": "^3.13.1",
-    "pinia": "^2.2.2"
+    "nuxt": "^3.13.2",
+    "pinia": "^2.2.4"
   }
 }

@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.14",
-    "@nuxtjs/seo": "2.0.0-rc.21",
+    "@nuxtjs/seo": "2.0.0-rc.23",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@payloadcms/live-preview": "^0.2.2",
     "@pinia/nuxt": "^0.5.5",

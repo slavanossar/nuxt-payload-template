@@ -2,16 +2,10 @@
   "name": "nuxt",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
-    "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js",
-    "generate:schema": "node ./graphql/schemaQuery.mjs",
-    "generate": "npm run generate:types && npm run generate:schema",
     "lint": "eslint --ext .js,.ts,.vue ."
   },
   "husky": {
@@ -24,8 +18,6 @@
     "*": "prettier -w -u"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.3",
-    "@graphql-codegen/typescript-vue-apollo": "^4.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "eslint": "^9.14.0",
@@ -39,7 +31,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "5.0.0-alpha.14",
     "@nuxtjs/seo": "2.0.0-rc.23",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@payloadcms/live-preview": "^0.2.2",

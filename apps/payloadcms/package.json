@@ -1,0 +1,39 @@
+{
+  "name": "payloadcms",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/server.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate": "cross-env NODE_OPTIONS=--no-deprecation pnpm run generate:importmap && cross-env NODE_OPTIONS=--no-deprecation pnpm run generate:types",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@payloadcms/db-mongodb": "beta",
+    "@payloadcms/plugin-seo": "3.0.0-beta.126",
+    "@payloadcms/richtext-lexical": "beta",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "next": "15.0.0",
+    "payload": "beta",
+    "payload-blurhash-plugin": "^3.0.1",
+    "react": "19.0.0-rc-65a56d0e-20241020",
+    "react-dom": "19.0.0-rc-65a56d0e-20241020",
+    "sharp": "0.32.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.0",
+    "typescript": "5.6.3"
+  }
+}

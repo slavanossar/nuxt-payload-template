@@ -1,13 +1,5 @@
 import type { UseSeoMetaInput } from '@unhead/vue'
-import type { Page } from '#payload/types'
-import { GetPageDocument } from '@/graphql'
-import { useGlobalsStore } from '@/stores/globals'
-
-interface PageQueryResult {
-  Pages: {
-    docs: Page[]
-  }
-}
+import type { Page } from '#payload/payload-types'
 
 export default async function (template: Page['template']) {
   const nuxtApp = useNuxtApp()
@@ -16,13 +8,9 @@ export default async function (template: Page['template']) {
 
   const doc = ref<Page | null>(null)
 
-  const { data } = await useAsyncQuery<PageQueryResult>(GetPageDocument, {
-    template,
-  })
+  doc.value = await $fetch(`/api-nuxt/payload/pages/${template}`)
 
-  if (data.value?.Pages?.docs.length) {
-    doc.value = data.value.Pages?.docs[0]
-
+  if (doc.value) {
     const docMeta = doc.value.meta
     const seoMeta: UseSeoMetaInput = { title: doc.value.template }
 

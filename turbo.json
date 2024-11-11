@@ -15,7 +15,7 @@
       "outputs": [".output/**"],
       "env": ["NITRO_HOST", "NITRO_PORT"]
     },
-    "payload#build": {
+    "payloadcms#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
       "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
@@ -27,7 +27,7 @@
     "generate": {
       "cache": false
     },
-    "payload#generate": {
+    "payloadcms#generate": {
       "outputs": ["types.d.ts"]
     },
     "nuxt#generate": {

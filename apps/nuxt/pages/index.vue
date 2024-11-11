@@ -1,8 +1,10 @@
 <template>
-  <div />
+  <div v-if="fields">
+    <p v-text="fields.myTextField" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-// const initialData = await usePayloadPage('Home')
-// const { data: doc } = useLivePreview({ initialData })
+const doc = await usePayloadPage('Home')
+const fields = doc.value?.homeFields
 </script>

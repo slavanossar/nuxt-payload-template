@@ -1,11 +1,10 @@
 import { resolve } from 'path'
-import possibleTypes from './graphql/possibleTypes.json'
 
 const {
   NODE_ENV,
   PAYLOAD_PUBLIC_SITE_NAME,
   PAYLOAD_PUBLIC_SITE_URL,
-  PAYLOAD_PUBLIC_PORT,
+  PORT,
   PAYLOAD_PUBLIC_API_ROUTE,
   PAYLOAD_PUBLIC_UPLOAD_ROUTE,
 } = process.env
@@ -17,7 +16,7 @@ const payloadProxyRoutes = [
   PAYLOAD_PUBLIC_API_ROUTE,
   PAYLOAD_PUBLIC_UPLOAD_ROUTE,
 ]
-const payloadUrl = `http://localhost:${PAYLOAD_PUBLIC_PORT}`
+const payloadUrl = `http://localhost:${PORT}`
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-09-12',
@@ -29,21 +28,11 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxtjs/apollo',
     '@nuxtjs/seo',
     '@vueuse/nuxt',
   ],
   alias: {
-    '#payload': resolve(__dirname, '../payload'),
-  },
-  apollo: {
-    clients: {
-      default: {
-        httpEndpoint: `${PAYLOAD_PUBLIC_SITE_URL}${PAYLOAD_PUBLIC_API_ROUTE}/graphql`,
-        inMemoryCacheOptions: { possibleTypes },
-        connectToDevTools: isDev,
-      },
-    },
+    '#payload': resolve(__dirname, '../payloadcms'),
   },
   robots: {
     disallow: ['/admin', '/api', '/_payload'],
@@ -69,22 +58,22 @@ export default defineNuxtConfig({
       isDev,
     },
   },
-  nitro: {
-    devProxy: {
-      ...payloadProxyRoutes.reduce((routeRules, route) => {
-        return {
-          ...routeRules,
-          [route]: `${payloadUrl}${route}`,
-        }
-      }, {}),
-      // Websockets currently unsupported https://github.com/unjs/nitro/issues/678
-      // '/__webpack_hmr': {
-      //   target: `${payloadUrl}/__webpack_hmr`,
-      //   ws: true,
-      // },
-    },
-  },
+  // nitro: {
+  //   devProxy: {
+  //     ...payloadProxyRoutes.reduce((routeRules, route) => {
+  //       return {
+  //         ...routeRules,
+  //         [route]: `${payloadUrl}${route}`,
+  //       }
+  //     }, {}),
+  //     // Websockets currently unsupported https://github.com/unjs/nitro/issues/678
+  //     // '/__webpack_hmr': {
+  //     //   target: `${payloadUrl}/__webpack_hmr`,
+  //     //   ws: true,
+  //     // },
+  //   },
+  // },
   build: {
-    transpile: ['graphql'],
+    transpile: [],
   },
 })

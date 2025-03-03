@@ -1,19 +1,9 @@
 import type { UploadField } from 'payload'
 
-function image({
-  name = 'image',
-  label = '',
-  required = false,
-  admin = {},
-} = {}): UploadField {
-  return {
-    name,
-    ...(label && { label }),
-    type: 'upload',
-    relationTo: 'images',
-    required,
-    admin,
-  }
+const image: UploadField = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'images',
 }
 
 export default image

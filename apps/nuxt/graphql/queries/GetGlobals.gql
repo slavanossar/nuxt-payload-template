@@ -1,0 +1,13 @@
+#import "@/graphql/fragments/Image.gql"
+
+query GetGlobals {
+  Settings {
+    meta {
+      title
+      description
+      image {
+        ...Image
+      }
+    }
+  }
+}

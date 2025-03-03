@@ -6,14 +6,71 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
-    users: UserAuthOperations;
+    staff: StaffAuthOperations;
   };
+  blocks: {};
   collections: {
     images: Image;
     pages: Page;
-    users: User;
+    svgs: SVG;
+    staff: Staff;
+    videoThumbnails: VideoThumbnail;
     videos: Video;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -23,7 +80,9 @@ export interface Config {
   collectionsSelect: {
     images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
+    svgs: SvgsSelect<false> | SvgsSelect<true>;
+    staff: StaffSelect<false> | StaffSelect<true>;
+    videoThumbnails: VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -39,15 +98,15 @@ export interface Config {
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
+  user: Staff & {
+    collection: 'staff';
   };
-  jobs?: {
+  jobs: {
     tasks: unknown;
-    workflows?: unknown;
+    workflows: unknown;
   };
 }
-export interface UserAuthOperations {
+export interface StaffAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -71,8 +130,11 @@ export interface UserAuthOperations {
  */
 export interface Image {
   id: string;
+  title: string;
+  /**
+   * For vision-impaired users with screen readers, this is more descriptive than a caption.
+   */
   description?: string | null;
-  blurhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -157,28 +219,53 @@ export interface Image {
  */
 export interface Page {
   id: string;
-  homeFields?: {
+  homeTemplateFields?: {
     myTextField?: string | null;
   };
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Image;
   };
+  /**
+   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
+   */
   template: 'Home';
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "svgs".
  */
-export interface User {
+export interface SVG {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff".
+ */
+export interface Staff {
   id: string;
   firstName: string;
   lastName: string;
   fullName?: string | null;
-  role: 'admin' | 'editor';
+  role: 'super_admin' | 'admin' | 'sales';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -192,11 +279,41 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videoThumbnails".
+ */
+export interface VideoThumbnail {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos".
  */
 export interface Video {
   id: string;
-  blurhash?: string | null;
+  title: string;
+  thumbnail: string | VideoThumbnail;
+  adminThumbnailURL: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -225,8 +342,16 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'svgs';
+        value: string | SVG;
+      } | null)
+    | ({
+        relationTo: 'staff';
+        value: string | Staff;
+      } | null)
+    | ({
+        relationTo: 'videoThumbnails';
+        value: string | VideoThumbnail;
       } | null)
     | ({
         relationTo: 'videos';
@@ -234,8 +359,8 @@ export interface PayloadLockedDocument {
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
-    value: string | User;
+    relationTo: 'staff';
+    value: string | Staff;
   };
   updatedAt: string;
   createdAt: string;
@@ -247,8 +372,8 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
-    value: string | User;
+    relationTo: 'staff';
+    value: string | Staff;
   };
   key?: string | null;
   value?:
@@ -279,8 +404,8 @@ export interface PayloadMigration {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  title?: T;
   description?: T;
-  blurhash?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -382,7 +507,7 @@ export interface ImagesSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  homeFields?:
+  homeTemplateFields?:
     | T
     | {
         myTextField?: T;
@@ -390,11 +515,9 @@ export interface PagesSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   template?: T;
   updatedAt?: T;
@@ -402,9 +525,27 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "svgs_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface SvgsSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff_select".
+ */
+export interface StaffSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   fullName?: T;
@@ -421,10 +562,43 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videoThumbnails_select".
+ */
+export interface VideoThumbnailsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos_select".
  */
 export interface VideosSelect<T extends boolean = true> {
-  blurhash?: T;
+  title?: T;
+  thumbnail?: T;
+  adminThumbnailURL?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -478,6 +652,9 @@ export interface Settings {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Image;
   };
   updatedAt?: string | null;
@@ -491,11 +668,9 @@ export interface SettingsSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   updatedAt?: T;
   createdAt?: T;

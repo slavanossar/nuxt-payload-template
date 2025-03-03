@@ -1,4 +1,8 @@
-import type { CollectionConfig, ImageUploadFormatOptions } from 'payload'
+import { uploadTitle } from '@payload/fields'
+import { hashFilename } from '@payload/hooks'
+
+import type { CollectionConfig, ImageSize } from 'payload'
+import type { Image } from 'payload-types'
 
 const sizes = {
   xs: 320,
@@ -12,26 +16,26 @@ const sizes = {
 
 const Images: CollectionConfig = {
   slug: 'images',
-  labels: {
-    singular: 'Image',
-    plural: 'Images',
-  },
   access: {
-    read: () => true,
+    read: (_) => true,
   },
   admin: {
-    group: 'Media',
+    group: '📷 Media',
+    useAsTitle: 'title',
+    defaultColumns: ['filename', 'title', 'updatedAt'],
   },
   upload: {
-    staticDir: '../uploads/images',
-    adminThumbnail: 'xs',
+    staticDir: 'uploads/images',
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    adminThumbnail: ({ doc }) =>
+      (doc as unknown as Image).sizes?.xs?.url || null,
     imageSizes: [
-      ...Object.entries(sizes).map(([name, width]) => {
+      ...Object.entries(sizes).map<ImageSize>(([name, width]) => {
         return {
           name,
           width,
           formatOptions: {
-            format: 'jpeg' as ImageUploadFormatOptions['format'],
+            format: 'jpeg',
           },
         }
       }),
@@ -39,11 +43,22 @@ const Images: CollectionConfig = {
         name: 'opengraph',
         width: 1200,
         height: 630,
+        withoutEnlargement: false,
+        formatOptions: {
+          format: 'jpeg',
+          options: {
+            quality: 90,
+            force: true,
+          },
+        },
       },
     ],
-    mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+  },
+  hooks: {
+    beforeOperation: [hashFilename],
   },
   fields: [
+    uploadTitle,
     {
       name: 'description',
       type: 'text',

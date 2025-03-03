@@ -2,6 +2,9 @@ import type { GlobalConfig } from 'payload'
 
 const Settings: GlobalConfig = {
   slug: 'settings',
+  graphQL: {
+    name: 'Settings',
+  },
   typescript: {
     interface: 'Settings',
   },

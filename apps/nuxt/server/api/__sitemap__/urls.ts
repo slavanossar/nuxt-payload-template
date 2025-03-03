@@ -1,4 +1,4 @@
-// import type { Entry } from '#payload/types'
+// import type { Entry } from '#payload-types'
 
 // interface Entries {
 //   docs: Entry[]

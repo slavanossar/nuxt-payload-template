@@ -7,8 +7,8 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+import { s3Storage } from '@payloadcms/storage-s3'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import blurhash from 'payload-blurhash-plugin'
 
 import * as collections from './collections'
 import * as globals from './globals'
@@ -17,26 +17,26 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SITE_URL,
+  serverURL: process.env.NEXT_PUBLIC_SITE_URL,
   secret: process.env.PAYLOAD_SECRET,
   debug: process.env.NODE_ENV !== 'production',
   admin: {
+    avatar: 'default',
     components: {
       graphics: {
         Icon: {
-          path: 'src/graphics/Icon.tsx',
+          path: '@payload/graphics/Icon.tsx',
         },
         Logo: {
-          path: 'src/graphics/Logo.tsx',
+          path: '@payload/graphics/Logo.tsx',
         },
       },
     },
-    // css: path.resolve(__dirname, './styles.css'),
     meta: {
       // favicon: '/favicon/safari-pinned-tab.svg',
-      titleSuffix: `| ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
+      titleSuffix: `| ${process.env.SITE_NAME}`,
     },
-    user: collections.Users.slug,
+    user: collections.Staff.slug,
   },
   db: mongooseAdapter({
     url: `mongodb://0.0.0.0/${process.env.DATABASE_NAME}`,
@@ -44,35 +44,66 @@ export default buildConfig({
   editor: lexicalEditor({}),
   collections: Object.values(collections),
   globals: Object.values(globals),
-  graphQL: {
-    disable: true,
+  routes: {
+    api: process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE,
   },
-  // routes: {
-  //   api: process.env.PAYLOAD_PUBLIC_API_ROUTE,
-  // },
   sharp,
   typescript: {
     outputFile: path.resolve(__dirname, '../payload-types.d.ts'),
   },
-  // rateLimit: {
-  //   trustProxy: true,
-  //   skip(req) {
-  //     return req.user
-  //   },
-  // },
   upload: {
     limits: {
-      fileSize: 20000000,
+      fileSize: 50000000,
     },
   },
   plugins: [
+    s3Storage({
+      enabled: false,
+      collections: {
+        images: {
+          disablePayloadAccessControl: true,
+          prefix: 'images',
+          generateFileURL: ({ filename, prefix }) => {
+            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
+          },
+        },
+        svgs: {
+          disablePayloadAccessControl: true,
+          prefix: 'svgs',
+          generateFileURL: ({ filename, prefix }) => {
+            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
+          },
+        },
+        videos: {
+          disablePayloadAccessControl: true,
+          prefix: 'videos',
+          generateFileURL: ({ filename, prefix }) => {
+            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
+          },
+        },
+        videoThumbnails: {
+          disablePayloadAccessControl: true,
+          prefix: 'video-thumbnails',
+          generateFileURL: ({ filename, prefix }) => {
+            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
+          },
+        },
+      },
+      bucket: process.env.S3_BUCKET,
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+        },
+        region: process.env.S3_REGION,
+      },
+    }),
     seoPlugin({
       collections: ['pages'],
       globals: ['settings'],
       uploadsCollection: 'images',
-      // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.PAYLOAD_PUBLIC_SITE_NAME}`,
+      // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.SITE_NAME}`,
       tabbedUI: true,
     }),
-    blurhash(),
   ],
 })

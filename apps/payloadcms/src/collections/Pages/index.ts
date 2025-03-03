@@ -1,35 +1,39 @@
+import { livePreviewBreakpoints } from '@payload/utils'
+import { isSuperAdmin } from '@payload/access'
+import * as PageTemplates from './templates'
+
 import type { CollectionConfig } from 'payload'
-import * as templates from './templates'
-// import { livePreviewBreakpoints } from '@/utils'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
-  labels: {
-    singular: 'Page',
-    plural: 'Pages',
-  },
   admin: {
     useAsTitle: 'template',
+    group: '📄 Content',
     defaultColumns: ['template', 'id'],
-    // livePreview: {
-    //   url: ({ data }) => {
-    //     if (data.template === 'Home') {
-    //       return process.env.PAYLOAD_PUBLIC_SITE_URL
-    //     } else {
-    //       return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${data.template.toLowerCase()}`
-    //     }
-    //   },
-    //   breakpoints: livePreviewBreakpoints,
-    // },
+    livePreview: {
+      url: ({ data }) => {
+        const url = new URL(process.env.NEXT_PUBLIC_SITE_URL)
+        url.searchParams.append('preview', 'true')
+
+        switch (data.template) {
+          case 'Home':
+            break
+          default:
+            url.pathname = `/${data.template.toLowerCase()}`
+            break
+        }
+
+        return url.toString()
+      },
+      breakpoints: livePreviewBreakpoints,
+    },
   },
+  defaultSort: 'template',
   access: {
-    create: ({ req: { user } }) => {
-      return user?.role === 'admin'
-    },
+    create: isSuperAdmin,
     read: () => true,
-    delete: ({ req: { user } }) => {
-      return user?.role === 'admin'
-    },
+    update: ({ req: { user } }) => !!user,
+    delete: isSuperAdmin,
   },
   versions: true,
   fields: [
@@ -38,7 +42,7 @@ const Pages: CollectionConfig = {
       tabs: [
         {
           label: 'Page',
-          fields: Object.values(templates),
+          fields: Object.values(PageTemplates),
         },
       ],
     },
@@ -52,7 +56,7 @@ const Pages: CollectionConfig = {
           return user?.role === 'admin'
         },
       },
-      options: Object.keys(templates),
+      options: Object.keys(PageTemplates),
       admin: {
         description:
           'A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.',

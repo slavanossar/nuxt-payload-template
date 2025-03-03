@@ -1,0 +1,43 @@
+.inline-code {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+  line-height: 1.2em;
+}
+
+[data-theme='dark'] .inline-code {
+  background-color: var(--color-base-850);
+}
+
+[data-theme='light'] .inline-code {
+  background-color: var(--color-base-50);
+}
+
+.thumbnail {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.thumbnail img[alt$='svg'] {
+  object-fit: contain;
+}
+
+[data-theme='dark'] .thumbnail img[alt$='svg'] {
+  filter: invert(1);
+}
+
+.upload-field-card--size-medium .thumbnail {
+  width: 80px;
+  height: 80px;
+}
+
+.upload--has-many__dragItem .thumbnail {
+  width: 64px;
+  height: 64px;
+}
+
+.step-nav__home,
+.step-nav__home svg {
+  width: 85px;
+  height: 24px;
+}

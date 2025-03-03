@@ -1,16 +1,18 @@
 import {
   lexicalEditor,
   BoldFeature,
+  FixedToolbarFeature,
   ItalicFeature,
-  ParagraphFeature,
   LinkFeature,
+  ParagraphFeature,
 } from '@payloadcms/richtext-lexical'
+
 import type { FeatureProviderServer } from '@payloadcms/richtext-lexical'
 
 /**
  * Helpers
  */
-export const getRelationshipID = <T extends { id: string }>(
+export const getRelationshipId = <T extends { id: string }>(
   field: string | T,
 ) => {
   return typeof field === 'string' ? field : field.id
@@ -55,14 +57,16 @@ export const livePreviewBreakpoints = [
 /**
  * Rich Text
  */
-// TODO: Add FixedToolbarFeature after upgrading to Payload V3
-export const createBaseLexicalEditor = (features: FeatureProviderServer[] = []) => {
+export const createBaseLexicalEditor = (
+  features: FeatureProviderServer[] = [],
+) => {
   return lexicalEditor({
     features: [
       BoldFeature(),
+      FixedToolbarFeature(),
       ItalicFeature(),
-      ParagraphFeature(),
       LinkFeature({}),
+      ParagraphFeature(),
       ...features,
     ],
   })

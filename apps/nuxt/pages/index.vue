@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-const doc = await usePayloadPage('Home')
-const fields = doc.value?.homeFields
+const initialData = await usePayloadPage('Home')
+const { data: doc } = useLivePreview({ initialData, depth: 1 })
+const fields = doc.value?.homeTemplateFields
 </script>

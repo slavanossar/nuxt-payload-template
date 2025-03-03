@@ -1,14 +1,31 @@
-import type { UseSeoMetaInput } from '@unhead/vue'
-import type { Page } from '#payload/payload-types'
+import { GetHomePageDocument } from '@/graphql'
 
-export default async function (template: Page['template']) {
+import type { UseSeoMetaInput } from '@unhead/vue'
+import type { DocumentNode } from 'graphql'
+import type { Page } from '#payload-types'
+
+interface PageQueryResult {
+  Pages: {
+    docs: Page[]
+  }
+}
+
+const pageTemplateQueries: Record<Page['template'], DocumentNode> = {
+  Home: GetHomePageDocument,
+}
+
+export const usePayloadPage = async (template: Page['template']) => {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
   const doc = ref<Page | null>(null)
 
-  doc.value = await $fetch(`/api-nuxt/payload/pages/${template}`)
+  const { data } = await useAsyncQuery<PageQueryResult>(
+    pageTemplateQueries[template],
+  )
+
+  doc.value = data.value?.Pages.docs[0] || null
 
   if (doc.value) {
     const docMeta = doc.value.meta
@@ -17,7 +34,7 @@ export default async function (template: Page['template']) {
     seoMeta.title = docMeta?.title || seoMeta.title
 
     seoMeta.ogTitle = seoMeta.twitterTitle = `${seoMeta.title} | ${
-      globalsStore.settings?.meta?.title || config.public.siteName
+      globalsStore.siteSettings?.meta?.title || config.public.siteName
     }`
 
     if (docMeta?.description) {

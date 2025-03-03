@@ -1,8 +1,7 @@
 import type { Field } from 'payload'
 
 const Home: Field = {
-  name: 'homeFields',
-  label: 'Home Fields',
+  name: 'homeTemplateFields',
   type: 'group',
   admin: {
     condition: (data) => data.template === 'Home',

@@ -1,6 +1,6 @@
-export function useRelationshipArrayField<Collection>(
+export const useRelationshipArrayField = <Collection>(
   field: MaybeRef<(string | Collection)[] | null | undefined>,
-) {
+) => {
   const docs = ref<Collection[]>([]) as Ref<Collection[]>
 
   watchEffect(() => {

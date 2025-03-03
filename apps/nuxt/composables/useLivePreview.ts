@@ -7,6 +7,7 @@ export const useLivePreview = <T>(props: {
   data: Ref<T>
   isLoading: Ref<boolean>
 } => {
+  const route = useRoute()
   const runtimeConfig = useRuntimeConfig()
   const serverURL = runtimeConfig.public.siteUrl
   const apiRoute = runtimeConfig.public.payloadApiRoute
@@ -22,23 +23,25 @@ export const useLivePreview = <T>(props: {
   }
 
   onMounted(() => {
-    const subscription = subscribe({
-      apiRoute,
-      callback: onChange,
-      depth,
-      initialData: unref(initialData),
-      serverURL,
-    })
+    if (route.query.preview) {
+      const subscription = subscribe({
+        apiRoute,
+        callback: onChange,
+        depth,
+        initialData: unref(initialData),
+        serverURL,
+      })
 
-    if (!hasSentReadyMessage.value) {
-      hasSentReadyMessage.value = true
+      if (!hasSentReadyMessage.value) {
+        hasSentReadyMessage.value = true
 
-      ready({ serverURL })
+        ready({ serverURL })
+      }
+
+      onUnmounted(() => {
+        unsubscribe(subscription)
+      })
     }
-
-    onUnmounted(() => {
-      unsubscribe(subscription)
-    })
   })
 
   return { data, isLoading }

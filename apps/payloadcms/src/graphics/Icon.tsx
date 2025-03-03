@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function () {
+  // Use app/(payload)/custom.scss to adjust icon size
   return (
     <svg
       width="85"

@@ -2,7 +2,7 @@
   <img
     v-if="image"
     ref="root"
-    class="block transition-opacity duration-500"
+    class="block w-full transition-opacity duration-500"
     :class="hasLoaded || !props.lazy ? '' : 'opacity-0'"
     :srcset="isPreloading ? srcset : ''"
     :sizes="sizes"
@@ -15,6 +15,7 @@
 import type { PayloadImageProps } from './types'
 
 const props = withDefaults(defineProps<PayloadImageProps>(), {
+  aspectRatio: 'auto',
   lazy: false,
   sizes: () => ({
     default: '100vw',
@@ -22,7 +23,7 @@ const props = withDefaults(defineProps<PayloadImageProps>(), {
 })
 
 const image = useRelationshipField(toRef(props, 'image'))
-const srcset = useSrcset(image)
+const srcset = useAspectRatioSrcset(image, props.aspectRatio)
 const sizes = srcsetSizesToAttribute(props.sizes)
 
 const root = ref<HTMLImageElement | null>(null)

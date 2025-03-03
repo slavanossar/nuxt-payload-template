@@ -5,7 +5,6 @@ export const ImageFragmentDoc = gql`
   description
   width
   height
-  blurhash
   sizes {
     xs {
       url
@@ -55,6 +54,29 @@ export const PageFragmentDoc = gql`
   template
 }
     ${ImageFragmentDoc}`;
+export const VideoThumbnailFragmentDoc = gql`
+    fragment VideoThumbnail on VideoThumbnail {
+  id
+  url
+  width
+  height
+  sizes {
+    thumbnail {
+      url
+      width
+    }
+  }
+}
+    `;
+export const VideoFragmentDoc = gql`
+    fragment Video on Video {
+  id
+  url
+  thumbnail {
+    ...VideoThumbnail
+  }
+}
+    ${VideoThumbnailFragmentDoc}`;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
   Settings {
@@ -68,19 +90,12 @@ export const GetGlobalsDocument = gql`
   }
 }
     ${ImageFragmentDoc}`;
-export const GetImageDocument = gql`
-    query GetImage($id: String!) {
-  Image(id: $id) {
-    ...Image
-  }
-}
-    ${ImageFragmentDoc}`;
-export const GetPageDocument = gql`
-    query GetPage($template: Page_template_Input) {
-  Pages(where: {template: {equals: $template}}) {
+export const GetHomePageDocument = gql`
+    query GetHomePage {
+  Pages(limit: 1, where: {template: {equals: Home}}) {
     docs {
       ...Page
-      homeFields {
+      homeTemplateFields {
         myTextField
       }
     }

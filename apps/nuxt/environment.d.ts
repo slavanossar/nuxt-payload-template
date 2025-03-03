@@ -3,10 +3,9 @@ declare namespace NodeJS {
     NODE_ENV: 'development' | 'production'
     NITRO_HOST: string
     NITRO_PORT: string
-    PAYLOAD_PUBLIC_SITE_NAME: string
-    PAYLOAD_PUBLIC_SITE_URL: string
-    PAYLOAD_PUBLIC_PORT: string
-    PAYLOAD_PUBLIC_API_ROUTE: string
-    PAYLOAD_PUBLIC_UPLOAD_ROUTE: string
+    SITE_NAME: string
+    NEXT_PUBLIC_SITE_URL: string
+    PORT: string
+    NEXT_PUBLIC_PAYLOAD_API_ROUTE: string
   }
 }

@@ -1,7 +1,7 @@
-import { CodegenConfig } from '@graphql-codegen/cli'
+import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
-  schema: `${process.env.PAYLOAD_PUBLIC_SITE_URL}${process.env.PAYLOAD_PUBLIC_API_ROUTE}/graphql`,
+  schema: `${process.env.NEXT_PUBLIC_SITE_URL}${process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
   documents: 'graphql/**/*.gql',
   generates: {
     './graphql/exports.d.ts': {

@@ -1,4 +1,4 @@
-import type { Image } from '#payload/types'
+import type { Image } from '#payload-types'
 
 export default function ({ sizes }: Image): string {
   return sizes

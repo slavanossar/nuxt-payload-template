@@ -8,14 +8,19 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "env": ["PAYLOAD_PUBLIC_SITE_NAME", "PAYLOAD_PUBLIC_SITE_URL", "PAYLOAD_PUBLIC_PORT", "PAYLOAD_PUBLIC_API_ROUTE", "PAYLOAD_PUBLIC_UPLOAD_ROUTE"]
+      "env": [
+        "SITE_NAME",
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_PORT",
+        "NEXT_PUBLIC_PAYLOAD_API_ROUTE"
+      ]
     },
     "nuxt#build": {
       "dependsOn": ["^build"],
       "outputs": [".output/**"],
       "env": ["NITRO_HOST", "NITRO_PORT"]
     },
-    "payload#build": {
+    "payloadcms#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
       "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
@@ -27,12 +32,15 @@
     "generate": {
       "cache": false
     },
-    "payload#generate": {
+    "payloadcms#generate": {
       "outputs": ["types.d.ts"]
     },
     "nuxt#generate": {
-      "dependsOn": ["payload#generate"],
+      "dependsOn": ["payloadcms#generate"],
       "outputs": ["graphql/index.js", "graphql/possibleTypes.json"]
+    },
+    "regenerate-image-sizes": {
+      "cache": false
     },
     "lint": {},
     "format": {}

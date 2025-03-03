@@ -1,0 +1,12 @@
+fragment VideoThumbnail on VideoThumbnail {
+  id
+  url
+  width
+  height
+  sizes {
+    thumbnail {
+      url
+      width
+    }
+  }
+}

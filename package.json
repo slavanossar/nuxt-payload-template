@@ -1,5 +1,5 @@
 {
-  "name": "nuxt3-payload-template",
+  "name": "nuxt-payload-template",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
@@ -10,25 +10,38 @@
     "build": "dotenv -- turbo run build",
     "start": "dotenv -- turbo run start",
     "generate": "dotenv -- turbo run generate",
+    "regenerate-image-sizes": "dotenv -- turbo run regenerate-image-sizes",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
-    "update": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payload",
-    "update-latest": "pnpm up --interactive --latest; pnpm up --interactive --latest --filter nuxt; pnpm up --interactive --latest --filter payload",
+    "update": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payloadcms",
+    "update-latest": "pnpm up --interactive --latest; pnpm up --interactive --latest --filter nuxt; pnpm up --interactive --latest --filter payloadcms",
     "configure-env": "configure-env"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
-    "turbo": "^1.13.4"
+    "dotenv-cli": "^7.4.4",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "turbo": "^1.13.4",
+    "typescript": "^5.6.3"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "packageManager": "pnpm@9.0.6",
   "dependencies": {
-    "dotenv-cli": "^7.4.2",
-    "prettier": "^3.3.3"
+    "graphql": "^16.10.0",
+    "prettier": "^3.5.1"
   },
-  "resolutions": {
-    "sharp": "latest"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "ffmpeg-static",
+      "sharp",
+      "vue-demi"
+    ]
   }
 }

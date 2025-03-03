@@ -4,6 +4,7 @@
 @import 'tailwindcss/components';
 
 @import 'tailwindcss/utilities';
+@import './utilities/layout.css';
 
 .layout-enter-active,
 .layout-leave-active,

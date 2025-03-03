@@ -1,0 +1,9 @@
+#import "@/graphql/fragments/VideoThumbnail.gql"
+
+fragment Video on Video {
+  id
+  url
+  thumbnail {
+    ...VideoThumbnail
+  }
+}

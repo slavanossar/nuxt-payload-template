@@ -1,7 +1,8 @@
+import { GetHomePageDocument } from '@/graphql'
+
 import type { UseSeoMetaInput } from '@unhead/vue'
-import type { Page } from '#payload/types'
-import { GetPageDocument } from '@/graphql'
-import { useGlobalsStore } from '@/stores/globals'
+import type { DocumentNode } from 'graphql'
+import type { Page } from '#payload-types'
 
 interface PageQueryResult {
   Pages: {
@@ -9,27 +10,31 @@ interface PageQueryResult {
   }
 }
 
-export default async function (template: Page['template']) {
+const pageTemplateQueries: Record<Page['template'], DocumentNode> = {
+  Home: GetHomePageDocument,
+}
+
+export const usePayloadPage = async (template: Page['template']) => {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
   const doc = ref<Page | null>(null)
 
-  const { data } = await useAsyncQuery<PageQueryResult>(GetPageDocument, {
-    template,
-  })
+  const { data } = await useAsyncQuery<PageQueryResult>(
+    pageTemplateQueries[template],
+  )
 
-  if (data.value?.Pages?.docs.length) {
-    doc.value = data.value.Pages?.docs[0]
+  doc.value = data.value?.Pages.docs[0] || null
 
+  if (doc.value) {
     const docMeta = doc.value.meta
     const seoMeta: UseSeoMetaInput = { title: doc.value.template }
 
     seoMeta.title = docMeta?.title || seoMeta.title
 
     seoMeta.ogTitle = seoMeta.twitterTitle = `${seoMeta.title} | ${
-      globalsStore.settings?.meta?.title || config.public.siteName
+      globalsStore.siteSettings?.meta?.title || config.public.siteName
     }`
 
     if (docMeta?.description) {

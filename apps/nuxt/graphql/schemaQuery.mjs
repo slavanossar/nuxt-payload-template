@@ -7,7 +7,7 @@ config()
 console.log('Generating GraphQL possibleTypes...')
 
 fetch(
-  `${process.env.PAYLOAD_PUBLIC_SITE_URL}${process.env.PAYLOAD_PUBLIC_API_ROUTE}/graphql`,
+  `${process.env.NEXT_PUBLIC_SITE_URL}${process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
   {
     method: 'POST',
     headers: {

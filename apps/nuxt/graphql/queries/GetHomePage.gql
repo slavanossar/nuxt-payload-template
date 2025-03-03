@@ -1,0 +1,12 @@
+#import "@/graphql/fragments/Page.gql"
+
+query GetHomePage {
+  Pages(limit: 1, where: { template: { equals: Home } }) {
+    docs {
+      ...Page
+      homeTemplateFields {
+        myTextField
+      }
+    }
+  }
+}

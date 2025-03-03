@@ -3,7 +3,6 @@ fragment Image on Image {
   description
   width
   height
-  blurhash
   sizes {
     xs {
       url

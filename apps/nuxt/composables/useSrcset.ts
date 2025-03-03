@@ -1,4 +1,4 @@
-import type { Image } from '#payload/types'
+import type { Image } from '#payload-types'
 
 export const useSrcset = (image: Ref<Image | null>) => {
   return computed(() => {
@@ -6,7 +6,7 @@ export const useSrcset = (image: Ref<Image | null>) => {
 
     if (image.value?.sizes) {
       Object.values(image.value.sizes).forEach((value) => {
-        if (value.url) {
+        if (value.url && value.width) {
           srcset.push(`${value.url} ${value.width}w`)
         }
       })

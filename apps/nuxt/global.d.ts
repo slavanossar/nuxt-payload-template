@@ -1,5 +1,5 @@
 import type { DocumentNode } from 'graphql'
-import type { Site, Page } from '#payload/types'
+import type { Site, Page } from '#payload-types'
 
 declare module '*.gql' {
   const Schema: DocumentNode
@@ -9,14 +9,4 @@ declare module '*.gql' {
 declare module '*.graphql' {
   const Schema: DocumentNode
   export = Schema
-}
-
-declare global {
-  interface SrcsetSizes {
-    default: string
-    md?: string
-    lg?: string
-    xl?: string
-    '2xl'?: string
-  }
 }

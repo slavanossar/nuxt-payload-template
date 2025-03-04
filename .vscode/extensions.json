@@ -4,6 +4,8 @@
     "csstools.postcss",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
+    "mquandalle.graphql",
+    "william-voyek.vscode-nginx",
     "Vue.volar"
   ]
 }

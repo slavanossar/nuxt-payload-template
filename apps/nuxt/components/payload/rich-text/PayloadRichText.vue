@@ -48,7 +48,7 @@ import type {
   SerializedElementNode,
   SerializedTextNode,
 } from 'lexical'
-import type { CaseStudy, Image } from '#payload-types'
+import type { Image, Page } from '#payload-types'
 import type { LexicalRichTextField } from './types'
 
 interface LexicalTextNode extends SerializedTextNode {
@@ -98,8 +98,8 @@ interface LexicalInternalLinkNode extends SerializedElementNode {
   fields: {
     url: string
     doc: {
-      relationTo: 'caseStudies'
-      value: CaseStudy
+      relationTo: 'pages'
+      value: Page
     }
     newTab: boolean
     linkType: 'internal'

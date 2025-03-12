@@ -26,6 +26,7 @@ async function fetchSvg() {
 
       if (svgElement) {
         const attrs: Record<string, string> = {}
+
         Array.from(svgElement.attributes).forEach((attr) => {
           attrs[attr.name] = attr.value
         })

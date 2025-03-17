@@ -1,6 +1,4 @@
-import React from 'react'
-
-export default function () {
+const Icon = () => {
   // Use app/(payload)/custom.scss to adjust icon size
   return (
     <svg
@@ -17,3 +15,5 @@ export default function () {
     </svg>
   )
 }
+
+export default Icon

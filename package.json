@@ -13,8 +13,8 @@
     "regenerate-image-sizes": "dotenv -- turbo run regenerate-image-sizes",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
-    "update": "pnpm up --interactive; pnpm up --interactive --filter nuxt; pnpm up --interactive --filter payloadcms",
-    "update-latest": "pnpm up --interactive --latest; pnpm up --interactive --latest --filter nuxt; pnpm up --interactive --latest --filter payloadcms",
+    "update": "pnpm up --interactive --recursive",
+    "update-latest": "pnpm up --interactive --latest --recursive",
     "configure-env": "configure-env"
   },
   "engines": {

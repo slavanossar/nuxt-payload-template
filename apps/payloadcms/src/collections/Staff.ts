@@ -18,10 +18,6 @@ const roleOptions = [
     label: 'Admin',
     value: 'admin',
   },
-  {
-    label: 'Sales',
-    value: 'sales',
-  },
 ]
 
 type Role = (typeof roleOptions)[number]['value']

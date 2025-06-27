@@ -23,17 +23,17 @@
   "devDependencies": {
     "configure-env": "^1.0.0",
     "dotenv-cli": "^8.0.0",
-    "eslint": "^9.23.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.6",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^16.1.2",
     "turbo": "^1.13.4",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "graphql": "^16.10.0",
-    "prettier": "^3.5.3"
+    "graphql": "^16.11.0",
+    "prettier": "^3.6.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

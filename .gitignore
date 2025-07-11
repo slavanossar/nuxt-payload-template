@@ -35,7 +35,7 @@ build
 dist
 
 # pm2
-ecosystem.config.js
+./ecosystem.config.js
 
 # turbo
 .turbo

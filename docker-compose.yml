@@ -1,12 +1,12 @@
-version: "3.8"
+version: 3.8
 
 services:
   nginx-proxy:
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./docker/certs:/etc/nginx/certs
@@ -46,7 +46,7 @@ services:
     image: mongo:8
     container_name: mongo
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - mongo_data:/data/db
 
@@ -54,8 +54,8 @@ services:
     build:
       context: .
       dockerfile: apps/nuxt/Dockerfile
-    ports:
-      - "${NITRO_PORT}:${NITRO_PORT}"
+    expose:
+      - 3000
     env_file: .env
     environment:
       - VIRTUAL_HOST=${DOMAIN}
@@ -68,8 +68,8 @@ services:
     build:
       context: .
       dockerfile: apps/payloadcms/Dockerfile
-    ports:
-      - "${PORT}:${PORT}"
+    expose:
+      - 3001
     env_file: .env
     environment:
       - VIRTUAL_HOST=${DOMAIN}

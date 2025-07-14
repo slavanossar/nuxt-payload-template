@@ -8,12 +8,7 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "env": [
-        "SITE_NAME",
-        "NEXT_PUBLIC_SITE_URL",
-        "NEXT_PUBLIC_PORT",
-        "NEXT_PUBLIC_PAYLOAD_API_ROUTE"
-      ]
+      "env": ["DOMAIN", "SITE_NAME", "NEXT_PUBLIC_PAYLOAD_API_ROUTE"]
     },
     "nuxt#build": {
       "dependsOn": ["^build"],
@@ -23,7 +18,7 @@
     "payloadcms#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
-      "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
+      "env": ["PORT", "DATABASE_NAME", "PAYLOAD_SECRET"]
     },
     "start": {
       "cache": false,

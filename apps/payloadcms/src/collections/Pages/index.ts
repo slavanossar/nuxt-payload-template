@@ -11,8 +11,8 @@ const Pages: CollectionConfig = {
     group: '📄 Content',
     defaultColumns: ['template', 'id'],
     livePreview: {
-      url: ({ data }) => {
-        const url = new URL(process.env.NEXT_PUBLIC_SITE_URL)
+      url: ({ data, req }) => {
+        const url = new URL(req.payload.config.serverURL)
         url.searchParams.append('preview', 'true')
 
         switch (data.template) {

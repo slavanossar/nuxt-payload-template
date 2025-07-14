@@ -39,7 +39,7 @@ export default buildConfig({
     user: collections.Staff.slug,
   },
   db: mongooseAdapter({
-    url: `mongodb://0.0.0.0/${process.env.DATABASE_NAME}`,
+    url: `mongodb://mongo:27017/${process.env.DATABASE_NAME}`,
   }),
   editor: lexicalEditor({}),
   collections: Object.values(collections),

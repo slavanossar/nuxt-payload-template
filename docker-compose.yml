@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./docker/certs:/etc/nginx/certs
+      - ./docker/vhost.d:/etc/nginx/vhost.d
+      - ./docker/html:/usr/share/nginx/html
+    environment:
+      - ENABLE_IPV6=true
+    restart: unless-stopped
+
+  redirect-www:
+    image: nginx
+    volumes:
+      - ./redirect.conf:/etc/nginx/conf.d/default.conf:ro
+    environment:
+      - VIRTUAL_HOST=${REDIRECT_DOMAIN}
+      - LETSENCRYPT_HOST=${REDIRECT_DOMAIN}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    depends_on:
+      - nginx-proxy
+    restart: unless-stopped
+
+  letsencrypt:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-letsencrypt
+    environment:
+      - DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./docker/certs:/etc/nginx/certs
+      - ./docker/vhost.d:/etc/nginx/vhost.d
+      - ./docker/html:/usr/share/nginx/html
+    depends_on:
+      - nginx-proxy
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:8
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  nuxt:
+    build:
+      context: .
+      dockerfile: apps/nuxt/Dockerfile
+    ports:
+      - "${NITRO_PORT}:${NITRO_PORT}"
+    env_file: .env
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    depends_on:
+      - payloadcms
+
+  payloadcms:
+    build:
+      context: .
+      dockerfile: apps/payloadcms/Dockerfile
+    ports:
+      - "${PORT}:${PORT}"
+    env_file: .env
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    volumes:
+      - ./apps/payloadcms/uploads:/app/apps/payloadcms/uploads
+
+volumes:
+  mongo_data:

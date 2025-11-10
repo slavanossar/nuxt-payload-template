@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
+import { GetGlobalsDocument } from '#graphql-exports'
 
 import type { Settings } from '#payload-types'
-import { GetGlobalsDocument } from '@/graphql'
 
 export interface GlobalQueryResult {
   Settings: Settings

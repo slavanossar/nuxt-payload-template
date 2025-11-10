@@ -1,4 +1,4 @@
-import { GetHomePageDocument } from '@/graphql'
+import { GetHomePageDocument } from '#graphql-exports'
 
 import type { UseSeoMetaInput } from '@unhead/vue'
 import type { DocumentNode } from 'graphql'

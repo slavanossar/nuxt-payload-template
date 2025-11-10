@@ -1,5 +1,8 @@
 import { resolve } from 'path'
 
+/** Vite Plugins */
+import tailwindPlugin from '@tailwindcss/vite'
+
 import possibleTypes from './graphql/possibleTypes.json'
 
 const {
@@ -12,7 +15,7 @@ const {
 const isDev = NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-03-03',
+  compatibilityDate: '2025-11-10',
   telemetry: {
     enabled: false,
   },
@@ -23,12 +26,13 @@ export default defineNuxtConfig({
   css: [],
   modules: [
     '@nuxtjs/apollo',
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/seo',
     '@vueuse/nuxt',
+    'motion-v/nuxt',
   ],
   alias: {
+    '#graphql-exports': resolve(__dirname, './graphql/index.js'),
     '#payload-config': resolve(
       __dirname,
       '../payloadcms/src/payload.config.ts',
@@ -74,6 +78,14 @@ export default defineNuxtConfig({
   },
   build: { transpile: [] },
   vite: {
-    plugins: [],
+    plugins: [tailwindPlugin()],
+    server: {
+      origin: NEXT_PUBLIC_SITE_URL,
+      hmr: {
+        protocol: 'wss',
+        host: 'madetogether.test',
+        clientPort: 443,
+      },
+    },
   },
 })

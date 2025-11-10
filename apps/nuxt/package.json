@@ -32,9 +32,9 @@
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.15",
     "@nuxtjs/seo": "^3.2.2",
-    "@nuxtjs/tailwindcss": "^6.14.0",
     "@payloadcms/live-preview": "^3.63.0",
     "@pinia/nuxt": "0.11.3",
+    "@tailwindcss/vite": "^4.1.17",
     "@vueuse/core": "^14.0.0",
     "@vueuse/nuxt": "^14.0.0",
     "detect-it": "^4.0.1",
@@ -43,6 +43,7 @@
     "nuxt": "^4.2.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
-    "slate": "^0.118.1"
+    "slate": "^0.118.1",
+    "tailwindcss": "^4.1.17"
   }
 }

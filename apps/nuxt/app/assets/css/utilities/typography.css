@@ -1,0 +1,9 @@
+@utility type-body {
+  font-size: --spacing(4);
+  line-height: --spacing(5);
+
+  @variant lg {
+    font-size: --spacing(5);
+    line-height: --spacing(6);
+  }
+}

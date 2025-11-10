@@ -1,5 +1,3 @@
-#import "@/graphql/fragments/Image.gql"
-
 fragment Page on Page {
   id
   meta {

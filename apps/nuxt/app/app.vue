@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { UseSeoMetaInput } from '@unhead/vue'
-
-import { useGlobalsStore } from '@/stores/globals'
+import { useGlobalsStore } from '~/stores/globals'
 import { theme } from '#tailwind-config'
+
+import type { UseSeoMetaInput } from '@unhead/vue'
 
 const config = useRuntimeConfig()
 

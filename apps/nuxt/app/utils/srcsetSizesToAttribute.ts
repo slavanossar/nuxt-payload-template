@@ -1,6 +1,6 @@
 import { breakpointsTailwind } from '@vueuse/core'
 
-import type { SrcsetSizes } from '@/components/payload/image/types'
+import type { SrcsetSizes } from '~/components/payload/image/types'
 
 type BreakpointLabel = keyof typeof breakpointsTailwind
 

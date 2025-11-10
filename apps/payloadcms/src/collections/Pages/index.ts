@@ -1,6 +1,6 @@
-import { livePreviewBreakpoints } from '@payload/utils'
-import { isSuperAdmin } from '@payload/access'
-import * as PageTemplates from './templates'
+import { livePreviewBreakpoints } from '~/utils'
+import { isSuperAdmin } from '~/access'
+import * as templates from './templates'
 
 import type { CollectionConfig } from 'payload'
 
@@ -23,6 +23,8 @@ const Pages: CollectionConfig = {
             break
         }
 
+        console.log(url.toString())
+
         return url.toString()
       },
       breakpoints: livePreviewBreakpoints,
@@ -42,7 +44,7 @@ const Pages: CollectionConfig = {
       tabs: [
         {
           label: 'Page',
-          fields: Object.values(PageTemplates),
+          fields: Object.values(templates),
         },
       ],
     },
@@ -56,7 +58,10 @@ const Pages: CollectionConfig = {
           return user?.role === 'admin'
         },
       },
-      options: Object.keys(PageTemplates),
+      options: Object.keys(templates).map((key) => ({
+        label: key.replace(/([A-Z])/g, ' $1').trim(),
+        value: key,
+      })),
       admin: {
         description:
           'A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.',

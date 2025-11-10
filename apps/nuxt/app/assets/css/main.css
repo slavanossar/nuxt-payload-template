@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-2xl: 90rem;
+  --breakpoint-3xl: 96rem;
+
+  --color-transparent: rgba(0, 0, 0, 0);
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-sans:
+    'Sample', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/** Base */
+@import './fonts.css' layer(base);
+
+/** Components */
+@import './components/layout.css' layer(components);
+
+/** Utilities */
+@import './utilities/typography.css';
+
+svg,
+svg * {
+  @apply focus:outline-none;
+}
+
+.layout-enter-active,
+.layout-leave-active,
+.page-enter-active,
+.page-leave-active {
+  @apply transition-opacity duration-500 ease-out;
+}
+
+.layout-enter-from,
+.layout-leave-to,
+.page-enter-from,
+.page-leave-to {
+  @apply opacity-0;
+}

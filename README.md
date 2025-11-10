@@ -8,7 +8,7 @@
 >
 > If you have any questions/suggestions, feel free to open up an issue.
 >
-> Old version that uses Payload CMS v2 available on `v2` branch
+> Old versions that uses Payload CMS v2 & v3 available on `v2` and `v3` branches.
 
 A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
 
@@ -134,12 +134,12 @@ query GetRelationship {
 }
 ```
 
-This can cause type issues when using these fields within Nuxt, so there are two composables that can be used to check the type of relationship fields.
+This can cause type issues when using these fields within Nuxt, so there is a composable that can be used to assert the type of relationship fields.
 
 ```vue
 <script lang="ts" setup>
 const doc = useRelationshipField(data.doc.relationshipField); // RelationshipType | null
-const docs = useRelationshipArrayField(data.doc.relationshipHasManyField); // RelationshipType[]
+const docs = useRelationshipField(data.doc.relationshipHasManyField); // RelationshipType[]
 </script>
 ```
 
@@ -166,4 +166,4 @@ const fields = doc.value?.homeFields;
 
 ### Globals
 
-Globals data is located in the `@/stores/globals` store, and is preloaded during SSR (see `apps/nuxt/app.vue`).
+Globals data is located in the `~/stores/globals` store, and is preloaded during SSR (see `apps/nuxt/app.vue`).

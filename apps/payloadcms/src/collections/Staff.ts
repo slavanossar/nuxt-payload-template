@@ -1,4 +1,4 @@
-import { and, isAdmin, isStaff, isSuperAdmin, not, or } from '@payload/access'
+import { and, isAdmin, isStaff, isSuperAdmin, not, or } from '~/access'
 
 import type {
   Access,

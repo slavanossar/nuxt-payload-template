@@ -1,8 +1,8 @@
-import { hashFilename } from '@payload/hooks'
+import { uploadTitle } from '~/fields'
+import { hashFilename } from '~/hooks'
 import { normaliseSvg } from './hooks'
 
 import type { CollectionConfig } from 'payload'
-import { uploadTitle } from '@payload/fields'
 
 const Svgs: CollectionConfig = {
   slug: 'svgs',

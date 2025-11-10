@@ -1,16 +1,17 @@
-import { ofetch } from 'ofetch'
-
-export async function fetchPayloadDoc<Collection>(
+export function fetchPayloadDoc(
   id: string,
-  collectionHandle: string,
+  collectionSlug: PayloadCollectionSlug,
 ) {
   const config = useRuntimeConfig()
 
   try {
-    return await ofetch<Collection>(
-      `${config.public.siteUrl}${config.public.payloadApiRoute}/${collectionHandle}/${id}`,
+    return $fetch<PayloadCollections[PayloadCollectionSlug]>(
+      `${config.public.siteUrl}${config.public.payloadApiRoute}/${collectionSlug}/${id}`,
     )
   } catch (error) {
-    return undefined
+    throw createError({
+      statusCode: 404,
+      message: 'Document not found.',
+    })
   }
 }

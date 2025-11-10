@@ -1,16 +1,19 @@
-import type { Config } from '#payload-types'
-
-type PayloadCollection = Config['collections'][keyof Config['collections']]
-
 type Single<T> = MaybeRef<string | T | null | undefined>
 type Many<T> = MaybeRef<(string | T)[] | null | undefined>
 
-export function useRelationshipField<T>(field: Single<T>): Ref<T | null>
+export function useRelationshipField<T>(
+  field: Single<T>,
+  collectionSlug?: PayloadCollectionSlug,
+): Ref<T | null>
 
-export function useRelationshipField<T>(field: Many<T>): Ref<T[]>
+export function useRelationshipField<T>(
+  field: Many<T>,
+  collectionSlug?: PayloadCollectionSlug,
+): Ref<T[]>
 
 export function useRelationshipField<T extends PayloadCollection>(
   field: Single<T> | Many<T>,
+  collectionSlug?: PayloadCollectionSlug,
 ): Ref<T | null> | Ref<T[]> {
   const initialValue = unref(field)
   const isArrayField = Array.isArray(initialValue)

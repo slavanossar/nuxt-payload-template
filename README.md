@@ -134,12 +134,12 @@ query GetRelationship {
 }
 ```
 
-This can cause type issues when using these fields within Nuxt, so there are two composables that can be used to check the type of relationship fields.
+This can cause type issues when using these fields within Nuxt, so there is a composable that can be used to assert the type of relationship fields.
 
 ```vue
 <script lang="ts" setup>
 const doc = useRelationshipField(data.doc.relationshipField); // RelationshipType | null
-const docs = useRelationshipArrayField(data.doc.relationshipHasManyField); // RelationshipType[]
+const docs = useRelationshipField(data.doc.relationshipHasManyField); // RelationshipType[]
 </script>
 ```
 

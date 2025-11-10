@@ -21,28 +21,28 @@
     "*": "prettier -w -u"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/cli": "^6.0.1",
     "@graphql-codegen/typescript-vue-apollo": "^4.1.2",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.13"
+    "prettier-plugin-tailwindcss": "^0.7.1"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "5.0.0-alpha.14",
-    "@nuxtjs/seo": "^3.1.0",
+    "@nuxtjs/apollo": "5.0.0-alpha.15",
+    "@nuxtjs/seo": "^3.2.2",
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "@payloadcms/live-preview": "^3.43.0",
-    "@pinia/nuxt": "0.5.5",
-    "@vueuse/core": "^13.4.0",
-    "@vueuse/nuxt": "^13.4.0",
-    "animejs": "^4.0.2",
+    "@payloadcms/live-preview": "^3.63.0",
+    "@pinia/nuxt": "0.11.3",
+    "@vueuse/core": "^14.0.0",
+    "@vueuse/nuxt": "^14.0.0",
     "detect-it": "^4.0.1",
-    "dotenv": "^16.6.0",
-    "nuxt": "^3.17.5",
-    "pinia": "^3.0.1",
-    "pinia-plugin-persistedstate": "^4.2.0",
-    "slate": "^0.117.2"
+    "dotenv": "^17.2.3",
+    "motion-v": "^1.7.4",
+    "nuxt": "^4.2.1",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "slate": "^0.118.1"
   }
 }

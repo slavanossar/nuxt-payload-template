@@ -10,7 +10,7 @@
 >
 > Old versions that uses Payload CMS v2 & v3 available on `v2` and `v3` branches.
 
-A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
+A [Nuxt 4](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
 
 - [Vue 3](https://vuejs.org/guide)
 - [VueUse](https://vueuse.org/guide/)

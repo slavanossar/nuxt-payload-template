@@ -79,7 +79,7 @@ export const VideoFragmentDoc = gql`
     ${VideoThumbnailFragmentDoc}`;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
-  Settings {
+  SiteSettings {
     meta {
       title
       description

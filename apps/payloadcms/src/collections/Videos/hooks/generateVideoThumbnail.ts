@@ -1,6 +1,6 @@
 import { APIError } from 'payload'
 
-import getVideoThumbnail from '@payload/utils/getVideoThumbnail'
+import getVideoThumbnail from '~/utils/getVideoThumbnail'
 import type { CollectionBeforeOperationHook } from 'payload'
 
 const generateVideoThumbnail: CollectionBeforeOperationHook = async ({

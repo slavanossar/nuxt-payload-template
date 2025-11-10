@@ -8,7 +8,7 @@
 >
 > If you have any questions/suggestions, feel free to open up an issue.
 >
-> Old version that uses Payload CMS v2 available on `v2` branch
+> Old versions that uses Payload CMS v2 & v3 available on `v2` and `v3` branches.
 
 A [Nuxt 3](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
 
@@ -166,4 +166,4 @@ const fields = doc.value?.homeFields;
 
 ### Globals
 
-Globals data is located in the `@/stores/globals` store, and is preloaded during SSR (see `apps/nuxt/app.vue`).
+Globals data is located in the `~/stores/globals` store, and is preloaded during SSR (see `apps/nuxt/app.vue`).

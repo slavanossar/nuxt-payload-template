@@ -64,9 +64,6 @@ export default defineNuxtConfig({
     exclude: [],
     sources: ['/api/__sitemap__/urls'],
   },
-  tailwindcss: {
-    exposeConfig: true,
-  },
   runtimeConfig: {
     public: {
       siteName: SITE_NAME,

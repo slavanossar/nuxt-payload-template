@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
 import { useGlobalsStore } from '~/stores/globals'
-import { theme } from '#tailwind-config'
 
 import type { UseSeoMetaInput } from '@unhead/vue'
 
@@ -27,14 +26,16 @@ const seoMeta: UseSeoMetaInput = {
 seoMeta.title =
   seoMeta.ogTitle =
   seoMeta.twitterTitle =
-    globalsStore.settings?.meta?.title || config.public.siteName
+    globalsStore.siteSettings?.meta?.title || config.public.siteName
 
 seoMeta.description =
   seoMeta.ogDescription =
   seoMeta.twitterDescription =
-    globalsStore.settings?.meta?.description || ''
+    globalsStore.siteSettings?.meta?.description || ''
 
-const opengraphImage = useRelationshipField(globalsStore.settings?.meta?.image)
+const opengraphImage = useRelationshipField(
+  globalsStore.siteSettings?.meta?.image,
+)
 
 if (opengraphImage.value?.sizes?.opengraph?.url) {
   seoMeta.ogImage = opengraphImage.value.sizes.opengraph.url
@@ -42,8 +43,8 @@ if (opengraphImage.value?.sizes?.opengraph?.url) {
 
 useSeoMeta(seoMeta)
 
-const title = globalsStore.settings?.meta?.title || config.public.siteName
-const themeColour = theme.colors.black
+const title = globalsStore.siteSettings?.meta?.title || config.public.siteName
+const themeColour = '#000000'
 
 /**
  * Head / Favicon
@@ -66,7 +67,7 @@ useHead({
     { name: 'apple-mobile-web-app-title', content: title },
     { name: 'msapplication-TileColor', content: themeColour },
     { name: 'msapplication-config', content: '/browserconfig.xml' },
-    { name: 'theme-color', content: theme.colors.black },
+    { name: 'theme-color', content: themeColour },
   ],
   link: [
     {

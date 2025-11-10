@@ -1,5 +1,5 @@
-import { uploadTitle } from '@payload/fields'
-import { hashFilename } from '@payload/hooks'
+import { uploadTitle } from '~/fields'
+import { hashFilename } from '~/hooks'
 
 import type { CollectionConfig, ImageSize } from 'payload'
 import type { Image } from 'payload-types'

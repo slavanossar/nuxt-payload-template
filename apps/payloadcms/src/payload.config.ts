@@ -25,10 +25,10 @@ export default buildConfig({
     components: {
       graphics: {
         Icon: {
-          path: '@payload/graphics/Icon.tsx',
+          path: '~/graphics/Icon.tsx',
         },
         Logo: {
-          path: '@payload/graphics/Logo.tsx',
+          path: '~/graphics/Logo.tsx',
         },
       },
     },
@@ -100,7 +100,7 @@ export default buildConfig({
     }),
     seoPlugin({
       collections: ['pages'],
-      globals: ['settings'],
+      globals: ['siteSettings'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.SITE_NAME}`,
       tabbedUI: true,

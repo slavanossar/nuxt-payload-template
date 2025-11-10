@@ -73,6 +73,7 @@ export interface Config {
     staff: Staff;
     videoThumbnails: VideoThumbnail;
     videos: Video;
+    'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +86,7 @@ export interface Config {
     staff: StaffSelect<false> | StaffSelect<true>;
     videoThumbnails: VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -93,10 +95,10 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
-    settings: Settings;
+    siteSettings: SiteSettings;
   };
   globalsSelect: {
-    settings: SettingsSelect<false> | SettingsSelect<true>;
+    siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   user: Staff & {
@@ -266,7 +268,7 @@ export interface Staff {
   firstName: string;
   lastName: string;
   fullName?: string | null;
-  role: 'super_admin' | 'admin' | 'sales';
+  role: 'super_admin' | 'admin';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -276,6 +278,13 @@ export interface Staff {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -326,6 +335,23 @@ export interface Video {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -560,6 +586,13 @@ export interface StaffSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -614,6 +647,14 @@ export interface VideosSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -646,9 +687,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings".
+ * via the `definition` "siteSettings".
  */
-export interface Settings {
+export interface SiteSettings {
   id: string;
   meta?: {
     title?: string | null;
@@ -663,9 +704,9 @@ export interface Settings {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings_select".
+ * via the `definition` "siteSettings_select".
  */
-export interface SettingsSelect<T extends boolean = true> {
+export interface SiteSettingsSelect<T extends boolean = true> {
   meta?:
     | T
     | {

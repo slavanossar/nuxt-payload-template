@@ -1,12 +1,15 @@
 import type { GlobalConfig } from 'payload'
 
-const Settings: GlobalConfig = {
-  slug: 'settings',
+const SiteSettings: GlobalConfig = {
+  slug: 'siteSettings',
   graphQL: {
-    name: 'Settings',
+    name: 'SiteSettings',
   },
   typescript: {
-    interface: 'Settings',
+    interface: 'SiteSettings',
+  },
+  admin: {
+    group: '🌏 Globals',
   },
   access: {
     read: (_) => true,
@@ -19,4 +22,4 @@ const Settings: GlobalConfig = {
   ],
 }
 
-export default Settings
+export default SiteSettings

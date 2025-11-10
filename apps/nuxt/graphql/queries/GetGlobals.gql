@@ -1,5 +1,5 @@
 query GetGlobals {
-  Settings {
+  SiteSettings {
     meta {
       title
       description

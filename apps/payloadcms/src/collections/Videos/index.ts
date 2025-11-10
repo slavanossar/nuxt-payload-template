@@ -1,4 +1,5 @@
-import { hashFilename } from '@payload/hooks'
+import { uploadTitle } from '~/fields'
+import { hashFilename } from '~/hooks'
 import {
   cleanUpVideoThumbnail,
   deleteVideoThumbnail,
@@ -6,7 +7,6 @@ import {
 } from './hooks'
 
 import type { CollectionConfig } from 'payload'
-import { uploadTitle } from '@payload/fields'
 
 const Videos: CollectionConfig = {
   slug: 'videos',

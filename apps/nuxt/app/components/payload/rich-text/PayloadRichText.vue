@@ -9,10 +9,12 @@
       />
       <template v-else>{{ node.text }}</template>
     </template>
+    <br v-else-if="isLinebreakNode(node)" />
     <template v-else-if="isLinkNode(node)">
       <NuxtLink
         v-if="node.fields.linkType === 'custom'"
         :key="`custom_${i}`"
+        :class="props.linkClass"
         :to="node.fields.url"
         :target="node.fields.linkType === 'custom' ? '_blank' : null"
       >
@@ -21,14 +23,15 @@
       <NuxtLink
         v-else-if="node.fields.linkType === 'internal'"
         :key="`internal_${i}`"
-        :to="getInternalUrl(node.fields.doc)"
+        :class="props.linkClass"
+        :to="getInternalUrl(node.fields.doc) ?? ''"
       >
         <PayloadRichText :nested-content="node.children" />
       </NuxtLink>
     </template>
     <template v-else-if="isUploadNode(node)">
       <figure v-if="node.type === 'upload'" :key="i">
-        <PayloadImage :image="node.value" />
+        <PayloadImage :image="node.value" :sizes="props.sizes" />
         <figcaption v-if="node.fields?.caption">
           <p v-text="node.fields.caption" />
         </figcaption>
@@ -48,11 +51,16 @@ import type {
   SerializedElementNode,
   SerializedTextNode,
 } from 'lexical'
-import type { Image, Page } from '#payload-types'
+import type { ApplicationsPage, Image, TemplatePage } from '#payload-types'
 import type { LexicalRichTextField } from './types'
+import type { SrcsetSizes } from '~/components/payload/image/types'
 
 interface LexicalTextNode extends SerializedTextNode {
   type: 'text'
+}
+
+interface LexicalLinebreakNode {
+  type: 'linebreak'
 }
 
 interface LexicalParagraphNode extends SerializedElementNode<LexicalTextNode> {
@@ -85,7 +93,7 @@ type LexicalElementNode =
   | LexicalBlockquoteNode
 
 interface LexicalCustomLinkNode extends SerializedElementNode {
-  type: 'link'
+  type: 'autolink' | 'link'
   fields: {
     url: string
     newTab: boolean
@@ -94,13 +102,18 @@ interface LexicalCustomLinkNode extends SerializedElementNode {
 }
 
 interface LexicalInternalLinkNode extends SerializedElementNode {
-  type: 'link'
+  type: 'autolink' | 'link'
   fields: {
     url: string
-    doc: {
-      relationTo: 'pages'
-      value: Page
-    }
+    doc:
+      | {
+          relationTo: 'applications-pages'
+          value: ApplicationsPage
+        }
+      | {
+          relationTo: 'template-pages'
+          value: TemplatePage
+        }
     newTab: boolean
     linkType: 'internal'
   }
@@ -117,18 +130,24 @@ interface LexicalUploadNode extends SerializedLexicalNode {
   value: Image
 }
 
-interface PayloadRichTextProps {
+interface Props {
   content?: LexicalRichTextField
+  linkClass?: string
   nestedContent?: SerializedLexicalNode[]
+  sizes?: SrcsetSizes
 }
 
-const props = defineProps<PayloadRichTextProps>()
+const props = defineProps<Props>()
 
 /**
  * Typechecks
  */
 const isTextNode = (node: any): node is LexicalTextNode => {
   return typeof node === 'object' && node !== null && node.type === 'text'
+}
+
+const isLinebreakNode = (node: any): node is LexicalLinebreakNode => {
+  return typeof node === 'object' && node !== null && node.type === 'linebreak'
 }
 
 const isElementNode = (node: any): node is LexicalElementNode => {
@@ -138,11 +157,12 @@ const isElementNode = (node: any): node is LexicalElementNode => {
 }
 
 const isLinkNode = (node: any): node is LexicalLinkNode => {
+  console.log(node)
   return (
     typeof node === 'object' &&
     node !== null &&
     Array.isArray(node.children) &&
-    node.type === 'link' &&
+    ['autolink', 'link'].includes(node.type) &&
     'fields' in node &&
     typeof node.fields === 'object' &&
     ['custom', 'internal'].includes(node.fields.linkType)

@@ -21,26 +21,26 @@
     "*": "prettier -w -u"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^6.0.1",
+    "@graphql-codegen/cli": "^6.1.0",
     "@graphql-codegen/typescript-vue-apollo": "^4.1.2",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint-plugin-nuxt": "^4.0.0",
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.7.1"
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.15",
     "@nuxtjs/seo": "^3.2.2",
-    "@payloadcms/live-preview": "^3.63.0",
+    "@payloadcms/live-preview": "^3.68.2",
     "@pinia/nuxt": "0.11.3",
     "@tailwindcss/vite": "^4.1.17",
-    "@vueuse/core": "^14.0.0",
-    "@vueuse/nuxt": "^14.0.0",
+    "@vueuse/core": "^14.1.0",
+    "@vueuse/nuxt": "^14.1.0",
     "detect-it": "^4.0.1",
     "dotenv": "^17.2.3",
     "motion-v": "^1.7.4",
-    "nuxt": "^4.2.1",
+    "nuxt": "^4.2.2",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "slate": "^0.118.1",

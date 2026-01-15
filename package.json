@@ -41,6 +41,7 @@
       "esbuild",
       "ffmpeg-static",
       "sharp",
+      "unrs-resolver",
       "vue-demi"
     ]
   }

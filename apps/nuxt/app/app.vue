@@ -5,8 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useGlobalsStore } from '~/stores/globals'
-
 import type { UseSeoMetaInput } from '@unhead/vue'
 
 const config = useRuntimeConfig()

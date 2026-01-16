@@ -1,10 +1,26 @@
 import { breakpointsTailwind } from '@vueuse/core'
 
-import type { SrcsetSizes } from '~/components/payload/image/types'
+import type { Image } from '#payload-types'
+import type { SrcsetSizes } from './types'
+
+export const useSrcset = (image: Ref<Image | null>) =>
+  computed(() => {
+    const srcset: string[] = []
+
+    if (image.value?.sizes) {
+      Object.values(image.value.sizes).forEach((value) => {
+        if (value.url && value.width) {
+          srcset.push(`${value.url} ${value.width}w`)
+        }
+      })
+    }
+
+    return srcset.join(', ')
+  })
 
 type BreakpointLabel = keyof typeof breakpointsTailwind
 
-export default function (sizes: SrcsetSizes) {
+export const srcsetSizesToAttribute = (sizes: SrcsetSizes) => {
   return Object.entries(sizes)
     .sort(
       ([keyA], [keyB]) =>

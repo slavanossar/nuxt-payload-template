@@ -12,6 +12,8 @@
 </template>
 
 <script setup lang="ts">
+import { useSrcset, srcsetSizesToAttribute } from './utils'
+
 import type { PayloadImageProps } from './types'
 
 const props = withDefaults(defineProps<PayloadImageProps>(), {

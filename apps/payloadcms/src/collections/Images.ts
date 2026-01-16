@@ -1,18 +1,10 @@
+import { IMAGE_SIZES } from 'shared'
+
 import { uploadTitle } from '~/fields'
 import { hashFilename } from '~/hooks'
 
 import type { CollectionConfig, ImageSize } from 'payload'
 import type { Image } from 'payload-types'
-
-const sizes = {
-  xs: 320,
-  sm: 640,
-  md: 960,
-  lg: 1200,
-  xl: 1600,
-  xxl: 2000,
-  xxxl: 2400,
-}
 
 const Images: CollectionConfig = {
   slug: 'images',
@@ -30,7 +22,7 @@ const Images: CollectionConfig = {
     adminThumbnail: ({ doc }) =>
       (doc as unknown as Image).sizes?.xs?.url || null,
     imageSizes: [
-      ...Object.entries(sizes).map<ImageSize>(([name, width]) => {
+      ...Object.entries(IMAGE_SIZES).map<ImageSize>(([name, width]) => {
         return {
           name,
           width,

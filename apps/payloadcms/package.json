@@ -41,6 +41,7 @@
     "payload": "^3.68.2",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "shared": "workspace:*",
     "sharp": "0.34.5",
     "slugify": "^1.6.6"
   }

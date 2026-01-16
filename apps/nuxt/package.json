@@ -44,6 +44,7 @@
     "nuxt": "^4.2.2",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
+    "shared": "workspace:*",
     "slate": "^0.118.1",
     "tailwindcss": "^4.1.17"
   }

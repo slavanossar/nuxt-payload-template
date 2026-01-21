@@ -1,0 +1,6 @@
+fragment SpecialBlock on SpecialBlock {
+  id
+  blockType
+  blockName
+  superSpecialTextArea
+}

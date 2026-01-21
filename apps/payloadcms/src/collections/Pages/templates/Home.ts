@@ -1,3 +1,5 @@
+import { DefaultBlock, SomeOtherBlock, SpecialBlock } from '~/blocks'
+
 import type { Field } from 'payload'
 
 const Home: Field = {
@@ -11,6 +13,15 @@ const Home: Field = {
       name: 'myTextField',
       type: 'text',
     },
+    {
+      name: 'blocks',
+      type: 'blocks',
+      blocks: [
+        DefaultBlock,
+        SomeOtherBlock,
+        SpecialBlock,
+      ],
+    }
   ],
 }
 

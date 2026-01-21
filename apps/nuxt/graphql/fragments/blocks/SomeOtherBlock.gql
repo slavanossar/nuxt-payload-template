@@ -1,0 +1,6 @@
+fragment SomeOtherBlock on SomeOtherBlock {
+  id
+  blockType
+  blockName
+  someOtherTextField
+}

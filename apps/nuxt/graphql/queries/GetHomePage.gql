@@ -4,6 +4,11 @@ query GetHomePage {
       ...Page
       homeTemplateFields {
         myTextField
+        blocks {
+          ...DefaultBlock
+          ...SomeOtherBlock
+          ...SpecialBlock
+        }
       }
     }
   }

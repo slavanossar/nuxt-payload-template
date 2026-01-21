@@ -77,6 +77,30 @@ export const VideoFragmentDoc = gql`
   }
 }
     ${VideoThumbnailFragmentDoc}`;
+export const DefaultBlockFragmentDoc = gql`
+    fragment DefaultBlock on DefaultBlock {
+  id
+  blockType
+  blockName
+  test
+}
+    `;
+export const SomeOtherBlockFragmentDoc = gql`
+    fragment SomeOtherBlock on SomeOtherBlock {
+  id
+  blockType
+  blockName
+  someOtherTextField
+}
+    `;
+export const SpecialBlockFragmentDoc = gql`
+    fragment SpecialBlock on SpecialBlock {
+  id
+  blockType
+  blockName
+  superSpecialTextArea
+}
+    `;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
   SiteSettings {
@@ -97,8 +121,16 @@ export const GetHomePageDocument = gql`
       ...Page
       homeTemplateFields {
         myTextField
+        blocks {
+          ...DefaultBlock
+          ...SomeOtherBlock
+          ...SpecialBlock
+        }
       }
     }
   }
 }
-    ${PageFragmentDoc}`;
+    ${PageFragmentDoc}
+${DefaultBlockFragmentDoc}
+${SomeOtherBlockFragmentDoc}
+${SpecialBlockFragmentDoc}`;

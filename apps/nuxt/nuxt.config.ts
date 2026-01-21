@@ -23,6 +23,16 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
+  components: {
+    dirs: [
+      {
+        path: '~/components/blocks',
+        global: true,
+        prefix: '',
+      },
+      '~/components',
+    ],
+  },
   css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/apollo', '@pinia/nuxt', '@vueuse/nuxt', 'motion-v/nuxt'],
   alias: {

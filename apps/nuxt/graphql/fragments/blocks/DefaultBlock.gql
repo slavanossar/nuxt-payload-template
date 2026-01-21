@@ -1,0 +1,6 @@
+fragment DefaultBlock on DefaultBlock {
+  id
+  blockType
+  blockName
+  test
+}

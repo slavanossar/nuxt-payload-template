@@ -1,14 +1,19 @@
 import type { Block } from 'payload'
 
 const DefaultBlock: Block = {
-  slug: 'block',
+  slug: 'default-block',
   labels: {
-    singular: 'Block',
-    plural: 'Block',
+    singular: 'Default Block',
+    plural: 'Default Blocks',
   },
   interfaceName: 'DefaultBlock',
   imageURL: '/payload/block-template.svg',
-  fields: [],
+  fields: [
+    {
+      name: 'test',
+      type: 'text',
+    },
+  ],
 }
 
 export default DefaultBlock

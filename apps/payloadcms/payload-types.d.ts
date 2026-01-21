@@ -94,6 +94,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: null;
   globals: {
     siteSettings: SiteSettings;
   };
@@ -224,6 +225,7 @@ export interface Page {
   id: string;
   homeTemplateFields?: {
     myTextField?: string | null;
+    blocks?: (DefaultBlock | SomeOtherBlock | SpecialBlock)[] | null;
   };
   meta?: {
     title?: string | null;
@@ -239,6 +241,39 @@ export interface Page {
   template: 'Home';
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DefaultBlock".
+ */
+export interface DefaultBlock {
+  test?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'default-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SomeOtherBlock".
+ */
+export interface SomeOtherBlock {
+  someOtherTextField?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'some-other-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecialBlock".
+ */
+export interface SpecialBlock {
+  /**
+   * This is a super special text area
+   */
+  superSpecialTextArea?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'special-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -538,6 +573,13 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         myTextField?: T;
+        blocks?:
+          | T
+          | {
+              'default-block'?: T | DefaultBlockSelect<T>;
+              'some-other-block'?: T | SomeOtherBlockSelect<T>;
+              'special-block'?: T | SpecialBlockSelect<T>;
+            };
       };
   meta?:
     | T
@@ -549,6 +591,33 @@ export interface PagesSelect<T extends boolean = true> {
   template?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DefaultBlock_select".
+ */
+export interface DefaultBlockSelect<T extends boolean = true> {
+  test?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SomeOtherBlock_select".
+ */
+export interface SomeOtherBlockSelect<T extends boolean = true> {
+  someOtherTextField?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecialBlock_select".
+ */
+export interface SpecialBlockSelect<T extends boolean = true> {
+  superSpecialTextArea?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

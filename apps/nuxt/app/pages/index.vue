@@ -1,6 +1,7 @@
 <template>
   <div v-if="fields">
     <p v-text="fields.myTextField" />
+    <PayloadBlock v-for="block in fields.blocks" :key="block.id!" :block="block" />
   </div>
 </template>
 

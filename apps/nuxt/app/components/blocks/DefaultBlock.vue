@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-text="block.test" />
+    <p v-text="props.block.test" />
   </div>
 </template>
 
@@ -11,5 +11,5 @@ interface Props {
   block: DefaultBlock
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>

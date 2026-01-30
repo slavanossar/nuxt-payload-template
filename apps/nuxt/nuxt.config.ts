@@ -19,6 +19,12 @@ export default defineNuxtConfig({
   telemetry: {
     enabled: false,
   },
+  devtools: {
+    enabled: isDev,
+    timeline: {
+      enabled: true,
+    },
+  },
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' },
     pageTransition: { name: 'page', mode: 'out-in' },

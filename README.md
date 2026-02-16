@@ -8,7 +8,7 @@
 >
 > If you have any questions/suggestions, feel free to open up an issue.
 >
-> Old versions that uses Payload CMS v2 & v3 available on `v2` and `v3` branches.
+> Old versions that uses Payload CMS v2 & Nuxt v3 available on `payload-v2` and `nuxt-v3` branches.
 
 A [Nuxt 4](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
 

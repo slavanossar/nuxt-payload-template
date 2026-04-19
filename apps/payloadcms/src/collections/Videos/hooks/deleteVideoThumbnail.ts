@@ -8,7 +8,7 @@ const deleteVideoThumbnail: CollectionAfterDeleteHook<Video> = async ({
 }) => {
   await req.payload.delete({
     id: getRelationshipId(doc.thumbnail),
-    collection: 'videoThumbnails',
+    collection: 'video-thumbnails',
   })
 }
 

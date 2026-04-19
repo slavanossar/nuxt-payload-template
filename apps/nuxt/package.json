@@ -32,8 +32,6 @@
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.15",
     "@nuxtjs/seo": "^3.2.2",
-    "@payloadcms/live-preview": "^3.68.2",
-    "@payloadcms/sdk": "^3.71.1",
     "@pinia/nuxt": "0.11.3",
     "@tailwindcss/vite": "^4.1.17",
     "@vueuse/core": "^14.1.0",
@@ -42,6 +40,7 @@
     "dotenv": "^17.2.3",
     "motion-v": "^1.7.4",
     "nuxt": "^4.2.2",
+    "nuxt-payloadcms-layer": "workspace:*",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "shared": "workspace:*",

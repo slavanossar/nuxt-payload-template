@@ -15,6 +15,7 @@ const {
 const isDev = NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
+  extends: ['nuxt-payloadcms-layer'],
   compatibilityDate: '2025-11-10',
   telemetry: {
     enabled: false,

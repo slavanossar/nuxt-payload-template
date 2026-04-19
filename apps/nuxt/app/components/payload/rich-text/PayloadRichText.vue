@@ -31,7 +31,7 @@
     </template>
     <template v-else-if="isUploadNode(node)">
       <figure v-if="node.type === 'upload'" :key="i">
-        <PayloadImage :image="node.value" :sizes="props.sizes" />
+        <PayloadImage :image="node.value" :sizes="props.imageSizes" />
         <figcaption v-if="node.fields?.caption">
           <p v-text="node.fields.caption" />
         </figcaption>
@@ -51,7 +51,12 @@ import type {
   SerializedElementNode,
   SerializedTextNode,
 } from 'lexical'
-import type { ApplicationsPage, Image, TemplatePage } from '#payload-types'
+import type {
+  ApplicationsPage,
+  Image,
+  InsightArticle,
+  TemplatePage,
+} from '#payload-types'
 import type { LexicalRichTextField } from './types'
 import type { SrcsetSizes } from '~/components/payload/image/types'
 
@@ -111,6 +116,10 @@ interface LexicalInternalLinkNode extends SerializedElementNode {
           value: ApplicationsPage
         }
       | {
+          relationTo: 'insight-articles'
+          value: InsightArticle
+        }
+      | {
           relationTo: 'template-pages'
           value: TemplatePage
         }
@@ -134,7 +143,7 @@ interface Props {
   content?: LexicalRichTextField
   linkClass?: string
   nestedContent?: SerializedLexicalNode[]
-  sizes?: SrcsetSizes
+  imageSizes?: SrcsetSizes
 }
 
 const props = defineProps<Props>()
@@ -142,42 +151,30 @@ const props = defineProps<Props>()
 /**
  * Typechecks
  */
-const isTextNode = (node: any): node is LexicalTextNode => {
-  return typeof node === 'object' && node !== null && node.type === 'text'
-}
+const isTextNode = (node: any): node is LexicalTextNode =>
+  typeof node === 'object' && node !== null && node.type === 'text'
 
-const isLinebreakNode = (node: any): node is LexicalLinebreakNode => {
-  return typeof node === 'object' && node !== null && node.type === 'linebreak'
-}
+const isLinebreakNode = (node: any): node is LexicalLinebreakNode =>
+  typeof node === 'object' && node !== null && node.type === 'linebreak'
 
-const isElementNode = (node: any): node is LexicalElementNode => {
-  return (
-    typeof node === 'object' && node !== null && Array.isArray(node.children)
-  )
-}
+const isElementNode = (node: any): node is LexicalElementNode =>
+  typeof node === 'object' && node !== null && Array.isArray(node.children)
 
-const isLinkNode = (node: any): node is LexicalLinkNode => {
-  console.log(node)
-  return (
-    typeof node === 'object' &&
-    node !== null &&
-    Array.isArray(node.children) &&
-    ['autolink', 'link'].includes(node.type) &&
-    'fields' in node &&
-    typeof node.fields === 'object' &&
-    ['custom', 'internal'].includes(node.fields.linkType)
-  )
-}
+const isLinkNode = (node: any): node is LexicalLinkNode =>
+  typeof node === 'object' &&
+  node !== null &&
+  Array.isArray(node.children) &&
+  ['autolink', 'link'].includes(node.type) &&
+  'fields' in node &&
+  typeof node.fields === 'object' &&
+  ['custom', 'internal'].includes(node.fields.linkType)
 
-const isUploadNode = (node: any): node is LexicalUploadNode => {
-  return (
-    typeof node === 'object' &&
-    node !== null &&
-    node.type === 'upload' &&
-    'relationTo' in node &&
-    'value' in node
-  )
-}
+const isUploadNode = (node: any): node is LexicalUploadNode =>
+  typeof node === 'object' &&
+  node !== null &&
+  node.type === 'upload' &&
+  'relationTo' in node &&
+  'value' in node
 
 const getElementTag = (node: LexicalElementNode) => {
   switch (node.type) {
@@ -206,6 +203,8 @@ const richTextContent = computed(() => {
 
 const getInternalUrl = (doc: LexicalInternalLinkNode['fields']['doc']) => {
   switch (doc.relationTo) {
+    case 'template-pages':
+      return doc.value.templatePageUri
     default:
       return '/'
   }

@@ -58,7 +58,7 @@ export const livePreviewBreakpoints = [
  * Rich Text
  */
 export const createBaseLexicalEditor = (
-  features: FeatureProviderServer[] = [],
+  features: FeatureProviderServer<any, any, any>[] = [],
 ) => {
   return lexicalEditor({
     features: [

@@ -68,10 +68,10 @@ export interface Config {
   blocks: {};
   collections: {
     images: Image;
-    pages: Page;
     svgs: SVG;
     staff: Staff;
     videoThumbnails: VideoThumbnail;
+    'template-pages': TemplatePage;
     videos: Video;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -81,10 +81,10 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     images: ImagesSelect<false> | ImagesSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
     svgs: SvgsSelect<false> | SvgsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
     videoThumbnails: VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
+    'template-pages': TemplatePagesSelect<false> | TemplatePagesSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -218,30 +218,6 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: string;
-  homeTemplateFields?: {
-    myTextField?: string | null;
-  };
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Image;
-  };
-  /**
-   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
-   */
-  template: 'Home';
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "svgs".
  */
 export interface SVG {
@@ -289,7 +265,29 @@ export interface Staff {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videoThumbnails".
+ * via the `definition` "template-pages".
+ */
+export interface TemplatePage {
+  id: string;
+  homeTemplateFields?: {
+    myTextField?: string | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+  };
+  /**
+   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
+   */
+  template: 'Home';
+  templatePageUri?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
  */
 export interface VideoThumbnail {
   id: string;
@@ -365,10 +363,6 @@ export interface PayloadLockedDocument {
         value: string | Image;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page;
-      } | null)
-    | ({
         relationTo: 'svgs';
         value: string | SVG;
       } | null)
@@ -378,6 +372,10 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'videoThumbnails';
+        relationTo: 'template-pages';
+        value: string | TemplatePage;
+      } | null)
+    | ({
         value: string | VideoThumbnail;
       } | null)
     | ({
@@ -531,27 +529,6 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  homeTemplateFields?:
-    | T
-    | {
-        myTextField?: T;
-      };
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  template?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "svgs_select".
  */
 export interface SvgsSelect<T extends boolean = true> {
@@ -596,7 +573,29 @@ export interface StaffSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videoThumbnails_select".
+ * via the `definition` "template-pages_select".
+ */
+export interface TemplatePagesSelect<T extends boolean = true> {
+  homeTemplateFields?:
+    | T
+    | {
+        myTextField?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  template?: T;
+  templatePageUri?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-thumbnails_select".
  */
 export interface VideoThumbnailsSelect<T extends boolean = true> {
   updatedAt?: T;

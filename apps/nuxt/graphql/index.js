@@ -41,8 +41,8 @@ export const ImageFragmentDoc = gql`
   }
 }
     `;
-export const PageFragmentDoc = gql`
-    fragment Page on Page {
+export const TemplatePageFragmentDoc = gql`
+    fragment TemplatePage on TemplatePage {
   id
   meta {
     description
@@ -52,6 +52,7 @@ export const PageFragmentDoc = gql`
     title
   }
   template
+  templatePageUri
 }
     ${ImageFragmentDoc}`;
 export const VideoThumbnailFragmentDoc = gql`
@@ -92,13 +93,13 @@ export const GetGlobalsDocument = gql`
     ${ImageFragmentDoc}`;
 export const GetHomePageDocument = gql`
     query GetHomePage {
-  Pages(limit: 1, where: {template: {equals: Home}}) {
+  TemplatePages(limit: 1, where: {template: {equals: Home}}) {
     docs {
-      ...Page
+      ...TemplatePage
       homeTemplateFields {
         myTextField
       }
     }
   }
 }
-    ${PageFragmentDoc}`;
+    ${TemplatePageFragmentDoc}`;

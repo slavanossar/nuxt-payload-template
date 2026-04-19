@@ -2,24 +2,25 @@ import { GetHomePageDocument } from '#graphql-exports'
 
 import type { UseSeoMetaInput } from '@unhead/vue'
 import type { DocumentNode } from 'graphql'
-import type { Page } from '#payload-types'
+import type { PaginatedDocs } from 'payload'
+import type { TemplatePage } from '#payload-types'
 
 interface PageQueryResult {
-  Pages: {
-    docs: Page[]
-  }
+  Pages: PaginatedDocs<TemplatePage>
 }
 
-const pageTemplateQueries: Record<Page['template'], DocumentNode> = {
+const pageTemplateQueries: Record<TemplatePage['template'], DocumentNode> = {
   Home: GetHomePageDocument,
 }
 
-export const usePayloadPage = async (template: Page['template']) => {
+export const usePayloadTemplatePage = async (
+  template: TemplatePage['template'],
+) => {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
-  const doc = ref<Page | null>(null)
+  const doc = ref<TemplatePage | null>(null)
 
   const { data } = await useAsyncQuery<PageQueryResult>(
     pageTemplateQueries[template],

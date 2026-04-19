@@ -2,10 +2,15 @@ import { livePreviewBreakpoints } from '~/utils'
 import { isSuperAdmin } from '~/access'
 import * as templates from './templates'
 
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, FieldHook } from 'payload'
+import type { TemplatePage } from 'payload-types'
 
-const Pages: CollectionConfig = {
-  slug: 'pages',
+const uriMappings: Record<TemplatePage['template'], string> = {
+  Home: '/',
+}
+
+const TemplatePages: CollectionConfig = {
+  slug: 'template-pages',
   admin: {
     useAsTitle: 'template',
     group: '📄 Content',
@@ -68,7 +73,25 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'templatePageUri',
+      label: 'URI',
+      type: 'text',
+      virtual: true,
+      hooks: {
+        afterRead: [
+          (({ data }) => {
+            return data?.template ? uriMappings[data?.template] : '/'
+          }) as FieldHook<TemplatePage>,
+        ],
+      },
+      admin: {
+        hidden: true,
+        position: 'sidebar',
+        readOnly: true,
+      },
+    },
   ],
 }
 
-export default Pages
+export default TemplatePages

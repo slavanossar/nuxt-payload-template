@@ -1,5 +1,3 @@
-import { useRowLabel } from '@payloadcms/ui'
-
 /**
  * Creates a custom array RowLabel
  * @param defaultLabel The default label to use when label is empty

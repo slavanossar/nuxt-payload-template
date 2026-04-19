@@ -5,8 +5,8 @@ export const useSrcset = (image: Ref<Image | null>) => {
     const srcset: string[] = []
 
     if (image.value?.sizes) {
-      Object.values(image.value.sizes).forEach((value) => {
-        if (value.url && value.width) {
+      Object.entries(image.value.sizes).forEach(([key, value]) => {
+        if (value.url && value.width && key !== 'opengraph') {
           srcset.push(`${value.url} ${value.width}w`)
         }
       })

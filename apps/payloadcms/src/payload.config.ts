@@ -81,7 +81,7 @@ export default buildConfig({
             return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
           },
         },
-        videoThumbnails: {
+        'video-thumbnails': {
           disablePayloadAccessControl: true,
           prefix: 'video-thumbnails',
           generateFileURL: ({ filename, prefix }) => {
@@ -99,7 +99,7 @@ export default buildConfig({
       },
     }),
     seoPlugin({
-      collections: ['pages'],
+      collections: ['template-pages'],
       globals: ['siteSettings'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.SITE_NAME}`,

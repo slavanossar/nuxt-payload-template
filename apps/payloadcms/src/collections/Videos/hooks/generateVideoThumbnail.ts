@@ -13,12 +13,14 @@ const generateVideoThumbnail: CollectionBeforeOperationHook = async ({
     })
 
     const videoThumbnail = await req.payload.create({
-      collection: 'videoThumbnails',
+      collection: 'video-thumbnails',
       data: {},
       file: image,
     })
 
+    // @ts-expect-error - type mismatch
     args.data.thumbnail = videoThumbnail.id
+    // @ts-expect-error - type mismatch
     args.data.adminThumbnailURL = videoThumbnail.sizes?.thumbnail?.url
   }
 }

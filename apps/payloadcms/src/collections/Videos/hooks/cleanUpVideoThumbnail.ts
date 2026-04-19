@@ -15,7 +15,7 @@ const cleanUpVideoThumbnails: CollectionAfterChangeHook<Video> = async ({
     if (thumbnailId !== previousThumbnailId) {
       await req.payload.delete({
         id: previousThumbnailId,
-        collection: 'videoThumbnails',
+        collection: 'video-thumbnails',
       })
     }
   }

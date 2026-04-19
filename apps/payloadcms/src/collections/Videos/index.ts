@@ -34,7 +34,7 @@ const Videos: CollectionConfig = {
     {
       name: 'thumbnail',
       type: 'upload',
-      relationTo: 'videoThumbnails',
+      relationTo: 'video-thumbnails',
       required: true,
       admin: { hidden: true },
     },

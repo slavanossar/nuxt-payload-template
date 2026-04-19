@@ -3,7 +3,7 @@ import { hashFilename } from '~/hooks'
 import type { CollectionConfig } from 'payload'
 
 const VideoThumbnails: CollectionConfig = {
-  slug: 'videoThumbnails',
+  slug: 'video-thumbnails',
   access: {
     read: () => true,
   },

@@ -70,8 +70,8 @@ export interface Config {
     images: Image;
     svgs: SVG;
     staff: Staff;
-    videoThumbnails: VideoThumbnail;
     'template-pages': TemplatePage;
+    'video-thumbnails': VideoThumbnail;
     videos: Video;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,8 +83,8 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     svgs: SvgsSelect<false> | SvgsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
-    videoThumbnails: VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
     'template-pages': TemplatePagesSelect<false> | TemplatePagesSelect<true>;
+    'video-thumbnails': VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -94,6 +94,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: null;
   globals: {
     siteSettings: SiteSettings;
   };
@@ -288,6 +289,9 @@ export interface TemplatePage {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-thumbnails".
  */
 export interface VideoThumbnail {
   id: string;
@@ -371,11 +375,11 @@ export interface PayloadLockedDocument {
         value: string | Staff;
       } | null)
     | ({
-        relationTo: 'videoThumbnails';
         relationTo: 'template-pages';
         value: string | TemplatePage;
       } | null)
     | ({
+        relationTo: 'video-thumbnails';
         value: string | VideoThumbnail;
       } | null)
     | ({

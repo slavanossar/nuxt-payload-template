@@ -5,8 +5,8 @@ import type { DocumentNode } from 'graphql'
 import type { PaginatedDocs } from 'payload'
 import type { TemplatePage } from '#payload-types'
 
-interface PageQueryResult {
-  Pages: PaginatedDocs<TemplatePage>
+interface TemplatePageQueryResult {
+  TemplatePages: PaginatedDocs<TemplatePage>
 }
 
 const pageTemplateQueries: Record<TemplatePage['template'], DocumentNode> = {
@@ -22,11 +22,11 @@ export const usePayloadTemplatePage = async (
 
   const doc = ref<TemplatePage | null>(null)
 
-  const { data } = await useAsyncQuery<PageQueryResult>(
+  const { data } = await useAsyncQuery<TemplatePageQueryResult>(
     pageTemplateQueries[template],
   )
 
-  doc.value = data.value?.Pages.docs[0] || null
+  doc.value = data.value?.TemplatePages.docs[0] || null
 
   if (doc.value) {
     const docMeta = doc.value.meta

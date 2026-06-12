@@ -17,7 +17,7 @@ const sizes = {
 const Images: CollectionConfig = {
   slug: 'images',
   access: {
-    read: (_) => true,
+    read: () => true,
   },
   admin: {
     group: '📷 Media',

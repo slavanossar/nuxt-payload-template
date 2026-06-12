@@ -39,7 +39,6 @@ const TemplatePages: CollectionConfig = {
   access: {
     create: isSuperAdmin,
     read: () => true,
-    update: ({ req: { user } }) => !!user,
     delete: isSuperAdmin,
   },
   versions: true,

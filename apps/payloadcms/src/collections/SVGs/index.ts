@@ -18,7 +18,7 @@ const Svgs: CollectionConfig = {
     interface: 'SVG',
   },
   access: {
-    read: (_) => true,
+    read: () => true,
   },
   admin: {
     group: '📷 Media',

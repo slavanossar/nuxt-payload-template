@@ -100,7 +100,7 @@ export default buildConfig({
     }),
     seoPlugin({
       collections: ['template-pages'],
-      globals: ['siteSettings'],
+      globals: ['site-settings'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.SITE_NAME}`,
       tabbedUI: true,

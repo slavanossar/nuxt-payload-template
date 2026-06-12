@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 const SiteSettings: GlobalConfig = {
-  slug: 'siteSettings',
+  slug: 'site-settings',
   graphQL: {
     name: 'SiteSettings',
   },

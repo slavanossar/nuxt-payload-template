@@ -26,24 +26,24 @@
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint-plugin-nuxt": "^4.0.0",
-    "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.7.2"
+    "prettier": "^3.8.4",
+    "prettier-plugin-tailwindcss": "^0.7.4"
   },
   "dependencies": {
     "@nuxtjs/apollo": "5.0.0-alpha.15",
     "@nuxtjs/seo": "^3.4.0",
-    "@payloadcms/live-preview": "^3.83.0",
+    "@payloadcms/live-preview": "^3.85.1",
     "@pinia/nuxt": "0.11.3",
-    "@tailwindcss/vite": "^4.2.2",
-    "@vueuse/core": "^14.2.1",
-    "@vueuse/nuxt": "^14.2.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@vueuse/core": "^14.3.0",
+    "@vueuse/nuxt": "^14.3.0",
     "detect-it": "^4.0.1",
     "dotenv": "^17.4.2",
     "motion-v": "^1.10.3",
-    "nuxt": "^4.4.2",
+    "nuxt": "^4.4.8",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "slate": "^0.118.1",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.3.0"
   }
 }

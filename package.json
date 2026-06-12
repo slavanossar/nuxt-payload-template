@@ -25,15 +25,15 @@
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-prettier": "^5.5.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "turbo": "^1.13.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "graphql": "^16.13.2",
-    "prettier": "^3.8.3"
+    "graphql": "^16.14.2",
+    "prettier": "^3.8.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

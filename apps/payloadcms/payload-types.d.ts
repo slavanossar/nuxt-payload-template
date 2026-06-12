@@ -96,15 +96,16 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    siteSettings: SiteSettings;
+    'site-settings': SiteSettings;
   };
   globalsSelect: {
-    siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
-  user: Staff & {
-    collection: 'staff';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: Staff;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -263,6 +264,7 @@ export interface Staff {
       }[]
     | null;
   password?: string | null;
+  collection: 'staff';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -690,7 +692,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "siteSettings".
+ * via the `definition` "site-settings".
  */
 export interface SiteSettings {
   id: string;
@@ -707,7 +709,7 @@ export interface SiteSettings {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "siteSettings_select".
+ * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   meta?:
@@ -720,6 +722,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

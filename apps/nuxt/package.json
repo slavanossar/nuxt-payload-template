@@ -30,7 +30,7 @@
     "prettier-plugin-tailwindcss": "^0.7.4"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "5.0.0-alpha.15",
+    "@nuxtjs/apollo": "5.0.0-alpha.16",
     "@nuxtjs/seo": "^3.4.0",
     "@payloadcms/live-preview": "^3.85.1",
     "@pinia/nuxt": "0.11.3",

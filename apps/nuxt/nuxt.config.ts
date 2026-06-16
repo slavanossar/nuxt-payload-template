@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
   ],
   alias: {
+    '#css': resolve(__dirname, './app/assets/css/main.css'),
     '#graphql-exports': resolve(__dirname, './graphql/index.js'),
     '#payload-config': resolve(
       __dirname,

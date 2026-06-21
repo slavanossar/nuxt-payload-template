@@ -51,12 +51,7 @@ import type {
   SerializedElementNode,
   SerializedTextNode,
 } from 'lexical'
-import type {
-  ApplicationsPage,
-  Image,
-  InsightArticle,
-  TemplatePage,
-} from '#payload-types'
+import type { Image, TemplatePage } from '#payload-types'
 import type { LexicalRichTextField } from './types'
 import type { SrcsetSizes } from '~/components/payload/image/types'
 
@@ -110,19 +105,10 @@ interface LexicalInternalLinkNode extends SerializedElementNode {
   type: 'autolink' | 'link'
   fields: {
     url: string
-    doc:
-      | {
-          relationTo: 'applications-pages'
-          value: ApplicationsPage
-        }
-      | {
-          relationTo: 'insight-articles'
-          value: InsightArticle
-        }
-      | {
-          relationTo: 'template-pages'
-          value: TemplatePage
-        }
+    doc: {
+      relationTo: 'template-pages'
+      value: TemplatePage
+    }
     newTab: boolean
     linkType: 'internal'
   }

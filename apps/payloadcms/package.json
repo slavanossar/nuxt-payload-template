@@ -15,7 +15,7 @@
     "regenerate-image-sizes": "cross-env payload run scripts/regenerate-image-sizes.ts",
     "seed": "cross-env payload run seed/index.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "payload": "dotenv -e ../../.env -- cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "devDependencies": {

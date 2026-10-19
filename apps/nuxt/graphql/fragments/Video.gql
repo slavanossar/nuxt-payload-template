@@ -1,7 +1,0 @@
-fragment Video on Video {
-  id
-  url
-  thumbnail {
-    ...VideoThumbnail
-  }
-}

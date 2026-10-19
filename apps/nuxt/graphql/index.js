@@ -41,8 +41,8 @@ export const ImageFragmentDoc = gql`
   }
 }
     `;
-export const TemplatePageFragmentDoc = gql`
-    fragment TemplatePage on TemplatePage {
+export const KeyPageFragmentDoc = gql`
+    fragment KeyPage on KeyPage {
   id
   meta {
     description
@@ -52,32 +52,9 @@ export const TemplatePageFragmentDoc = gql`
     title
   }
   template
-  templatePageUri
+  keyPageUri
 }
     ${ImageFragmentDoc}`;
-export const VideoThumbnailFragmentDoc = gql`
-    fragment VideoThumbnail on VideoThumbnail {
-  id
-  url
-  width
-  height
-  sizes {
-    thumbnail {
-      url
-      width
-    }
-  }
-}
-    `;
-export const VideoFragmentDoc = gql`
-    fragment Video on Video {
-  id
-  url
-  thumbnail {
-    ...VideoThumbnail
-  }
-}
-    ${VideoThumbnailFragmentDoc}`;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
   SiteSettings {
@@ -93,13 +70,13 @@ export const GetGlobalsDocument = gql`
     ${ImageFragmentDoc}`;
 export const GetHomePageDocument = gql`
     query GetHomePage {
-  TemplatePages(limit: 1, where: {template: {equals: Home}}) {
+  KeyPages(limit: 1, where: { template: { equals: Home } }) {
     docs {
-      ...TemplatePage
+      ...KeyPage
       homeTemplateFields {
         myTextField
       }
     }
   }
 }
-    ${TemplatePageFragmentDoc}`;
+    ${KeyPageFragmentDoc}`;

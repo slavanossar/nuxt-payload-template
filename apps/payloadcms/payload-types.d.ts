@@ -68,11 +68,9 @@ export interface Config {
   blocks: {};
   collections: {
     images: Image;
+    pages: Page;
     svgs: SVG;
     staff: Staff;
-    'template-pages': TemplatePage;
-    'video-thumbnails': VideoThumbnail;
-    videos: Video;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -81,11 +79,9 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     images: ImagesSelect<false> | ImagesSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     svgs: SvgsSelect<false> | SvgsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
-    'template-pages': TemplatePagesSelect<false> | TemplatePagesSelect<true>;
-    'video-thumbnails': VideoThumbnailsSelect<false> | VideoThumbnailsSelect<true>;
-    videos: VideosSelect<false> | VideosSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -135,7 +131,6 @@ export interface StaffAuthOperations {
  */
 export interface Image {
   id: string;
-  title: string;
   /**
    * For vision-impaired users with screen readers, this is more descriptive than a caption.
    */
@@ -220,11 +215,27 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  homeTemplateFields?: {
+    myTextField?: string | null;
+  };
+  /**
+   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
+   */
+  template: 'Home';
+  templatePageUri?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "svgs".
  */
 export interface SVG {
   id: string;
-  title: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -254,6 +265,7 @@ export interface Staff {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -265,80 +277,6 @@ export interface Staff {
     | null;
   password?: string | null;
   collection: 'staff';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "template-pages".
- */
-export interface TemplatePage {
-  id: string;
-  homeTemplateFields?: {
-    myTextField?: string | null;
-  };
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Image;
-  };
-  /**
-   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
-   */
-  template: 'Home';
-  templatePageUri?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "video-thumbnails".
- */
-export interface VideoThumbnail {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos".
- */
-export interface Video {
-  id: string;
-  title: string;
-  thumbnail: string | VideoThumbnail;
-  adminThumbnailURL: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -369,24 +307,16 @@ export interface PayloadLockedDocument {
         value: string | Image;
       } | null)
     | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
         relationTo: 'svgs';
         value: string | SVG;
       } | null)
     | ({
         relationTo: 'staff';
         value: string | Staff;
-      } | null)
-    | ({
-        relationTo: 'template-pages';
-        value: string | TemplatePage;
-      } | null)
-    | ({
-        relationTo: 'video-thumbnails';
-        value: string | VideoThumbnail;
-      } | null)
-    | ({
-        relationTo: 'videos';
-        value: string | Video;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -435,7 +365,6 @@ export interface PayloadMigration {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
-  title?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -535,10 +464,24 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  homeTemplateFields?:
+    | T
+    | {
+        myTextField?: T;
+      };
+  template?: T;
+  templatePageUri?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "svgs_select".
  */
 export interface SvgsSelect<T extends boolean = true> {
-  title?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -567,6 +510,7 @@ export interface StaffSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -576,79 +520,6 @@ export interface StaffSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "template-pages_select".
- */
-export interface TemplatePagesSelect<T extends boolean = true> {
-  homeTemplateFields?:
-    | T
-    | {
-        myTextField?: T;
-      };
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  template?: T;
-  templatePageUri?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "video-thumbnails_select".
- */
-export interface VideoThumbnailsSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos_select".
- */
-export interface VideosSelect<T extends boolean = true> {
-  title?: T;
-  thumbnail?: T;
-  adminThumbnailURL?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

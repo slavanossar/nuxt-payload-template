@@ -9,6 +9,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { s3Storage } from '@payloadcms/storage-s3'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { muxPlugin } from '@pro-laico/payload-mux'
 
 import * as collections from './collections'
 import * as globals from './globals'
@@ -59,6 +60,17 @@ export default buildConfig({
     },
   },
   plugins: [
+    muxPlugin({
+      enabled: false,
+      options: {
+        uploadSettings: {
+          new_asset_settings: {
+            video_quality: 'premium',
+            max_resolution_tier: '2160p',
+          },
+        },
+      },
+    }),
     s3Storage({
       enabled: false,
       collections: {

@@ -1,6 +1,3 @@
-import { uploadTitle } from '~/fields'
-import { hashFilename } from '~/hooks'
-
 import type { CollectionConfig, ImageSize } from 'payload'
 import type { Image } from 'payload-types'
 
@@ -21,7 +18,6 @@ const Images: CollectionConfig = {
   },
   admin: {
     group: '📷 Media',
-    useAsTitle: 'title',
     defaultColumns: ['filename', 'title', 'updatedAt'],
   },
   upload: {
@@ -37,6 +33,10 @@ const Images: CollectionConfig = {
           formatOptions: {
             format: 'jpeg',
           },
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         }
       }),
       {
@@ -51,14 +51,14 @@ const Images: CollectionConfig = {
             force: true,
           },
         },
+        admin: {
+          disableListColumn: true,
+          disableListFilter: true,
+        },
       },
     ],
   },
-  hooks: {
-    beforeOperation: [hashFilename],
-  },
   fields: [
-    uploadTitle,
     {
       name: 'description',
       type: 'text',

@@ -1,5 +1,3 @@
-import { uploadTitle } from '~/fields'
-import { hashFilename } from '~/hooks'
 import { normaliseSvg } from './hooks'
 
 import type { CollectionConfig } from 'payload'
@@ -22,7 +20,6 @@ const Svgs: CollectionConfig = {
   },
   admin: {
     group: '📷 Media',
-    useAsTitle: 'title',
     defaultColumns: ['filename', 'title', 'updatedAt'],
     enableRichTextRelationship: false,
   },
@@ -31,9 +28,9 @@ const Svgs: CollectionConfig = {
     mimeTypes: ['image/svg+xml'],
   },
   hooks: {
-    beforeOperation: [hashFilename, normaliseSvg],
+    beforeOperation: [normaliseSvg],
   },
-  fields: [uploadTitle],
+  fields: [],
 }
 
 export default Svgs

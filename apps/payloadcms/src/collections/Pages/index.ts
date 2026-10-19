@@ -3,14 +3,14 @@ import { isSuperAdmin } from '~/access'
 import * as templates from './templates'
 
 import type { CollectionConfig, FieldHook } from 'payload'
-import type { TemplatePage } from 'payload-types'
+import type { Page } from 'payload-types'
 
-const uriMappings: Record<TemplatePage['template'], string> = {
+const uriMappings: Record<Page['template'], string> = {
   Home: '/',
 }
 
-const TemplatePages: CollectionConfig = {
-  slug: 'template-pages',
+const Pages: CollectionConfig = {
+  slug: 'pages',
   admin: {
     useAsTitle: 'template',
     group: '📄 Content',
@@ -81,7 +81,7 @@ const TemplatePages: CollectionConfig = {
         afterRead: [
           (({ data }) => {
             return data?.template ? uriMappings[data?.template] : '/'
-          }) as FieldHook<TemplatePage>,
+          }) as FieldHook<Page>,
         ],
       },
       admin: {
@@ -93,4 +93,4 @@ const TemplatePages: CollectionConfig = {
   ],
 }
 
-export default TemplatePages
+export default Pages

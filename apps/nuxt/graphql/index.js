@@ -55,6 +55,23 @@ export const KeyPageFragmentDoc = gql`
   keyPageUri
 }
     ${ImageFragmentDoc}`;
+export const VideoFragmentDoc = gql`
+    fragment Video on Video {
+  id
+  title
+  aspectRatio
+  duration
+  maxWidth
+  maxHeight
+  posterTimestamp
+  playbackOptions {
+    id
+    playbackId
+    playbackUrl
+    posterUrl
+  }
+}
+    `;
 export const GetGlobalsDocument = gql`
     query GetGlobals {
   SiteSettings {

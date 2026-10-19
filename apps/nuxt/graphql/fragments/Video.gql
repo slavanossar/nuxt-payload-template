@@ -1,0 +1,15 @@
+fragment Video on Video {
+  id
+  title
+  aspectRatio
+  duration
+  maxWidth
+  maxHeight
+  posterTimestamp
+  playbackOptions {
+    id
+    playbackId
+    playbackUrl
+    posterUrl
+  }
+}

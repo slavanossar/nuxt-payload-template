@@ -13,6 +13,7 @@ import { muxPlugin } from '@pro-laico/payload-mux'
 
 import * as collections from './collections'
 import * as globals from './globals'
+import { seed } from './seed'
 
 import { generateFileURL } from './utils'
 
@@ -47,6 +48,9 @@ export default buildConfig({
   editor: lexicalEditor({}),
   collections: Object.values(collections),
   globals: Object.values(globals),
+  onInit: async (payload) => {
+    await seed(payload)
+  },
   routes: {
     api: process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE,
   },

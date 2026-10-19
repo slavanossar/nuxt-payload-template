@@ -17,7 +17,7 @@
     },
     "payloadcms#dev": {
       "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
     },
     "build": {
       "dependsOn": ["^build"]
@@ -31,7 +31,7 @@
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
       "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
     },
     "start": {
       "cache": false,
@@ -42,7 +42,7 @@
     },
     "payloadcms#start": {
       "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
     },
     "generate": {
       "cache": false
@@ -50,7 +50,7 @@
     "payloadcms#generate": {
       "outputs": ["types.d.ts"],
       "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
     },
     "nuxt#generate": {
       "dependsOn": ["payloadcms#generate"],
@@ -61,7 +61,7 @@
     },
     "payloadcms#regenerate-image-sizes": {
       "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
     },
     "lint": {},
     "format": {}

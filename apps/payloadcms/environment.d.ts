@@ -7,6 +7,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_PAYLOAD_API_ROUTE: string
     DATABASE_NAME: string
     PAYLOAD_SECRET: string
+    SEED_STAFF_EMAIL: string
     R2_REGION: string
     R2_BUCKET: string
     R2_ACCESS_KEY_ID: string

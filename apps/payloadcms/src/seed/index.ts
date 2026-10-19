@@ -12,9 +12,9 @@ export const seed = async (payload: Payload): Promise<void> => {
 
   if (staffCount > 0) return
 
-  if (!process.env.SEED_EMAIL?.trim()) {
+  if (!process.env.SEED_STAFF_EMAIL?.trim()) {
     payload.logger.warn(
-      'No staff users found, but SEED_EMAIL is not set. Skipping seed.',
+      'No staff users found, but SEED_STAFF_EMAIL is not set. Skipping seed.',
     )
     return
   }

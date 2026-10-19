@@ -74,20 +74,6 @@ export default buildConfig({
             return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
           },
         },
-        videos: {
-          disablePayloadAccessControl: true,
-          prefix: 'videos',
-          generateFileURL: ({ filename, prefix }) => {
-            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
-          },
-        },
-        'video-thumbnails': {
-          disablePayloadAccessControl: true,
-          prefix: 'video-thumbnails',
-          generateFileURL: ({ filename, prefix }) => {
-            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
-          },
-        },
       },
       bucket: process.env.S3_BUCKET,
       config: {
@@ -99,7 +85,7 @@ export default buildConfig({
       },
     }),
     seoPlugin({
-      collections: ['template-pages'],
+      collections: ['key-pages'],
       globals: ['site-settings'],
       uploadsCollection: 'images',
       // generateTitle: ({ doc }) => `${doc?.title?.value} | ${process.env.SITE_NAME}`,

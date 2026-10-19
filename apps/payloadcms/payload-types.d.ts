@@ -222,6 +222,14 @@ export interface KeyPage {
   homeTemplateFields?: {
     myTextField?: string | null;
   };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+  };
   /**
    * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
    */
@@ -471,6 +479,13 @@ export interface KeyPagesSelect<T extends boolean = true> {
     | T
     | {
         myTextField?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   template?: T;
   keyPageUri?: T;

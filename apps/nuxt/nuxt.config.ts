@@ -60,7 +60,7 @@ export default defineNuxtConfig({
     },
   },
   robots: {
-    disallow: ['/admin', '/api', NEXT_PUBLIC_PAYLOAD_API_ROUTE],
+    disallow: ['/admin', NEXT_PUBLIC_PAYLOAD_API_ROUTE],
   },
   site: {
     url: NEXT_PUBLIC_SITE_URL,
@@ -83,9 +83,17 @@ export default defineNuxtConfig({
   build: { transpile: [] },
   vite: {
     plugins: [tailwindPlugin()],
+    optimizeDeps: {
+      include: [
+        '@payloadcms/live-preview',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'graphql-tag',
+      ],
+    },
     server: {
       origin: NEXT_PUBLIC_SITE_URL,
-      hmr: {
+      ws: {
         protocol: 'wss',
         host: 'madetogether.test',
         clientPort: 443,

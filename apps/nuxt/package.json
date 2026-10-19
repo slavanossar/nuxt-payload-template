@@ -2,8 +2,9 @@
   "name": "nuxt",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "nuxi dev --no-tui",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "lint": "eslint --ext .js,.ts,.vue .",

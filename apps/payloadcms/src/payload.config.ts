@@ -13,6 +13,8 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import * as collections from './collections'
 import * as globals from './globals'
 
+import { generateFileURL } from './utils'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -63,25 +65,22 @@ export default buildConfig({
         images: {
           disablePayloadAccessControl: true,
           prefix: 'images',
-          generateFileURL: ({ filename, prefix }) => {
-            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
-          },
+          generateFileURL,
         },
         svgs: {
           disablePayloadAccessControl: true,
           prefix: 'svgs',
-          generateFileURL: ({ filename, prefix }) => {
-            return `https://${process.env.CLOUDFRONT_DOMAIN}/${prefix}/${filename}`
-          },
+          generateFileURL,
         },
       },
-      bucket: process.env.S3_BUCKET,
+      bucket: process.env.R2_BUCKET,
       config: {
         credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+          accessKeyId: process.env.R2_ACCESS_KEY_ID,
+          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
         },
-        region: process.env.S3_REGION,
+        region: process.env.R2_REGION,
+        endpoint: process.env.R2_ENDPOINT,
       },
     }),
     seoPlugin({

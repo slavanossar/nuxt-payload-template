@@ -32,15 +32,12 @@ export const usePayloadKeyPage = async (template: KeyPage['template']) => {
 
     seoMeta.title = docMeta?.title || seoMeta.title
 
-    seoMeta.ogTitle = seoMeta.twitterTitle = `${seoMeta.title} | ${
+    seoMeta.ogTitle = `${seoMeta.title} | ${
       globalsStore.siteSettings?.meta?.title || config.public.siteName
     }`
 
     if (docMeta?.description) {
-      seoMeta.description =
-        seoMeta.ogDescription =
-        seoMeta.twitterDescription =
-          docMeta.description
+      seoMeta.description = seoMeta.ogDescription = docMeta.description
     }
 
     if (docMeta?.image) {

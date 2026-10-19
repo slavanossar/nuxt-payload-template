@@ -23,15 +23,11 @@ const seoMeta: UseSeoMetaInput = {
   twitterCard: 'summary_large_image',
 }
 
-seoMeta.title =
-  seoMeta.ogTitle =
-  seoMeta.twitterTitle =
-    globalsStore.siteSettings?.meta?.title || config.public.siteName
+seoMeta.title = seoMeta.ogTitle =
+  globalsStore.siteSettings?.meta?.title || config.public.siteName
 
-seoMeta.description =
-  seoMeta.ogDescription =
-  seoMeta.twitterDescription =
-    globalsStore.siteSettings?.meta?.description || ''
+seoMeta.description = seoMeta.ogDescription =
+  globalsStore.siteSettings?.meta?.description || ''
 
 const opengraphImage = useRelationshipField(
   globalsStore.siteSettings?.meta?.image,

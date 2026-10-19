@@ -7,7 +7,7 @@
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "lint": "eslint --ext .js,.ts,.vue .",
-    "generate": "npm run generate:schema && npm run generate:types",
+    "generate": "pnpm run generate:schema && pnpm run generate:types",
     "generate:schema": "node ./graphql/schemaQuery.mjs",
     "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js"
   },

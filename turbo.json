@@ -1,39 +1,56 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://v2-11-9.turborepo.dev/schema.json",
   "globalDependencies": [],
-  "pipeline": {
+  "globalEnv": [
+    "SITE_NAME",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_PAYLOAD_API_ROUTE",
+    "PORT"
+  ],
+  "tasks": {
     "dev": {
       "cache": false,
       "persistent": true
     },
+    "nuxt#dev": {
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
+    },
+    "payloadcms#dev": {
+      "env": ["DATABASE_NAME"],
+      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+    },
     "build": {
-      "dependsOn": ["^build"],
-      "env": [
-        "SITE_NAME",
-        "NEXT_PUBLIC_SITE_URL",
-        "NEXT_PUBLIC_PORT",
-        "NEXT_PUBLIC_PAYLOAD_API_ROUTE"
-      ]
+      "dependsOn": ["^build"]
     },
     "nuxt#build": {
       "dependsOn": ["^build"],
       "outputs": [".output/**"],
-      "env": ["NITRO_HOST", "NITRO_PORT"]
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
     },
     "payloadcms#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
-      "env": ["DATABASE_NAME", "PAYLOAD_SECRET"]
+      "env": ["DATABASE_NAME"],
+      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
     },
     "start": {
       "cache": false,
       "persistent": true
     },
+    "nuxt#start": {
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
+    },
+    "payloadcms#start": {
+      "env": ["DATABASE_NAME"],
+      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
+    },
     "generate": {
       "cache": false
     },
     "payloadcms#generate": {
-      "outputs": ["types.d.ts"]
+      "outputs": ["types.d.ts"],
+      "env": ["DATABASE_NAME"],
+      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
     },
     "nuxt#generate": {
       "dependsOn": ["payloadcms#generate"],
@@ -41,6 +58,10 @@
     },
     "regenerate-image-sizes": {
       "cache": false
+    },
+    "payloadcms#regenerate-image-sizes": {
+      "env": ["DATABASE_NAME"],
+      "passThroughEnv": ["PAYLOAD_SECRET", "R2_*", "MUX_*"]
     },
     "lint": {},
     "format": {}

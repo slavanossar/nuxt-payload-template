@@ -28,7 +28,7 @@
     "eslint-plugin-prettier": "^5.5.7",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "turbo": "^1.13.4",
+    "turbo": "^2.11.9",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -43,5 +43,11 @@
       "sharp",
       "vue-demi"
     ]
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "10.34.5"
+    }
   }
 }

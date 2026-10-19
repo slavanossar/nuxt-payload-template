@@ -18,7 +18,7 @@
     "configure-env": "configure-env"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "devDependencies": {
     "configure-env": "^1.0.0",

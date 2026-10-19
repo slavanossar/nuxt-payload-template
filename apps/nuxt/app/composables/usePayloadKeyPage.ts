@@ -3,30 +3,28 @@ import { GetHomePageDocument } from '#graphql-exports'
 import type { UseSeoMetaInput } from '@unhead/vue'
 import type { DocumentNode } from 'graphql'
 import type { PaginatedDocs } from 'payload'
-import type { TemplatePage } from '#payload-types'
+import type { KeyPage } from '#payload-types'
 
-interface TemplatePageQueryResult {
-  TemplatePages: PaginatedDocs<TemplatePage>
+interface KeyPageQueryResult {
+  KeyPages: PaginatedDocs<KeyPage>
 }
 
-const pageTemplateQueries: Record<TemplatePage['template'], DocumentNode> = {
+const keyPageQueries: Record<KeyPage['template'], DocumentNode> = {
   Home: GetHomePageDocument,
 }
 
-export const usePayloadTemplatePage = async (
-  template: TemplatePage['template'],
-) => {
+export const usePayloadKeyPage = async (template: KeyPage['template']) => {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
-  const doc = ref<TemplatePage | null>(null)
+  const doc = ref<KeyPage | null>(null)
 
-  const { data } = await useAsyncQuery<TemplatePageQueryResult>(
-    pageTemplateQueries[template],
+  const { data } = await useAsyncQuery<KeyPageQueryResult>(
+    keyPageQueries[template],
   )
 
-  doc.value = data.value?.TemplatePages.docs[0] || null
+  doc.value = data.value?.KeyPages.docs[0] || null
 
   if (doc.value) {
     const docMeta = doc.value.meta

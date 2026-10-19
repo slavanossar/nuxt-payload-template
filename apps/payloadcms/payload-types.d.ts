@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     images: Image;
-    pages: Page;
+    'key-pages': KeyPage;
     svgs: SVG;
     staff: Staff;
     'payload-kv': PayloadKv;
@@ -79,7 +79,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     images: ImagesSelect<false> | ImagesSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
+    'key-pages': KeyPagesSelect<false> | KeyPagesSelect<true>;
     svgs: SvgsSelect<false> | SvgsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -215,9 +215,9 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "key-pages".
  */
-export interface Page {
+export interface KeyPage {
   id: string;
   homeTemplateFields?: {
     myTextField?: string | null;
@@ -226,7 +226,7 @@ export interface Page {
    * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
    */
   template: 'Home';
-  templatePageUri?: string | null;
+  keyPageUri?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -307,8 +307,8 @@ export interface PayloadLockedDocument {
         value: string | Image;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page;
+        relationTo: 'key-pages';
+        value: string | KeyPage;
       } | null)
     | ({
         relationTo: 'svgs';
@@ -464,16 +464,16 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "key-pages_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface KeyPagesSelect<T extends boolean = true> {
   homeTemplateFields?:
     | T
     | {
         myTextField?: T;
       };
   template?: T;
-  templatePageUri?: T;
+  keyPageUri?: T;
   updatedAt?: T;
   createdAt?: T;
 }

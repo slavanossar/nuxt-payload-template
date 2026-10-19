@@ -1,4 +1,4 @@
-fragment TemplatePage on TemplatePage {
+fragment KeyPage on KeyPage {
   id
   meta {
     description
@@ -8,5 +8,5 @@ fragment TemplatePage on TemplatePage {
     title
   }
   template
-  templatePageUri
+  keyPageUri
 }

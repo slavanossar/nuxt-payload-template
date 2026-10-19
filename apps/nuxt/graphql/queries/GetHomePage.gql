@@ -1,7 +1,7 @@
 query GetHomePage {
-  TemplatePages(limit: 1, where: { template: { equals: Home } }) {
+  KeyPages(limit: 1, where: { template: { equals: Home } }) {
     docs {
-      ...TemplatePage
+      ...KeyPage
       homeTemplateFields {
         myTextField
       }

@@ -1,57 +1,67 @@
-import { GetHomePageDocument } from '#graphql-exports'
+import { GetHomePageDocument } from '#graphql/exports'
 
 import type { UseSeoMetaInput } from '@unhead/vue'
 import type { DocumentNode } from 'graphql'
-import type { PaginatedDocs } from 'payload'
 import type { KeyPage } from '#payload-types'
+import type { GetHomePageQuery, GetHomePageQueryVariables } from '#graphql/exports'
 
-interface KeyPageQueryResult {
-  KeyPages: PaginatedDocs<KeyPage>
+type KeyPageQueryByTemplate = {
+  Home: GetHomePageQuery
 }
+
+type KeyPageQueryVariablesByTemplate = {
+  Home: GetHomePageQueryVariables
+}
+
+type KeyPageDoc<T extends KeyPage['template']> = NonNullable<
+  NonNullable<KeyPageQueryByTemplate[T]['KeyPages']>['docs'][number]
+>
 
 const keyPageQueries: Record<KeyPage['template'], DocumentNode> = {
   Home: GetHomePageDocument,
 }
 
-export const usePayloadKeyPage = async (template: KeyPage['template']) => {
+export const usePayloadKeyPage = async <T extends KeyPage['template']>(
+  template: T,
+): Promise<Ref<KeyPageDoc<T>>> => {
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
   const globalsStore = useGlobalsStore()
 
-  const doc = ref<KeyPage | null>(null)
+  const { data } = await useAsyncQuery<
+    KeyPageQueryByTemplate[T],
+    KeyPageQueryVariablesByTemplate[T]
+  >(keyPageQueries[template])
 
-  const { data } = await useAsyncQuery<KeyPageQueryResult>(
-    keyPageQueries[template],
-  )
+  const result = data.value as KeyPageQueryByTemplate[T] | null
+  const page = result?.KeyPages?.docs[0] as KeyPageDoc<T> | undefined
 
-  doc.value = data.value?.KeyPages.docs[0] || null
-
-  if (doc.value) {
-    const docMeta = doc.value.meta
-    const seoMeta: UseSeoMetaInput = { title: doc.value.template }
-
-    seoMeta.title = docMeta?.title || seoMeta.title
-
-    seoMeta.ogTitle = `${seoMeta.title} | ${
-      globalsStore.siteSettings?.meta?.title || config.public.siteName
-    }`
-
-    if (docMeta?.description) {
-      seoMeta.description = seoMeta.ogDescription = docMeta.description
-    }
-
-    if (docMeta?.image) {
-      const opengraphImage = useRelationshipField(docMeta?.image)
-      seoMeta.ogImage = opengraphImage.value?.sizes?.opengraph?.url || ''
-    }
-
-    nuxtApp.runWithContext(() => useSeoMeta(seoMeta))
-  } else {
+  if (!page) {
     throw createError({
       statusCode: 404,
-      message: 'Page data missing.',
+      message: 'Page not found.',
+      fatal: true,
     })
   }
 
-  return doc
+  const docMeta = page.meta
+  const seoMeta: UseSeoMetaInput = { title: page.keyPageTitle }
+
+  seoMeta.title = docMeta?.title || seoMeta.title
+
+  seoMeta.ogTitle = `${seoMeta.title} | ${
+    globalsStore.siteSettings?.meta?.title || config.public.siteName
+  }`
+
+  if (docMeta?.description) {
+    seoMeta.description = seoMeta.ogDescription = docMeta.description
+  }
+
+  if (docMeta?.image) {
+    seoMeta.ogImage = docMeta.image.sizes?.opengraph?.url || ''
+  }
+
+  nuxtApp.runWithContext(() => useSeoMeta(seoMeta))
+
+  return ref(page)
 }

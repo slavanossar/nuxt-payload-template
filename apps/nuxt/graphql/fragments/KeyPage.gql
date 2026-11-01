@@ -8,5 +8,6 @@ fragment KeyPage on KeyPage {
     title
   }
   template
+  keyPageTitle
   keyPageUri
 }

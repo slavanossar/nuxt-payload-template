@@ -1,0 +1,20 @@
+/* File Edit & Remove Buttons */
+.btn.upload-relationship-details__edit,
+.btn.file-details__remove {
+  display: none;
+}
+
+/* Icon Size */
+.step-nav__home,
+.step-nav__home svg {
+  width: 85px;
+  height: 24px;
+}
+
+/* Media List View */
+.collection-list--images,
+.collection-list--mux-video {
+  [class^='cell-'] {
+    vertical-align: middle;
+  }
+}

@@ -1,12 +1,19 @@
+import { payloadEndpoint } from '~/utils/payloadEndpoint'
+
 export function fetchPayloadDoc(
   id: string,
   collectionSlug: PayloadCollectionSlug,
 ) {
   const config = useRuntimeConfig()
+  const base = config.payloadcmsUrl || config.public.siteUrl
 
   try {
     return $fetch<PayloadCollections[PayloadCollectionSlug]>(
-      `${config.public.siteUrl}${config.public.payloadApiRoute}/${collectionSlug}/${id}`,
+      payloadEndpoint(
+        base,
+        config.public.payloadApiRoute,
+        `${collectionSlug}/${id}`,
+      ),
     )
   } catch (error) {
     throw createError({

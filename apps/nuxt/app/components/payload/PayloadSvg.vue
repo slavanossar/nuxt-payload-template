@@ -3,19 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import type { SVG } from '#payload-types'
+import type { SVGFragment } from '#graphql/exports'
 
 interface PayloadSvgProps {
-  svg: string | SVG
+  svg: SVGFragment
 }
 
 const props = defineProps<PayloadSvgProps>()
-const svg = useRelationshipField(props.svg)
 const svgComponent = ref<ReturnType<typeof h> | null>(null)
 
 async function fetchSvg() {
-  if (svg.value) {
-    const svgString = await $fetch<Blob>(svg.value.url!)
+  if (props.svg) {
+    const svgString = await $fetch<Blob>(props.svg.url)
       .then((res) => res.text())
       .catch(() => '')
 

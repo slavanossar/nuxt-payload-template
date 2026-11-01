@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.ts,.vue .",
     "generate": "pnpm run generate:schema && pnpm run generate:types",
     "generate:schema": "node ./graphql/schemaQuery.mjs",
-    "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts && mv graphql/exports.d.ts graphql/index.js"
+    "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts"
   },
   "husky": {
     "hooks": {
@@ -23,25 +23,28 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^7.4.6",
-    "@graphql-codegen/typescript-vue-apollo": "^5.0.1",
+    "@graphql-codegen/typed-document-node": "^7.2.0",
+    "@graphql-codegen/typescript-operations": "^6.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@payloadcms/richtext-lexical": "^3.92.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1"
   },
   "dependencies": {
+    "@mux/mux-player": "^3.14.1",
     "@nuxtjs/apollo": "5.0.0-alpha.16",
     "@nuxtjs/seo": "^6.0.1",
-    "@payloadcms/live-preview": "^3.91.0",
+    "@payloadcms/live-preview": "^3.92.1",
     "@pinia/nuxt": "1.0.3",
     "@tailwindcss/vite": "^4.3.3",
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "detect-it": "^4.0.1",
-    "dotenv": "^18.0.8",
-    "motion-v": "^2.8.0",
-    "nuxt": "^4.6.2",
+    "dotenv": "^18.0.9",
+    "motion-v": "^2.10.0",
+    "nuxt": "^4.6.3",
     "pinia": "^4.1.0",
     "pinia-plugin-persistedstate": "^4.7.1",
     "slate": "^0.146.0",

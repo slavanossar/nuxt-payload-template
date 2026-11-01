@@ -1,198 +1,136 @@
-<template>
-  <template v-for="(node, i) in richTextContent">
-    <template v-if="isTextNode(node)">
-      <strong v-if="node.format === 1" :key="`bold_${i}`" v-text="node.text" />
-      <em
-        v-else-if="node.format === 2"
-        :key="`italic_${i}`"
-        v-text="node.text"
-      />
-      <template v-else>{{ node.text }}</template>
-    </template>
-    <br v-else-if="isLinebreakNode(node)" />
-    <template v-else-if="isLinkNode(node)">
-      <NuxtLink
-        v-if="node.fields.linkType === 'custom'"
-        :key="`custom_${i}`"
-        :class="props.linkClass"
-        :to="node.fields.url"
-        :target="node.fields.linkType === 'custom' ? '_blank' : null"
-      >
-        <PayloadRichText :nested-content="node.children" />
-      </NuxtLink>
-      <NuxtLink
-        v-else-if="node.fields.linkType === 'internal'"
-        :key="`internal_${i}`"
-        :class="props.linkClass"
-        :to="getInternalUrl(node.fields.doc) ?? ''"
-      >
-        <PayloadRichText :nested-content="node.children" />
-      </NuxtLink>
-    </template>
-    <template v-else-if="isUploadNode(node)">
-      <figure v-if="node.type === 'upload'" :key="i">
-        <PayloadImage :image="node.value" :sizes="props.imageSizes" />
-        <figcaption v-if="node.fields?.caption">
-          <p v-text="node.fields.caption" />
-        </figcaption>
-      </figure>
-    </template>
-    <template v-else-if="isElementNode(node)">
-      <Component :is="getElementTag(node)" v-if="node.type" :key="i">
-        <PayloadRichText :nested-content="node.children" />
-      </Component>
-    </template>
-  </template>
-</template>
+<script lang="ts">
+import { NuxtLink } from '#components'
+import PayloadImage from '~/components/payload/image/PayloadImage.vue'
+import {
+  isElementNode,
+  isLexicalRichTextField,
+  isLinebreakNode,
+  isLinkNode,
+  isTextNode,
+  isUploadNode,
+} from './types'
 
-<script setup lang="ts">
-import type {
-  SerializedLexicalNode,
-  SerializedElementNode,
-  SerializedTextNode,
-} from 'lexical'
-import type { Image, KeyPage } from '#payload-types'
-import type { LexicalRichTextField } from './types'
+import type { SerializedLexicalNode } from 'lexical'
+import type { VNodeChild } from 'vue'
 import type { SrcsetSizes } from '~/components/payload/image/types'
+import type { LexicalElementNode, LexicalInternalLinkNode } from './types'
 
-interface LexicalTextNode extends SerializedTextNode {
-  type: 'text'
-}
-
-interface LexicalLinebreakNode {
-  type: 'linebreak'
-}
-
-interface LexicalParagraphNode extends SerializedElementNode<LexicalTextNode> {
-  type: 'paragraph'
-}
-
-interface LexicalHeadingNode extends SerializedElementNode<LexicalTextNode> {
-  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  type: 'heading'
-}
-
-interface LexicalListItemNode extends SerializedElementNode<LexicalTextNode> {
-  type: 'listitem'
-}
-
-interface LexicalListNode extends SerializedElementNode<LexicalListItemNode> {
-  tag: 'ol' | 'ul'
-  type: 'list'
-}
-
-interface LexicalBlockquoteNode extends SerializedElementNode<LexicalTextNode> {
-  type: 'quote'
-}
-
-type LexicalElementNode =
-  | LexicalParagraphNode
-  | LexicalHeadingNode
-  | LexicalListItemNode
-  | LexicalListNode
-  | LexicalBlockquoteNode
-
-interface LexicalCustomLinkNode extends SerializedElementNode {
-  type: 'autolink' | 'link'
-  fields: {
-    url: string
-    newTab: boolean
-    linkType: 'custom'
-  }
-}
-
-interface LexicalInternalLinkNode extends SerializedElementNode {
-  type: 'autolink' | 'link'
-  fields: {
-    url: string
-    doc: {
-      relationTo: 'key-pages'
-      value: KeyPage
+export default defineComponent({
+  name: 'PayloadRichText',
+  props: {
+    content: {
+      type: null as unknown as PropType<unknown>,
+    },
+    linkClass: {
+      type: String,
+      default: undefined,
+    },
+    nestedContent: {
+      type: Array as PropType<SerializedLexicalNode[]>,
+      default: undefined,
+    },
+    imageSizes: {
+      type: Object as PropType<SrcsetSizes>,
+      default: undefined,
+    },
+  },
+  setup(props) {
+    function renderNodes(nodes: readonly unknown[]): VNodeChild[] {
+      return nodes.flatMap((node, index) => {
+        const rendered = renderNode(node, index)
+        return rendered == null ? [] : [rendered]
+      })
     }
-    newTab: boolean
-    linkType: 'internal'
-  }
-}
 
-type LexicalLinkNode = LexicalCustomLinkNode | LexicalInternalLinkNode
+    function renderNode(node: unknown, index: number): VNodeChild | null {
+      if (isTextNode(node)) {
+        if (node.format === 1) return h('strong', { key: index }, node.text)
+        if (node.format === 2) return h('em', { key: index }, node.text)
+        return node.text
+      }
 
-interface LexicalUploadNode extends SerializedLexicalNode {
-  fields?: {
-    [key: string]: any
-  }
-  relationTo: 'images'
-  type: 'upload'
-  value: Image
-}
+      if (isLinebreakNode(node)) return h('br', { key: index })
 
-interface Props {
-  content?: LexicalRichTextField
-  linkClass?: string
-  nestedContent?: SerializedLexicalNode[]
-  imageSizes?: SrcsetSizes
-}
+      if (isLinkNode(node)) {
+        const children = () => renderNodes(node.children)
 
-const props = defineProps<Props>()
+        if (node.fields.linkType === 'custom') {
+          return h(
+            NuxtLink,
+            {
+              key: index,
+              class: props.linkClass,
+              to: node.fields.url,
+              target: '_blank',
+            },
+            children,
+          )
+        }
 
-/**
- * Typechecks
- */
-const isTextNode = (node: any): node is LexicalTextNode =>
-  typeof node === 'object' && node !== null && node.type === 'text'
+        return h(
+          NuxtLink,
+          {
+            key: index,
+            class: props.linkClass,
+            to: getInternalUrl(node.fields.doc) ?? '',
+          },
+          children,
+        )
+      }
 
-const isLinebreakNode = (node: any): node is LexicalLinebreakNode =>
-  typeof node === 'object' && node !== null && node.type === 'linebreak'
+      if (isUploadNode(node)) {
+        const children: VNodeChild[] = [
+          h(PayloadImage, {
+            image: node.value,
+            sizes: props.imageSizes,
+          }),
+        ]
 
-const isElementNode = (node: any): node is LexicalElementNode =>
-  typeof node === 'object' && node !== null && Array.isArray(node.children)
+        if (node.fields?.caption) {
+          children.push(h('figcaption', [h('p', node.fields.caption)]))
+        }
 
-const isLinkNode = (node: any): node is LexicalLinkNode =>
-  typeof node === 'object' &&
-  node !== null &&
-  Array.isArray(node.children) &&
-  ['autolink', 'link'].includes(node.type) &&
-  'fields' in node &&
-  typeof node.fields === 'object' &&
-  ['custom', 'internal'].includes(node.fields.linkType)
+        return h('figure', { key: index }, children)
+      }
 
-const isUploadNode = (node: any): node is LexicalUploadNode =>
-  typeof node === 'object' &&
-  node !== null &&
-  node.type === 'upload' &&
-  'relationTo' in node &&
-  'value' in node
+      if (isElementNode(node) && node.type) {
+        const tag = getElementTag(node)
+        if (!tag) return null
+        return h(tag, { key: index }, renderNodes(node.children))
+      }
 
-const getElementTag = (node: LexicalElementNode) => {
-  switch (node.type) {
-    case 'paragraph':
-      return 'p'
-    case 'quote':
-      return 'blockquote'
-    case 'listitem':
-      return 'li'
-    default:
-      return node.tag
-  }
-}
+      return null
+    }
 
-const richTextContent = computed(() => {
-  if (props.nestedContent) {
-    return props.nestedContent
-  }
+    function getElementTag(node: LexicalElementNode) {
+      switch (node.type) {
+        case 'paragraph':
+          return 'p'
+        case 'quote':
+          return 'blockquote'
+        case 'listitem':
+          return 'li'
+        default:
+          return node.tag
+      }
+    }
 
-  if (props.content) {
-    return props.content.root.children
-  }
+    function getInternalUrl(doc: LexicalInternalLinkNode['fields']['doc']) {
+      switch (doc.relationTo) {
+        case 'key-pages':
+          return doc.value.keyPageUri
+        default:
+          return '/'
+      }
+    }
 
-  return []
+    return () => {
+      if (props.nestedContent) return renderNodes(props.nestedContent)
+      if (isLexicalRichTextField(props.content)) {
+        return renderNodes(props.content.root.children)
+      }
+      return []
+    }
+  },
 })
-
-const getInternalUrl = (doc: LexicalInternalLinkNode['fields']['doc']) => {
-  switch (doc.relationTo) {
-    case 'key-pages':
-      return doc.value.keyPageUri
-    default:
-      return '/'
-  }
-}
 </script>

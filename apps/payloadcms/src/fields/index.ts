@@ -1,3 +1,5 @@
 export { default as Image } from './Image'
+export { default as Media } from './Media'
 export { default as Slug } from './Slug'
 export { default as ValidatedURL } from './ValidatedURL'
+export { default as Video } from './Video'

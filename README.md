@@ -47,6 +47,9 @@ pnpm run dev
 # Generate gql exports, possibleTypes, and Payload types (run while dev server is active)
 pnpm run generate
 
+# Seed the database (staff user and home page)
+pnpm run seed
+
 # Build for production
 pnpm run build
 
@@ -70,13 +73,12 @@ Running `pnpm configure-env` will guide you through creating a `.env` file.
 | `NEXT_PUBLIC_SITE_URL`          | -                | URL of the site, including protocol                         |
 | `PORT`                          | `3001`           | Port used by Payload's Next.js server                       |
 | `NEXT_PUBLIC_PAYLOAD_API_ROUTE` | `/payload-api`   | Route used for Payload's API                                |
-| `DATABASE_NAME`                 | `nuxt-payload`   | The name of the MongoDB database                            |
+| `DATABASE_MONGODB_URI`          | `mongodb://0.0.0.0/nuxt-payload` | MongoDB connection URL                         |
 | `PAYLOAD_SECRET`                | -                | A secret key used for encrypting Payload data/sessions      |
-| `S3_REGION`                     | -                | AWS S3 region                                               |
-| `S3_BUCKET`                     | -                | AWS S3 bucket name                                          |
-| `S3_ACCESS_KEY_ID`              | -                | AWS S3 access key ID                                        |
-| `S3_SECRET_ACCESS_KEY`          | -                | AWS S3 secret access key                                    |
-| `CLOUDFRONT_DOMAIN`             | -                | CloudFront domain for serving assets                        |
+| `SEED_STAFF_EMAIL`              | -                | Email for the first Staff user created by `pnpm seed`       |
+| `SEED_STAFF_PASSWORD`           | -                | Password for the first Staff user created by `pnpm seed`    |
+| `BLOB_STORE_ID`                 | -                | Vercel Blob store ID                                        |
+| `BLOB_READ_WRITE_TOKEN`         | -                | Vercel Blob token. Uploads stay on disk when this is empty  |
 
 ### Custom Local Hostname
 
@@ -112,57 +114,33 @@ import type { Image } from "#payload-types";
 
 > 💡 Type imports must be explicit since Nuxt 3.8, so make sure to use `import type ...`
 
-### Type-safe Relationship Fields
-
-Payload Relationship fields for GraphQL queries are typed as `string | MyCollectionType` (or `string[] | MyCollectionType[]` when the field uses the `hasMany` option). This is because querying the field without any subfields will return the document ID:
-
-```graphql
-# Will return an ID
-query GetRelationship {
-  doc {
-    relationshipField
-  }
-}
-
-# Will return an object
-query GetRelationship {
-  doc {
-    relationshipField {
-      subField
-    }
-  }
-}
-```
-
-This can cause type issues when using these fields within Nuxt, so there is a composable that can be used to assert the type of relationship fields.
-
-```vue
-<script lang="ts" setup>
-const doc = useRelationshipField(data.doc.relationshipField); // RelationshipType | null
-const docs = useRelationshipField(data.doc.relationshipHasManyField); // RelationshipType[]
-</script>
-```
-
 ### GraphQL Exports
 
-GraphQL documents are generated from the `.gql` files in `apps/nuxt/graphql`, and output to `apps/nuxt/graphql/index.js`. You can regenerate the exports using the `generate` script
+GraphQL documents are generated from the `.gql` files in `apps/nuxt/graphql`, and output to `apps/nuxt/graphql/exports.ts`. Payload writes its GraphQL schema to `apps/payloadcms/schema.graphql` during `generate:schema`, and codegen reads that file instead of a running GraphQL endpoint.
 
 ```bash
 pnpm run generate --filter nuxt
 ```
 
-> 💡 Nuxt's generate script will also query the Payload schema, so make sure the Payload app is running (via dev server or otherwise)
+> 💡 Nuxt's generate script still queries Payload for `possibleTypes.json`, so make sure the Payload app is running (via dev server or otherwise)
 
-### `usePayloadPage` composable
+### `usePayloadKeyPage` composable
 
-The `Pages` collection is set up for building predefined page templates, and the `usePayloadPage` composable makes it easy to retrieve page data using Apollo, while also automatically set any SEO/Meta values provided by `@payloadcms/plugin-seo`.
+The `KeyPages` collection is set up for building predefined page templates, and the `usePayloadKeyPage` composable makes it easy to retrieve page data using Apollo, while also automatically set any SEO/Meta values provided by `@payloadcms/plugin-seo`.
+
+Read template fields from the live preview ref with `computed`, so admin edits show up on the page.
 
 ```vue
 <script lang="ts" setup>
-const doc = await usePayloadPage("Home");
-const fields = doc.value?.homeFields;
+const initialData = await usePayloadKeyPage("Home");
+const { data: doc } = useLivePreview({ initialData, depth: 1 });
+const fields = computed(() => doc.value?.homeTemplateFields);
 </script>
 ```
+
+### Vercel
+
+`vercel.json` deploys Nuxt and Payload as two services and routes `/admin`, `/payload-api`, and `/_next` to Payload. The Nuxt service receives `NUXT_PAYLOADCMS_URL` from that binding, which server-side GraphQL uses at runtime. Upload collections (`images`, `svgs`) use the Vercel Blob storage plugin when `BLOB_READ_WRITE_TOKEN` is set.
 
 ### Globals
 

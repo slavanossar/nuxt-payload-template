@@ -1,0 +1,11 @@
+.thumbnail {
+  background-color: rgba(255, 255, 255, 0.1);
+
+  img[alt$='svg'] {
+    object-fit: contain;
+
+    [data-theme='dark'] & {
+      filter: invert(1);
+    }
+  }
+}

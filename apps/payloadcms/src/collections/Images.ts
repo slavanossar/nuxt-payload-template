@@ -1,5 +1,5 @@
 import type { CollectionConfig, ImageSize } from 'payload'
-import type { Image } from 'payload-types'
+import type { Image } from '#payload-types'
 
 const sizes = {
   xs: 320,
@@ -17,7 +17,7 @@ const Images: CollectionConfig = {
     read: () => true,
   },
   admin: {
-    group: '📷 Media',
+    group: '🖼️ Media',
     defaultColumns: ['filename', 'title', 'updatedAt'],
   },
   upload: {

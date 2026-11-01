@@ -1,7 +1,14 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div class="relative">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+    <ClientOnly>
+      <DevOnly>
+        <DevGrid />
+      </DevOnly>
+    </ClientOnly>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -29,12 +36,10 @@ seoMeta.title = seoMeta.ogTitle =
 seoMeta.description = seoMeta.ogDescription =
   globalsStore.siteSettings?.meta?.description || ''
 
-const opengraphImage = useRelationshipField(
-  globalsStore.siteSettings?.meta?.image,
-)
+const opengraphImage = globalsStore.siteSettings?.meta?.image
 
-if (opengraphImage.value?.sizes?.opengraph?.url) {
-  seoMeta.ogImage = opengraphImage.value.sizes.opengraph.url
+if (opengraphImage?.sizes?.opengraph?.url) {
+  seoMeta.ogImage = opengraphImage.sizes.opengraph.url
 }
 
 useSeoMeta(seoMeta)

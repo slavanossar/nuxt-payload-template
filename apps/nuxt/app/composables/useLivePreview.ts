@@ -1,6 +1,6 @@
-import { subscribe, unsubscribe, ready } from '@payloadcms/live-preview'
+import { ready, subscribe, unsubscribe } from '@payloadcms/live-preview'
 
-export const useLivePreview = <T>(props: {
+export const useLivePreview = <T extends Record<string, any>>(props: {
   depth?: number
   initialData: MaybeRef<T>
 }): {
@@ -17,31 +17,36 @@ export const useLivePreview = <T>(props: {
   const isLoading = ref(true)
   const hasSentReadyMessage = ref(false)
 
+  let subscription: ((event: MessageEvent) => Promise<void> | void) | undefined
+
   const onChange = (mergedData: T) => {
     data.value = mergedData
     isLoading.value = false
   }
 
   onMounted(() => {
-    if (route.query.preview) {
-      const subscription = subscribe({
-        apiRoute,
-        callback: onChange,
-        depth,
-        initialData: unref(initialData),
-        serverURL,
-      })
-
-      if (!hasSentReadyMessage.value) {
-        hasSentReadyMessage.value = true
-
-        ready({ serverURL })
-      }
-
-      onUnmounted(() => {
-        unsubscribe(subscription)
-      })
+    if (!route.query.preview) {
+      isLoading.value = false
+      return
     }
+
+    subscription = subscribe({
+      apiRoute,
+      callback: onChange,
+      depth,
+      initialData: unref(initialData),
+      serverURL,
+    })
+
+    if (!hasSentReadyMessage.value) {
+      hasSentReadyMessage.value = true
+
+      ready({ serverURL })
+    }
+  })
+
+  onUnmounted(() => {
+    if (subscription) unsubscribe(subscription)
   })
 
   return { data, isLoading }

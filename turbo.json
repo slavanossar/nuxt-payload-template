@@ -7,17 +7,25 @@
     "NEXT_PUBLIC_PAYLOAD_API_ROUTE",
     "PORT"
   ],
+  "globalPassThroughEnv": ["NODE_USE_SYSTEM_CA"],
   "tasks": {
     "dev": {
       "cache": false,
       "persistent": true
     },
     "nuxt#dev": {
-      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"],
+      "passThroughEnv": ["NUXT_PAYLOADCMS_URL"]
     },
     "payloadcms#dev": {
-      "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
     },
     "build": {
       "dependsOn": ["^build"]
@@ -25,43 +33,82 @@
     "nuxt#build": {
       "dependsOn": ["^build"],
       "outputs": [".output/**"],
-      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"],
+      "passThroughEnv": ["NUXT_PAYLOADCMS_URL"]
     },
     "payloadcms#build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**", "dist/**"],
-      "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
     },
     "start": {
       "cache": false,
       "persistent": true
     },
     "nuxt#start": {
-      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"]
+      "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"],
+      "passThroughEnv": ["NUXT_PAYLOADCMS_URL"]
     },
     "payloadcms#start": {
-      "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
     },
     "generate": {
       "cache": false
     },
     "payloadcms#generate": {
-      "outputs": ["types.d.ts"],
-      "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
+      "outputs": ["payload-types.d.ts", "schema.graphql"],
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
     },
     "nuxt#generate": {
       "dependsOn": ["payloadcms#generate"],
-      "outputs": ["graphql/index.js", "graphql/possibleTypes.json"]
+      "outputs": ["graphql/exports.ts", "graphql/possibleTypes.json"]
     },
     "regenerate-image-sizes": {
       "cache": false
     },
+    "seed": {
+      "cache": false
+    },
+    "payloadcms#seed": {
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
+    },
     "payloadcms#regenerate-image-sizes": {
-      "env": ["DATABASE_NAME"],
-      "passThroughEnv": ["PAYLOAD_SECRET", "SEED_STAFF_EMAIL", "R2_*", "MUX_*"]
+      "passThroughEnv": [
+        "DATABASE_MONGODB_URI",
+        "PAYLOAD_SECRET",
+        "SEED_STAFF_EMAIL",
+        "SEED_STAFF_PASSWORD",
+        "BLOB_*",
+        "MUX_*"
+      ]
     },
     "lint": {},
     "format": {}

@@ -1,4 +1,4 @@
-import type { Image } from '#payload-types'
+import type { ImageFragment } from '#graphql/exports'
 
 export interface SrcsetSizes {
   default: string
@@ -9,7 +9,7 @@ export interface SrcsetSizes {
 }
 
 export interface PayloadImageProps {
-  image: string | Image
+  image: ImageFragment
   lazy?: boolean
   sizes?: SrcsetSizes
 }

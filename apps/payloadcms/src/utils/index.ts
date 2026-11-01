@@ -18,15 +18,6 @@ export const getRelationshipId = <T extends { id: string }>(
   return typeof field === 'string' ? field : field.id
 }
 
-export const generateFileURL = (doc: {
-  filename?: string | null
-  prefix?: string | null
-}) => {
-  return doc.filename && doc.prefix
-    ? `https://${process.env.R2_CUSTOM_DOMAIN}/${doc.prefix}/${encodeURIComponent(doc.filename)}`
-    : ''
-}
-
 /**
  * Live Preview
  */

@@ -1,23 +1,23 @@
-.layout-cols {
+.grid-cols {
   @apply grid-cols-4 md:grid-cols-12;
 }
 
-.layout-col-spacing {
+.grid-col-spacing {
   @apply gap-x-5;
 }
 
-.layout-row-spacing {
+.grid-row-spacing {
   @apply gap-y-5;
 }
 
-.layout-px {
+.grid-px {
   @apply px-3 md:px-8 lg:px-10;
 }
 
-.layout-py {
+.grid-py {
   @apply py-3 md:py-8 lg:py-10;
 }
 
-.layout-px-collapse {
+.grid-gutters-collapse {
   @apply -mx-3 md:-mx-8 lg:-mx-10;
 }

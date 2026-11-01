@@ -1,17 +1,13 @@
 import { defineStore } from 'pinia'
-import { GetGlobalsDocument } from '#graphql-exports'
+import { GetGlobalsDocument } from '#graphql/exports'
 
-import type { SiteSettings } from '#payload-types'
-
-export interface GlobalQueryResult {
-  SiteSettings: SiteSettings
-}
+import type { GetGlobalsQuery } from '#graphql/exports'
 
 export const useGlobalsStore = defineStore('globals', () => {
-  const siteSettings = ref<SiteSettings | null>(null)
+  const siteSettings = ref<GetGlobalsQuery['SiteSettings'] | null>(null)
 
   const load = () => {
-    return useAsyncQuery<GlobalQueryResult>(GetGlobalsDocument).then(
+    return useAsyncQuery<GetGlobalsQuery>(GetGlobalsDocument).then(
       ({ data }) => {
         siteSettings.value = data.value?.SiteSettings || null
       },

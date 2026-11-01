@@ -19,7 +19,7 @@
 @import './fonts.css' layer(base);
 
 /** Components */
-@import './components/layout.css' layer(components);
+@import './components/grid.css' layer(components);
 
 /** Utilities */
 @import './utilities/typography.css';

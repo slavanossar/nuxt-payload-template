@@ -1,18 +1,19 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
-  schema: `http://localhost:${process.env.PORT}${process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
+  schema: '../payloadcms/schema.graphql',
   documents: 'graphql/**/*.gql',
   generates: {
-    './graphql/exports.d.ts': {
-      plugins: ['typescript-vue-apollo'],
+    './graphql/exports.ts': {
+      plugins: ['typescript-operations', 'typed-document-node'],
       config: {
-        withCompositionFunctions: false,
+        useTypeImports: true,
+        maybeValue: 'T',
+        scalars: {
+          DateTime: 'string',
+        },
       },
     },
-  },
-  config: {
-    skipDocumentsValidation: true,
   },
 }
 

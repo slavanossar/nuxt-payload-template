@@ -1,4 +1,4 @@
-fragment Video on Video {
+fragment MuxVideo on MuxVideo {
   id
   title
   aspectRatio

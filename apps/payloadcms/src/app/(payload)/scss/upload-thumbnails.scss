@@ -1,0 +1,11 @@
+.thumbnail {
+  .upload-field-card--size-medium & {
+    width: 80px;
+    height: 80px;
+  }
+
+  .upload--has-many__dragItem & {
+    width: 64px;
+    height: 64px;
+  }
+}

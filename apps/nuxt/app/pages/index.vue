@@ -7,5 +7,5 @@
 <script lang="ts" setup>
 const initialData = await usePayloadKeyPage('Home')
 const { data: doc } = useLivePreview({ initialData, depth: 1 })
-const fields = doc.value?.homeTemplateFields
+const fields = computed(() => doc.value?.homeTemplateFields)
 </script>

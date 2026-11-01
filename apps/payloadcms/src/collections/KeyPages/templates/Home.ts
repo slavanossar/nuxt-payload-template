@@ -1,3 +1,5 @@
+import Media from '~/fields/Media'
+
 import type { Field } from 'payload'
 
 const Home: Field = {
@@ -11,6 +13,7 @@ const Home: Field = {
       name: 'myTextField',
       type: 'text',
     },
+    Media,
   ],
 }
 

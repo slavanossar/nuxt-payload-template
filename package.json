@@ -11,6 +11,7 @@
     "start": "dotenv -- turbo run start",
     "generate": "dotenv -- turbo run generate",
     "regenerate-image-sizes": "dotenv -- turbo run regenerate-image-sizes",
+    "seed": "dotenv -- turbo run seed",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,md}\"",
     "update": "pnpm up --interactive --recursive",
@@ -22,13 +23,13 @@
   },
   "devDependencies": {
     "configure-env": "^1.0.0",
-    "dotenv-cli": "^11.0.0",
-    "eslint": "^10.13.0",
+    "dotenv-cli": "^11.1.0",
+    "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.7",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "turbo": "^2.11.9",
+    "turbo": "^2.11.10",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
       "esbuild",
       "ffmpeg-static",
       "sharp",
+      "unrs-resolver",
       "vue-demi"
     ]
   },

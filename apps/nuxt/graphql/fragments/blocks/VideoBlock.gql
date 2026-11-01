@@ -1,0 +1,7 @@
+fragment VideoBlock on VideoBlock {
+  id
+  blockType
+  video {
+    ...MuxVideo
+  }
+}

@@ -1,0 +1,7 @@
+fragment ImageBlock on ImageBlock {
+  id
+  blockType
+  image {
+    ...Image
+  }
+}

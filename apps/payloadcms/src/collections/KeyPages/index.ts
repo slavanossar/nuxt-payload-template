@@ -12,36 +12,33 @@ const uriMappings: Record<KeyPage['template'], string> = {
 const KeyPages: CollectionConfig = {
   slug: 'key-pages',
   admin: {
-    useAsTitle: 'template',
+    useAsTitle: 'keyPageTitle',
     group: '📄 Content',
-    defaultColumns: ['template', 'id'],
+    defaultColumns: ['keyPageTitle', 'keyPageUri', 'id'],
     livePreview: {
       url: ({ data }) => {
         const url = new URL(process.env.NEXT_PUBLIC_SITE_URL)
         url.searchParams.append('preview', 'true')
 
-        switch (data.template) {
-          case 'Home':
-            break
-          default:
-            url.pathname = `/${data.template.toLowerCase()}`
-            break
-        }
+        const template = data.template as KeyPage['template'] | undefined
+        const pathname = template ? uriMappings[template] : '/'
 
-        console.log(url.toString())
+        if (pathname && pathname !== '/') url.pathname = pathname
 
         return url.toString()
       },
       breakpoints: livePreviewBreakpoints,
     },
   },
-  defaultSort: 'template',
+  defaultSort: 'keyPageTitle',
   access: {
     create: isSuperAdmin,
     read: () => true,
     delete: isSuperAdmin,
   },
-  versions: true,
+  versions: {
+    maxPerDoc: 20,
+  },
   fields: [
     {
       type: 'tabs',
@@ -70,6 +67,26 @@ const KeyPages: CollectionConfig = {
         description:
           'A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.',
         position: 'sidebar',
+      },
+    },
+    {
+      name: 'keyPageTitle',
+      label: 'Title',
+      type: 'text',
+      required: true,
+      hooks: {
+        beforeValidate: [
+          (({ data }) => {
+            if (!data?.template) return ''
+
+            return data.template.replace(/([A-Z])/g, ' $1').trim()
+          }) as FieldHook<KeyPage>,
+        ],
+      },
+      admin: {
+        hidden: true,
+        position: 'sidebar',
+        readOnly: true,
       },
     },
     {

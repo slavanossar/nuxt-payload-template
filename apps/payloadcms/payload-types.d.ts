@@ -71,6 +71,7 @@ export interface Config {
     'key-pages': KeyPage;
     svgs: SVG;
     staff: Staff;
+    'mux-video': MuxVideo;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     'key-pages': KeyPagesSelect<false> | KeyPagesSelect<true>;
     svgs: SvgsSelect<false> | SvgsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
+    'mux-video': MuxVideoSelect<false> | MuxVideoSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -221,6 +223,7 @@ export interface KeyPage {
   id: string;
   homeTemplateFields?: {
     myTextField?: string | null;
+    media?: (ImageBlock | VideoBlock)[] | null;
   };
   meta?: {
     title?: string | null;
@@ -234,9 +237,82 @@ export interface KeyPage {
    * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
    */
   template: 'Home';
+  keyPageTitle: string;
   keyPageUri?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Image;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  video: string | MuxVideo;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mux-video".
+ */
+export interface MuxVideo {
+  id: string;
+  source?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * A unique title for this video that will help you identify it later.
+   */
+  title: string;
+  assetId?: string | null;
+  status?: ('preparing' | 'ready' | 'errored') | null;
+  error?: string | null;
+  duration?: number | null;
+  /**
+   * A timestamp (in seconds) from the video to be used as the poster image. Leave it blank for the first frame.
+   */
+  posterTimestamp?: number | null;
+  aspectRatio?: string | null;
+  maxWidth?: number | null;
+  maxHeight?: number | null;
+  playbackOptions?:
+    | {
+        playbackId: string;
+        playbackPolicy: 'signed' | 'public';
+        playbackUrl?: string | null;
+        posterUrl?: string | null;
+        gifUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -325,6 +401,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'staff';
         value: string | Staff;
+      } | null)
+    | ({
+        relationTo: 'mux-video';
+        value: string | MuxVideo;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -479,6 +559,12 @@ export interface KeyPagesSelect<T extends boolean = true> {
     | T
     | {
         myTextField?: T;
+        media?:
+          | T
+          | {
+              imageBlock?: T | ImageBlockSelect<T>;
+              videoBlock?: T | VideoBlockSelect<T>;
+            };
       };
   meta?:
     | T
@@ -488,9 +574,28 @@ export interface KeyPagesSelect<T extends boolean = true> {
         image?: T;
       };
   template?: T;
+  keyPageTitle?: T;
   keyPageUri?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock_select".
+ */
+export interface ImageBlockSelect<T extends boolean = true> {
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  video?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -535,6 +640,43 @@ export interface StaffSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mux-video_select".
+ */
+export interface MuxVideoSelect<T extends boolean = true> {
+  source?: T;
+  title?: T;
+  assetId?: T;
+  status?: T;
+  error?: T;
+  duration?: T;
+  posterTimestamp?: T;
+  aspectRatio?: T;
+  maxWidth?: T;
+  maxHeight?: T;
+  playbackOptions?:
+    | T
+    | {
+        playbackId?: T;
+        playbackPolicy?: T;
+        playbackUrl?: T;
+        posterUrl?: T;
+        gifUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

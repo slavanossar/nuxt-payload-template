@@ -19,7 +19,7 @@ const Svgs: CollectionConfig = {
     read: () => true,
   },
   admin: {
-    group: '📷 Media',
+    group: '🖼️ Media',
     defaultColumns: ['filename', 'title', 'updatedAt'],
     enableRichTextRelationship: false,
   },

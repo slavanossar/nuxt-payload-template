@@ -15,7 +15,7 @@ const {
 const isDev = NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-11-10',
+  compatibilityDate: '2026-11-01',
   telemetry: {
     enabled: false,
   },
@@ -39,7 +39,7 @@ export default defineNuxtConfig({
   ],
   alias: {
     '#css': resolve(__dirname, './app/assets/css/main.css'),
-    '#graphql-exports': resolve(__dirname, './graphql/index.js'),
+    '#graphql': resolve(__dirname, './graphql'),
     '#payload-config': resolve(
       __dirname,
       '../payloadcms/src/payload.config.ts',
@@ -54,8 +54,10 @@ export default defineNuxtConfig({
           NEXT_PUBLIC_PAYLOAD_API_ROUTE,
           '/graphql',
         ].join(''),
+        browserHttpEndpoint: `${NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
         inMemoryCacheOptions: { possibleTypes },
         connectToDevTools: isDev,
+        tokenName: 'payload-token',
       },
     },
   },
@@ -72,6 +74,9 @@ export default defineNuxtConfig({
     sources: ['/api/__sitemap__/urls'],
   },
   runtimeConfig: {
+    // Overridden at runtime by the Vercel binding env `NUXT_PAYLOADCMS_URL`.
+    // Leave unset locally; nginx still exposes Payload on the public site URL.
+    payloadcmsUrl: '',
     public: {
       siteName: SITE_NAME,
       siteUrl: NEXT_PUBLIC_SITE_URL,
@@ -95,7 +100,7 @@ export default defineNuxtConfig({
       origin: NEXT_PUBLIC_SITE_URL,
       ws: {
         protocol: 'wss',
-        host: 'madetogether.test',
+        host: 'nuxt-payload.test',
         clientPort: 443,
       },
     },

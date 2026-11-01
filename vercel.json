@@ -1,0 +1,55 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "nuxt": {
+      "root": "apps/nuxt",
+      "framework": "nuxtjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "payloadcms",
+          "format": "url",
+          "env": "NUXT_PAYLOADCMS_URL"
+        }
+      ]
+    },
+    "payloadcms": {
+      "root": "apps/payloadcms",
+      "framework": "nextjs"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/_next/(.*)",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/admin",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/payload-api",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/payload-api/(.*)",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/media",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/media/(.*)",
+      "destination": { "service": "payloadcms" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "nuxt" }
+    }
+  ]
+}

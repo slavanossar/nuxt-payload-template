@@ -5,6 +5,7 @@ export const seedHomePage = async (payload: Payload): Promise<void> => {
     collection: 'key-pages',
     data: {
       template: 'Home',
+      keyPageTitle: 'Home',
     },
     overrideAccess: true,
   })

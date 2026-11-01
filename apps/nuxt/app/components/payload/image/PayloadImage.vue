@@ -21,8 +21,7 @@ const props = withDefaults(defineProps<PayloadImageProps>(), {
   }),
 })
 
-const image = useRelationshipField(toRef(props, 'image'))
-const srcset = useSrcset(image)
+const srcset = useSrcset(toRef(props, 'image'))
 const sizes = srcsetSizesToAttribute(props.sizes)
 
 const root = ref<HTMLImageElement | null>(null)

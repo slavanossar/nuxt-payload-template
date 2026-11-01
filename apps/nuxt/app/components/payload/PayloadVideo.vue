@@ -8,16 +8,27 @@
 </template>
 
 <script setup lang="ts">
-import type { Video } from '#payload-types'
+interface VideoThumbnail {
+  sizes?: {
+    thumbnail?: {
+      url?: string | null
+    } | null
+  } | null
+}
+
+interface VideoDoc {
+  url?: string | null
+  thumbnail?: VideoThumbnail | null
+}
 
 interface PayloadVideoProps {
   muted?: boolean
-  video: string | Video
+  video: VideoDoc
 }
 
 const props = defineProps<PayloadVideoProps>()
-const video = useRelationshipField(props.video)
-const videoThumbnail = useRelationshipField(video.value?.thumbnail)
+const video = toRef(props, 'video')
+const videoThumbnail = computed(() => video.value.thumbnail)
 
 const el = ref<HTMLVideoElement | null>(null)
 const mediaControls = useMediaControls(el)

@@ -3,25 +3,52 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { buildConfig } from 'payload'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
-import { s3Storage } from '@payloadcms/storage-s3'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { muxPlugin } from '@pro-laico/payload-mux'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import * as collections from './collections'
 import * as globals from './globals'
-import { seed } from './seed'
 
-import { generateFileURL } from './utils'
+import type { FieldHook } from 'payload'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const blobStorageCollections = ['images', 'svgs'] as const
+
+type MuxVideoDoc = {
+  title?: string | null
+  maxWidth?: number | null
+  maxHeight?: number | null
+  duration?: number | null
+  playbackOptions?: { playbackId?: string | null }[] | null
+}
+
+const formatDuration = (seconds: number) => {
+  const total = Math.max(0, Math.round(seconds))
+
+  if (total <= 60) return `${total}s`
+
+  const minutes = Math.floor(total / 60)
+  const remaining = total % 60
+
+  return `${minutes}m${remaining}s`
+}
+
+const readVideo =
+  (
+    read: (video: MuxVideoDoc) => number | string | null | undefined,
+  ): FieldHook =>
+  ({ data }) =>
+    read(data as MuxVideoDoc) ?? null
+
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SITE_URL,
+  serverURL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001',
   secret: process.env.PAYLOAD_SECRET,
   debug: process.env.NODE_ENV !== 'production',
   admin: {
@@ -43,14 +70,11 @@ export default buildConfig({
     user: collections.Staff.slug,
   },
   db: mongooseAdapter({
-    url: `mongodb://0.0.0.0/${process.env.DATABASE_NAME}`,
+    url: process.env.DATABASE_MONGODB_URI,
   }),
   editor: lexicalEditor({}),
   collections: Object.values(collections),
   globals: Object.values(globals),
-  onInit: async (payload) => {
-    await seed(payload)
-  },
   routes: {
     api: process.env.NEXT_PUBLIC_PAYLOAD_API_ROUTE,
   },
@@ -65,7 +89,70 @@ export default buildConfig({
   },
   plugins: [
     muxPlugin({
-      enabled: false,
+      enabled: true,
+      collections: {
+        muxVideo: {
+          overrides: {
+            admin: {
+              group: '🖼️ Media',
+            },
+            upload: {
+              staticDir: 'uploads/videos',
+              mimeTypes: ['video/*'],
+              adminThumbnail: ({ doc }) => {
+                const playbackOption = (doc as unknown as MuxVideoDoc)
+                  .playbackOptions?.[0]
+
+                if (!playbackOption) return null
+
+                return new URL(
+                  `https://image.mux.com/${playbackOption.playbackId}/animated.gif`,
+                ).toString()
+              },
+            },
+            fields: [
+              {
+                name: 'filename',
+                type: 'text',
+                virtual: true,
+                hooks: {
+                  afterRead: [readVideo((video) => video.title)],
+                },
+              },
+              {
+                name: 'width',
+                type: 'number',
+                virtual: true,
+                hooks: {
+                  afterRead: [readVideo((video) => video.maxWidth)],
+                },
+              },
+              {
+                name: 'height',
+                type: 'number',
+                virtual: true,
+                hooks: {
+                  afterRead: [readVideo((video) => video.maxHeight)],
+                },
+              },
+              {
+                name: 'mimeType',
+                type: 'text',
+                virtual: true,
+                hooks: {
+                  afterRead: [
+                    readVideo((video) =>
+                      video.duration == null
+                        ? null
+                        : formatDuration(video.duration),
+                    ),
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
       options: {
         uploadSettings: {
           new_asset_settings: {
@@ -75,29 +162,19 @@ export default buildConfig({
         },
       },
     }),
-    s3Storage({
-      enabled: false,
-      collections: {
-        images: {
-          disablePayloadAccessControl: true,
-          prefix: 'images',
-          generateFileURL,
+    vercelBlobStorage({
+      enabled: true,
+      addRandomSuffix: true,
+      collections: blobStorageCollections.reduce(
+        (acc, collection) => {
+          acc[collection] = {
+            prefix: collection,
+          }
+          return acc
         },
-        svgs: {
-          disablePayloadAccessControl: true,
-          prefix: 'svgs',
-          generateFileURL,
-        },
-      },
-      bucket: process.env.R2_BUCKET,
-      config: {
-        credentials: {
-          accessKeyId: process.env.R2_ACCESS_KEY_ID,
-          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-        },
-        region: process.env.R2_REGION,
-        endpoint: process.env.R2_ENDPOINT,
-      },
+        {} as Record<string, { prefix: string }>,
+      ),
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
     seoPlugin({
       collections: ['key-pages'],

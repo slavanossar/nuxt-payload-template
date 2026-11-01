@@ -6,6 +6,7 @@ declare namespace NodeJS {
     PORT: string
     NEXT_PUBLIC_PAYLOAD_API_ROUTE: string
     DATABASE_MONGODB_URI: string
+    DATABASE_NAME: string
     PAYLOAD_SECRET: string
     SEED_STAFF_EMAIL: string
     SEED_STAFF_PASSWORD: string

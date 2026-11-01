@@ -71,6 +71,9 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_MONGODB_URI,
+    connectOptions: {
+      dbName: process.env.DATABASE_NAME || 'nuxt-payload',
+    },
   }),
   editor: lexicalEditor({}),
   collections: Object.values(collections),

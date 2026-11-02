@@ -7,8 +7,6 @@
 > I update the repo and packages manually as I continue to refine things during the course of my projects.
 >
 > If you have any questions/suggestions, feel free to open up an issue.
->
-> Old versions that uses Payload CMS v2 & Nuxt v3 available on `payload-v2` and `nuxt-v3` branches.
 
 A [Nuxt 4](https://nuxt.com/docs) + TypeScript starter template, with [Payload CMS 3](https://payloadcms.com/docs).
 
@@ -17,10 +15,12 @@ A [Nuxt 4](https://nuxt.com/docs) + TypeScript starter template, with [Payload C
 - [Tailwind CSS](https://tailwindcss.com/docs/installation)
 - [Pinia](https://pinia.vuejs.org/introduction.html)
 - [GraphQL Code Generator](https://the-guild.dev/graphql/codegen/docs/getting-started)
+- [Vercel](https://vercel.com/) (Deployment & Blob)
+- [Mux](https://www.mux.com/) (Video)
 
 ## Requirements
 
-- [Node 22](https://nodejs.org/en/download)
+- [Node 24](https://nodejs.org/en/download)
 - [PNPM](https://pnpm.io/installation)
 - [MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/)
 - [NGINX](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)

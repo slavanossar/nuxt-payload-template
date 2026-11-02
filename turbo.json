@@ -86,7 +86,7 @@
     },
     "nuxt#generate": {
       "dependsOn": ["payloadcms#generate"],
-      "outputs": ["graphql/exports.ts", "graphql/possibleTypes.json"]
+      "outputs": ["graphql/exports.ts", "graphql/introspection.json"]
     },
     "regenerate-image-sizes": {
       "cache": false

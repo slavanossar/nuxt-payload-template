@@ -58,7 +58,9 @@ export default defineNuxtConfig({
           '/graphql',
         ].join(''),
         browserHttpEndpoint: `${NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
-        inMemoryCacheOptions: introspectionResult,
+        inMemoryCacheOptions: {
+          possibleTypes: introspectionResult.possibleTypes,
+        },
         connectToDevTools: isDev,
         tokenName: 'payload-token',
       },

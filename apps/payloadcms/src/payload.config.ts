@@ -169,6 +169,7 @@ export default buildConfig({
     vercelBlobStorage({
       enabled: true,
       addRandomSuffix: true,
+      clientUploads: true,
       collections: ['images', 'svgs'].reduce(
         (acc, collection) => {
           acc[collection] = {

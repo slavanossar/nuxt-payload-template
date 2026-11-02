@@ -19,8 +19,6 @@ import type { FieldHook } from 'payload'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const blobStorageCollections = ['images', 'svgs'] as const
-
 type MuxVideoDoc = {
   title?: string | null
   maxWidth?: number | null
@@ -171,7 +169,7 @@ export default buildConfig({
     vercelBlobStorage({
       enabled: true,
       addRandomSuffix: true,
-      collections: blobStorageCollections.reduce(
+      collections: ['images', 'svgs'].reduce(
         (acc, collection) => {
           acc[collection] = {
             prefix: collection,

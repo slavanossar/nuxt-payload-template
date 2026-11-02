@@ -8,8 +8,8 @@
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "lint": "eslint --ext .js,.ts,.vue .",
-    "generate": "pnpm run generate:types",
-    "generate:types": "graphql-codegen -r dotenv/config --config codegen.ts"
+    "generate": "pnpm run generate:graphql",
+    "generate:graphql": "graphql-codegen -r dotenv/config --config codegen.ts"
   },
   "husky": {
     "hooks": {

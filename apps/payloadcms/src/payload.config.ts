@@ -100,8 +100,11 @@ export default buildConfig({
               group: '🖼️ Media',
             },
             upload: {
-              staticDir: 'uploads/videos',
-              mimeTypes: ['video/*'],
+              disableLocalStorage: true,
+              filesRequiredOnCreate: false,
+              bulkUpload: false,
+              crop: false,
+              focalPoint: false,
               adminThumbnail: ({ doc }) => {
                 const playbackOption = (doc as unknown as MuxVideoDoc)
                   .playbackOptions?.[0]

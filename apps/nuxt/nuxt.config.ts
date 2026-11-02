@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo',
     '@pinia/nuxt',
     '@nuxtjs/seo',
+    '@vercel/analytics/nuxt',
     '@vueuse/nuxt',
     'motion-v/nuxt',
     'nuxt-svgo',

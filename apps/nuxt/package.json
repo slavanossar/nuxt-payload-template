@@ -27,6 +27,7 @@
     "@graphql-codegen/typescript-operations": "^6.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@payloadcms/richtext-lexical": "^3.92.1",
+    "@prettier/plugin-xml": "^3.4.2",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "prettier": "^3.9.10",

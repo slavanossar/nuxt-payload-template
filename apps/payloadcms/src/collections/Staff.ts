@@ -7,7 +7,7 @@ import type {
   FieldHook,
   Validate,
 } from 'payload'
-import type { Staff } from 'payload-types'
+import type { Staff } from '#payload-types'
 
 const roleOptions = [
   {

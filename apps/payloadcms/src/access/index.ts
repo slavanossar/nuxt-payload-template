@@ -1,5 +1,5 @@
 import type { Access, Where } from 'payload'
-import type { Staff } from 'payload-types'
+import type { Staff } from '#payload-types'
 
 export const staffRoles = ['super_admin', 'admin', 'sales']
 

@@ -3,7 +3,7 @@ import { isSuperAdmin } from '~/access'
 import * as templates from './templates'
 
 import type { CollectionConfig, FieldHook } from 'payload'
-import type { KeyPage } from 'payload-types'
+import type { KeyPage } from '#payload-types'
 
 const uriMappings: Record<KeyPage['template'], string> = {
   Home: '/',

@@ -33,13 +33,13 @@
     },
     "nuxt#build": {
       "dependsOn": ["^build"],
-      "outputs": [".output/**"],
+      "outputs": [".output/**", ".vercel/output/**"],
       "env": ["NITRO_HOST", "NITRO_PORT", "NUXT_SITE_ENV"],
       "passThroughEnv": ["NUXT_PAYLOADCMS_URL"]
     },
     "payloadcms#build": {
       "dependsOn": ["^build"],
-      "outputs": ["build/**", "dist/**"],
+      "outputs": [".next/**", "!.next/cache/**"],
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
         "DATABASE_NAME",

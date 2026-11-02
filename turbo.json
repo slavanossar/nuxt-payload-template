@@ -20,6 +20,7 @@
     "payloadcms#dev": {
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",
@@ -41,6 +42,7 @@
       "outputs": ["build/**", "dist/**"],
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",
@@ -59,6 +61,7 @@
     "payloadcms#start": {
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",
@@ -73,6 +76,7 @@
       "outputs": ["payload-types.d.ts", "schema.graphql"],
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",
@@ -93,6 +97,7 @@
     "payloadcms#seed": {
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",
@@ -103,6 +108,7 @@
     "payloadcms#regenerate-image-sizes": {
       "passThroughEnv": [
         "DATABASE_MONGODB_URI",
+        "DATABASE_NAME",
         "PAYLOAD_SECRET",
         "SEED_STAFF_EMAIL",
         "SEED_STAFF_PASSWORD",

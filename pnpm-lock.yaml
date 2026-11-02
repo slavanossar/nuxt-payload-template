@@ -103,6 +103,9 @@ importers:
       '@graphql-codegen/cli':
         specifier: ^7.4.6
         version: 7.4.6(@parcel/watcher@2.5.6)(@types/node@26.6.6)(crossws@0.4.17(srvx@1.0.6))(graphql@16.14.2)(typescript@6.0.3)
+      '@graphql-codegen/fragment-matcher':
+        specifier: ^7.1.0
+        version: 7.1.0(graphql@16.14.2)
       '@graphql-codegen/typed-document-node':
         specifier: ^7.2.0
         version: 7.2.0(graphql@16.14.2)
@@ -765,6 +768,12 @@ packages:
 
   '@graphql-codegen/core@6.2.2':
     resolution: {integrity: sha512-bClqhA2ZITWKiEYd5A87KaU93YBC8o1++B3Y0FpYIZPZfGEWEwbhyvUkrSKrXqUagwM7c0h77f7DB4oR6vBgpQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+
+  '@graphql-codegen/fragment-matcher@7.1.0':
+    resolution: {integrity: sha512-xwW+YzbjsjZvC0WJT9WssLboxSwUxQSUbESWBV9sPF80P/HEIKpf7jHIiOxDtbZ1oYR0pTpIKSthTLcc5qhJ7A==}
     engines: {node: '>=16'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -9276,6 +9285,12 @@ snapshots:
       graphql: 16.14.2
       tslib: 2.9.1
 
+  '@graphql-codegen/fragment-matcher@7.1.0(graphql@16.14.2)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 7.4.2(graphql@16.14.2)
+      graphql: 16.14.2
+      tslib: 2.9.1
+
   '@graphql-codegen/gql-tag-operations@6.1.1(graphql@16.14.2)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 7.4.2(graphql@16.14.2)
@@ -13611,7 +13626,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@10.14.0(jiti@2.7.0))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.71.2(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@10.14.0(jiti@2.7.0))
     transitivePeerDependencies:
       - supports-color
 

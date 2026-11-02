@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 
+import introspectionResult from './graphql/introspection.json'
+
 /** Vite Plugins */
 import tailwindPlugin from '@tailwindcss/vite'
-
-import possibleTypes from './graphql/possibleTypes.json'
 
 const {
   NODE_ENV,
@@ -58,7 +58,7 @@ export default defineNuxtConfig({
           '/graphql',
         ].join(''),
         browserHttpEndpoint: `${NEXT_PUBLIC_PAYLOAD_API_ROUTE}/graphql`,
-        inMemoryCacheOptions: { possibleTypes },
+        inMemoryCacheOptions: introspectionResult,
         connectToDevTools: isDev,
         tokenName: 'payload-token',
       },

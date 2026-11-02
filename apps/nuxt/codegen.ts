@@ -14,6 +14,9 @@ const config: CodegenConfig = {
         },
       },
     },
+    './graphql/introspection.json': {
+      plugins: ['fragment-matcher'],
+    },
   },
 }
 

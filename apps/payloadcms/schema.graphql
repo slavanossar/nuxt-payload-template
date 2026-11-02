@@ -2785,8 +2785,6 @@ type MuxVideo {
   filesize: Float
   width: Float
   height: Float
-  focalX: Float
-  focalY: Float
 }
 
 """
@@ -4642,8 +4640,6 @@ input MuxVideo_where {
   filesize: MuxVideo_filesize_operator
   width: MuxVideo_width_operator
   height: MuxVideo_height_operator
-  focalX: MuxVideo_focalX_operator
-  focalY: MuxVideo_focalY_operator
   id: MuxVideo_id_operator
   AND: [MuxVideo_where_and]
   OR: [MuxVideo_where_or]
@@ -4920,26 +4916,6 @@ input MuxVideo_height_operator {
   exists: Boolean
 }
 
-input MuxVideo_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input MuxVideo_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
 input MuxVideo_id_operator {
   equals: String
   not_equals: String
@@ -4977,8 +4953,6 @@ input MuxVideo_where_and {
   filesize: MuxVideo_filesize_operator
   width: MuxVideo_width_operator
   height: MuxVideo_height_operator
-  focalX: MuxVideo_focalX_operator
-  focalY: MuxVideo_focalY_operator
   id: MuxVideo_id_operator
   AND: [MuxVideo_where_and]
   OR: [MuxVideo_where_or]
@@ -5010,8 +4984,6 @@ input MuxVideo_where_or {
   filesize: MuxVideo_filesize_operator
   width: MuxVideo_width_operator
   height: MuxVideo_height_operator
-  focalX: MuxVideo_focalX_operator
-  focalY: MuxVideo_focalY_operator
   id: MuxVideo_id_operator
   AND: [MuxVideo_where_and]
   OR: [MuxVideo_where_or]
@@ -5050,8 +5022,6 @@ type MuxVideoDocAccessFields {
   filesize: MuxVideoDocAccessFields_filesize
   width: MuxVideoDocAccessFields_width
   height: MuxVideoDocAccessFields_height
-  focalX: MuxVideoDocAccessFields_focalX
-  focalY: MuxVideoDocAccessFields_focalY
 }
 
 type MuxVideoDocAccessFields_source {
@@ -5659,52 +5629,6 @@ type MuxVideoDocAccessFields_height_Update {
 }
 
 type MuxVideoDocAccessFields_height_Delete {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalX {
-  create: MuxVideoDocAccessFields_focalX_Create
-  read: MuxVideoDocAccessFields_focalX_Read
-  update: MuxVideoDocAccessFields_focalX_Update
-  delete: MuxVideoDocAccessFields_focalX_Delete
-}
-
-type MuxVideoDocAccessFields_focalX_Create {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalX_Read {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalX_Update {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalX_Delete {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalY {
-  create: MuxVideoDocAccessFields_focalY_Create
-  read: MuxVideoDocAccessFields_focalY_Read
-  update: MuxVideoDocAccessFields_focalY_Update
-  delete: MuxVideoDocAccessFields_focalY_Delete
-}
-
-type MuxVideoDocAccessFields_focalY_Create {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalY_Read {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalY_Update {
-  permission: Boolean!
-}
-
-type MuxVideoDocAccessFields_focalY_Delete {
   permission: Boolean!
 }
 
@@ -9350,8 +9274,6 @@ type MuxVideoFields {
   filesize: MuxVideoFields_filesize
   width: MuxVideoFields_width
   height: MuxVideoFields_height
-  focalX: MuxVideoFields_focalX
-  focalY: MuxVideoFields_focalY
 }
 
 type MuxVideoFields_source {
@@ -9959,52 +9881,6 @@ type MuxVideoFields_height_Update {
 }
 
 type MuxVideoFields_height_Delete {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalX {
-  create: MuxVideoFields_focalX_Create
-  read: MuxVideoFields_focalX_Read
-  update: MuxVideoFields_focalX_Update
-  delete: MuxVideoFields_focalX_Delete
-}
-
-type MuxVideoFields_focalX_Create {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalX_Read {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalX_Update {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalX_Delete {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalY {
-  create: MuxVideoFields_focalY_Create
-  read: MuxVideoFields_focalY_Read
-  update: MuxVideoFields_focalY_Update
-  delete: MuxVideoFields_focalY_Delete
-}
-
-type MuxVideoFields_focalY_Create {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalY_Read {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalY_Update {
-  permission: Boolean!
-}
-
-type MuxVideoFields_focalY_Delete {
   permission: Boolean!
 }
 
@@ -11005,8 +10881,6 @@ input mutationMuxVideoInput {
   filesize: Float
   width: Float
   height: Float
-  focalX: Float
-  focalY: Float
 }
 
 enum MuxVideo_status_MutationInput {
@@ -11050,8 +10924,6 @@ input mutationMuxVideoUpdateInput {
   filesize: Float
   width: Float
   height: Float
-  focalX: Float
-  focalY: Float
 }
 
 enum MuxVideoUpdate_status_MutationInput {

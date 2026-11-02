@@ -1,0 +1,25 @@
+{
+  "possibleTypes": {
+    "KeyPageVersion_Version_HomeTemplateFields_Media": [
+      "ImageBlock",
+      "VideoBlock"
+    ],
+    "KeyPage_HomeTemplateFields_Media": [
+      "ImageBlock",
+      "VideoBlock"
+    ],
+    "PayloadLockedDocument_Document": [
+      "Image",
+      "KeyPage",
+      "MuxVideo",
+      "SVG",
+      "Staff"
+    ],
+    "PayloadLockedDocument_User": [
+      "Staff"
+    ],
+    "PayloadPreference_User": [
+      "Staff"
+    ]
+  }
+}

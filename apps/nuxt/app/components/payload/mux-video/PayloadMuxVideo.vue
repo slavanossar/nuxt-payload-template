@@ -15,16 +15,9 @@
 <script setup lang="ts">
 import '@mux/mux-player'
 
-import type { MuxVideoFragment } from '#graphql/exports'
-import type { MuxResolution } from './types'
+import type { MuxVideoProps } from './types'
 
-interface Props {
-  minResolution?: MuxResolution
-  maxResolution?: MuxResolution
-  video: MuxVideoFragment
-}
-
-const props = defineProps<Props>()
+const props = defineProps<MuxVideoProps>()
 const emit = defineEmits(['load', 'play', 'pause'])
 
 /** Template Refs */

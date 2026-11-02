@@ -39,3 +39,7 @@ dist
 
 # turbo
 .turbo
+
+# Vercel
+.vercel
+.env*

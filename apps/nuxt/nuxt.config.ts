@@ -13,6 +13,7 @@ const {
 } = process.env
 
 const isDev = NODE_ENV !== 'production'
+const siteUrl = NEXT_PUBLIC_SITE_URL
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
@@ -36,6 +37,7 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@vueuse/nuxt',
     'motion-v/nuxt',
+    'nuxt-svgo',
   ],
   alias: {
     '#css': resolve(__dirname, './app/assets/css/main.css'),
@@ -65,7 +67,7 @@ export default defineNuxtConfig({
     disallow: ['/admin', NEXT_PUBLIC_PAYLOAD_API_ROUTE],
   },
   site: {
-    url: NEXT_PUBLIC_SITE_URL,
+    url: siteUrl,
     name: SITE_NAME,
     defaultLocale: 'en-AU',
   },
@@ -73,13 +75,18 @@ export default defineNuxtConfig({
     exclude: [],
     sources: ['/api/__sitemap__/urls'],
   },
+  svgo: {
+    autoImportPath: ['./assets/svgs/'],
+    componentPrefix: 'svg',
+    dts: true,
+  },
   runtimeConfig: {
     // Overridden at runtime by the Vercel binding env `NUXT_PAYLOADCMS_URL`.
     // Leave unset locally; nginx still exposes Payload on the public site URL.
     payloadcmsUrl: '',
     public: {
       siteName: SITE_NAME,
-      siteUrl: NEXT_PUBLIC_SITE_URL,
+      siteUrl,
       payloadApiRoute: NEXT_PUBLIC_PAYLOAD_API_ROUTE,
       language: 'en-AU',
       isDev,
@@ -97,7 +104,7 @@ export default defineNuxtConfig({
       ],
     },
     server: {
-      origin: NEXT_PUBLIC_SITE_URL,
+      origin: siteUrl,
       ws: {
         protocol: 'wss',
         host: 'nuxt-payload.test',

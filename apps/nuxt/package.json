@@ -45,6 +45,7 @@
     "dotenv": "^18.0.9",
     "motion-v": "^2.10.0",
     "nuxt": "^4.6.3",
+    "nuxt-svgo": "^5.3.0",
     "pinia": "^4.1.0",
     "pinia-plugin-persistedstate": "^4.7.1",
     "slate": "^0.146.0",

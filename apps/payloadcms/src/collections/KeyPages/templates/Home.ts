@@ -1,4 +1,4 @@
-import Media from '~/fields/Media'
+import { Media } from '~/fields'
 
 import type { Field } from 'payload'
 

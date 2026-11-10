@@ -7,6 +7,8 @@ import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+import { authorshipPlugin } from '~/plugins/authorship'
+
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { muxPlugin } from '@pro-laico/payload-mux'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -89,6 +91,7 @@ export default buildConfig({
     },
   },
   plugins: [
+    authorshipPlugin(),
     muxPlugin({
       enabled: true,
       collections: {

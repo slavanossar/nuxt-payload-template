@@ -1,0 +1,29 @@
+.authorship-field {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-s);
+
+  background: var(--theme-elevation-50);
+
+  line-height: 1.4;
+}
+
+.authorship-field .field-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--theme-elevation-250);
+}
+
+.authorship-field__tag {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 15px;
+  color: var(--theme-text);
+}

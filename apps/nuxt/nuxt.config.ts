@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 
 import introspectionResult from './graphql/introspection.json'
+import { tailwindBreakpoints } from './app/utils/tailwindBreakpoints'
 
 /** Vite Plugins */
 import tailwindPlugin from '@tailwindcss/vite'

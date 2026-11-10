@@ -133,6 +133,8 @@ export interface StaffAuthOperations {
  */
 export interface Image {
   id: string;
+  createdBy?: (string | null) | Staff;
+  updatedBy?: (string | null) | Staff;
   /**
    * For vision-impaired users with screen readers, this is more descriptive than a caption.
    */
@@ -149,55 +151,7 @@ export interface Image {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
-    xs?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    sm?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    md?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    lg?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xl?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xxl?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xxxl?: {
+    thumbnail?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -217,14 +171,54 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff".
+ */
+export interface Staff {
+  id: string;
+  createdBy?: (string | null) | Staff;
+  updatedBy?: (string | null) | Staff;
+  firstName: string;
+  lastName: string;
+  fullName?: string | null;
+  role: 'super_admin' | 'admin';
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'staff';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "key-pages".
  */
 export interface KeyPage {
   id: string;
+  createdBy?: (string | null) | Staff;
+  updatedBy?: (string | null) | Staff;
   homeTemplateFields?: {
     myTextField?: string | null;
     media?: (ImageBlock | VideoBlock)[] | null;
   };
+  /**
+   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
+   */
+  template: 'Home';
+  keyPageTitle: string;
+  keyPageUri?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -233,12 +227,6 @@ export interface KeyPage {
      */
     image?: (string | null) | Image;
   };
-  /**
-   * A template must be selected to display relevant page fields. Changing the template on existing pages will result in data loss.
-   */
-  template: 'Home';
-  keyPageTitle: string;
-  keyPageUri?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -318,6 +306,8 @@ export interface MuxVideo {
  */
 export interface SVG {
   id: string;
+  createdBy?: (string | null) | Staff;
+  updatedBy?: (string | null) | Staff;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -329,36 +319,6 @@ export interface SVG {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "staff".
- */
-export interface Staff {
-  id: string;
-  firstName: string;
-  lastName: string;
-  fullName?: string | null;
-  role: 'super_admin' | 'admin';
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  resetPasswordRequestedAt?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'staff';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -451,6 +411,8 @@ export interface PayloadMigration {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  createdBy?: T;
+  updatedBy?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -466,67 +428,7 @@ export interface ImagesSelect<T extends boolean = true> {
   sizes?:
     | T
     | {
-        xs?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        sm?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        md?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        lg?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xl?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xxl?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xxxl?:
+        thumbnail?:
           | T
           | {
               url?: T;
@@ -553,6 +455,8 @@ export interface ImagesSelect<T extends boolean = true> {
  * via the `definition` "key-pages_select".
  */
 export interface KeyPagesSelect<T extends boolean = true> {
+  createdBy?: T;
+  updatedBy?: T;
   homeTemplateFields?:
     | T
     | {
@@ -564,6 +468,9 @@ export interface KeyPagesSelect<T extends boolean = true> {
               videoBlock?: T | VideoBlockSelect<T>;
             };
       };
+  template?: T;
+  keyPageTitle?: T;
+  keyPageUri?: T;
   meta?:
     | T
     | {
@@ -571,9 +478,6 @@ export interface KeyPagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
-  template?: T;
-  keyPageTitle?: T;
-  keyPageUri?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -600,6 +504,8 @@ export interface VideoBlockSelect<T extends boolean = true> {
  * via the `definition` "svgs_select".
  */
 export interface SvgsSelect<T extends boolean = true> {
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -617,6 +523,8 @@ export interface SvgsSelect<T extends boolean = true> {
  * via the `definition` "staff_select".
  */
 export interface StaffSelect<T extends boolean = true> {
+  createdBy?: T;
+  updatedBy?: T;
   firstName?: T;
   lastName?: T;
   fullName?: T;
@@ -720,6 +628,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface SiteSettings {
   id: string;
+  createdBy?: (string | null) | Staff;
+  updatedBy?: (string | null) | Staff;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -736,6 +646,8 @@ export interface SiteSettings {
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
+  createdBy?: T;
+  updatedBy?: T;
   meta?:
     | T
     | {

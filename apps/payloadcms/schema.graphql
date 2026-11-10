@@ -42,6 +42,8 @@ type Query {
 
 type Image {
   id: String!
+  createdBy: Staff
+  updatedBy: Staff
   description: String
   updatedAt: DateTime
   createdAt: DateTime
@@ -57,77 +59,54 @@ type Image {
   sizes: Image_Sizes
 }
 
+type Staff {
+  id: String!
+  createdBy: Staff
+  updatedBy: Staff
+  firstName: String!
+  lastName: String!
+  fullName: String
+  role: Staff_role!
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress!
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  salt: String
+  hash: String
+  resetPasswordRequestedAt: DateTime
+  loginAttempts: Float
+  lockUntil: DateTime
+  sessions: [Staff_Sessions!]
+}
+
+enum Staff_role {
+  super_admin
+  admin
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
 
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+type Staff_Sessions {
+  id: String
+  createdAt: DateTime
+  expiresAt: DateTime
+}
+
 type Image_Sizes {
-  xs: Image_Sizes_Xs
-  sm: Image_Sizes_Sm
-  md: Image_Sizes_Md
-  lg: Image_Sizes_Lg
-  xl: Image_Sizes_Xl
-  xxl: Image_Sizes_Xxl
-  xxxl: Image_Sizes_Xxxl
+  thumbnail: Image_Sizes_Thumbnail
   opengraph: Image_Sizes_Opengraph
 }
 
-type Image_Sizes_Xs {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Sm {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Md {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Lg {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Xl {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Xxl {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-type Image_Sizes_Xxxl {
+type Image_Sizes_Thumbnail {
   url: String
   width: Float
   height: Float
@@ -160,6 +139,8 @@ type Images {
 }
 
 input Image_where {
+  createdBy: Image_createdBy_operator
+  updatedBy: Image_updatedBy_operator
   description: Image_description_operator
   updatedAt: Image_updatedAt_operator
   createdAt: Image_createdAt_operator
@@ -172,48 +153,12 @@ input Image_where {
   height: Image_height_operator
   focalX: Image_focalX_operator
   focalY: Image_focalY_operator
-  sizes__xs__url: Image_sizes__xs__url_operator
-  sizes__xs__width: Image_sizes__xs__width_operator
-  sizes__xs__height: Image_sizes__xs__height_operator
-  sizes__xs__mimeType: Image_sizes__xs__mimeType_operator
-  sizes__xs__filesize: Image_sizes__xs__filesize_operator
-  sizes__xs__filename: Image_sizes__xs__filename_operator
-  sizes__sm__url: Image_sizes__sm__url_operator
-  sizes__sm__width: Image_sizes__sm__width_operator
-  sizes__sm__height: Image_sizes__sm__height_operator
-  sizes__sm__mimeType: Image_sizes__sm__mimeType_operator
-  sizes__sm__filesize: Image_sizes__sm__filesize_operator
-  sizes__sm__filename: Image_sizes__sm__filename_operator
-  sizes__md__url: Image_sizes__md__url_operator
-  sizes__md__width: Image_sizes__md__width_operator
-  sizes__md__height: Image_sizes__md__height_operator
-  sizes__md__mimeType: Image_sizes__md__mimeType_operator
-  sizes__md__filesize: Image_sizes__md__filesize_operator
-  sizes__md__filename: Image_sizes__md__filename_operator
-  sizes__lg__url: Image_sizes__lg__url_operator
-  sizes__lg__width: Image_sizes__lg__width_operator
-  sizes__lg__height: Image_sizes__lg__height_operator
-  sizes__lg__mimeType: Image_sizes__lg__mimeType_operator
-  sizes__lg__filesize: Image_sizes__lg__filesize_operator
-  sizes__lg__filename: Image_sizes__lg__filename_operator
-  sizes__xl__url: Image_sizes__xl__url_operator
-  sizes__xl__width: Image_sizes__xl__width_operator
-  sizes__xl__height: Image_sizes__xl__height_operator
-  sizes__xl__mimeType: Image_sizes__xl__mimeType_operator
-  sizes__xl__filesize: Image_sizes__xl__filesize_operator
-  sizes__xl__filename: Image_sizes__xl__filename_operator
-  sizes__xxl__url: Image_sizes__xxl__url_operator
-  sizes__xxl__width: Image_sizes__xxl__width_operator
-  sizes__xxl__height: Image_sizes__xxl__height_operator
-  sizes__xxl__mimeType: Image_sizes__xxl__mimeType_operator
-  sizes__xxl__filesize: Image_sizes__xxl__filesize_operator
-  sizes__xxl__filename: Image_sizes__xxl__filename_operator
-  sizes__xxxl__url: Image_sizes__xxxl__url_operator
-  sizes__xxxl__width: Image_sizes__xxxl__width_operator
-  sizes__xxxl__height: Image_sizes__xxxl__height_operator
-  sizes__xxxl__mimeType: Image_sizes__xxxl__mimeType_operator
-  sizes__xxxl__filesize: Image_sizes__xxxl__filesize_operator
-  sizes__xxxl__filename: Image_sizes__xxxl__filename_operator
+  sizes__thumbnail__url: Image_sizes__thumbnail__url_operator
+  sizes__thumbnail__width: Image_sizes__thumbnail__width_operator
+  sizes__thumbnail__height: Image_sizes__thumbnail__height_operator
+  sizes__thumbnail__mimeType: Image_sizes__thumbnail__mimeType_operator
+  sizes__thumbnail__filesize: Image_sizes__thumbnail__filesize_operator
+  sizes__thumbnail__filename: Image_sizes__thumbnail__filename_operator
   sizes__opengraph__url: Image_sizes__opengraph__url_operator
   sizes__opengraph__width: Image_sizes__opengraph__width_operator
   sizes__opengraph__height: Image_sizes__opengraph__height_operator
@@ -223,6 +168,29 @@ input Image_where {
   id: Image_id_operator
   AND: [Image_where_and]
   OR: [Image_where_or]
+}
+
+input Image_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input Image_updatedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
 }
 
 input Image_description_operator {
@@ -352,7 +320,7 @@ input Image_focalY_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__url_operator {
+input Image_sizes__thumbnail__url_operator {
   equals: String
   not_equals: String
   like: String
@@ -363,7 +331,7 @@ input Image_sizes__xs__url_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__width_operator {
+input Image_sizes__thumbnail__width_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -373,7 +341,7 @@ input Image_sizes__xs__width_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__height_operator {
+input Image_sizes__thumbnail__height_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -383,7 +351,7 @@ input Image_sizes__xs__height_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__mimeType_operator {
+input Image_sizes__thumbnail__mimeType_operator {
   equals: String
   not_equals: String
   like: String
@@ -394,7 +362,7 @@ input Image_sizes__xs__mimeType_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__filesize_operator {
+input Image_sizes__thumbnail__filesize_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -404,385 +372,7 @@ input Image_sizes__xs__filesize_operator {
   exists: Boolean
 }
 
-input Image_sizes__xs__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__sm__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__sm__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__sm__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__sm__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__sm__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__sm__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__md__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__md__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__md__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__md__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__md__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__md__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__lg__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__lg__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__lg__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__lg__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__lg__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__lg__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xl__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xl__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xl__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xl__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xl__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xl__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxl__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxl__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxl__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxl__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxl__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxl__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Image_sizes__xxxl__filename_operator {
+input Image_sizes__thumbnail__filename_operator {
   equals: String
   not_equals: String
   like: String
@@ -868,6 +458,8 @@ input Image_id_operator {
 }
 
 input Image_where_and {
+  createdBy: Image_createdBy_operator
+  updatedBy: Image_updatedBy_operator
   description: Image_description_operator
   updatedAt: Image_updatedAt_operator
   createdAt: Image_createdAt_operator
@@ -880,48 +472,12 @@ input Image_where_and {
   height: Image_height_operator
   focalX: Image_focalX_operator
   focalY: Image_focalY_operator
-  sizes__xs__url: Image_sizes__xs__url_operator
-  sizes__xs__width: Image_sizes__xs__width_operator
-  sizes__xs__height: Image_sizes__xs__height_operator
-  sizes__xs__mimeType: Image_sizes__xs__mimeType_operator
-  sizes__xs__filesize: Image_sizes__xs__filesize_operator
-  sizes__xs__filename: Image_sizes__xs__filename_operator
-  sizes__sm__url: Image_sizes__sm__url_operator
-  sizes__sm__width: Image_sizes__sm__width_operator
-  sizes__sm__height: Image_sizes__sm__height_operator
-  sizes__sm__mimeType: Image_sizes__sm__mimeType_operator
-  sizes__sm__filesize: Image_sizes__sm__filesize_operator
-  sizes__sm__filename: Image_sizes__sm__filename_operator
-  sizes__md__url: Image_sizes__md__url_operator
-  sizes__md__width: Image_sizes__md__width_operator
-  sizes__md__height: Image_sizes__md__height_operator
-  sizes__md__mimeType: Image_sizes__md__mimeType_operator
-  sizes__md__filesize: Image_sizes__md__filesize_operator
-  sizes__md__filename: Image_sizes__md__filename_operator
-  sizes__lg__url: Image_sizes__lg__url_operator
-  sizes__lg__width: Image_sizes__lg__width_operator
-  sizes__lg__height: Image_sizes__lg__height_operator
-  sizes__lg__mimeType: Image_sizes__lg__mimeType_operator
-  sizes__lg__filesize: Image_sizes__lg__filesize_operator
-  sizes__lg__filename: Image_sizes__lg__filename_operator
-  sizes__xl__url: Image_sizes__xl__url_operator
-  sizes__xl__width: Image_sizes__xl__width_operator
-  sizes__xl__height: Image_sizes__xl__height_operator
-  sizes__xl__mimeType: Image_sizes__xl__mimeType_operator
-  sizes__xl__filesize: Image_sizes__xl__filesize_operator
-  sizes__xl__filename: Image_sizes__xl__filename_operator
-  sizes__xxl__url: Image_sizes__xxl__url_operator
-  sizes__xxl__width: Image_sizes__xxl__width_operator
-  sizes__xxl__height: Image_sizes__xxl__height_operator
-  sizes__xxl__mimeType: Image_sizes__xxl__mimeType_operator
-  sizes__xxl__filesize: Image_sizes__xxl__filesize_operator
-  sizes__xxl__filename: Image_sizes__xxl__filename_operator
-  sizes__xxxl__url: Image_sizes__xxxl__url_operator
-  sizes__xxxl__width: Image_sizes__xxxl__width_operator
-  sizes__xxxl__height: Image_sizes__xxxl__height_operator
-  sizes__xxxl__mimeType: Image_sizes__xxxl__mimeType_operator
-  sizes__xxxl__filesize: Image_sizes__xxxl__filesize_operator
-  sizes__xxxl__filename: Image_sizes__xxxl__filename_operator
+  sizes__thumbnail__url: Image_sizes__thumbnail__url_operator
+  sizes__thumbnail__width: Image_sizes__thumbnail__width_operator
+  sizes__thumbnail__height: Image_sizes__thumbnail__height_operator
+  sizes__thumbnail__mimeType: Image_sizes__thumbnail__mimeType_operator
+  sizes__thumbnail__filesize: Image_sizes__thumbnail__filesize_operator
+  sizes__thumbnail__filename: Image_sizes__thumbnail__filename_operator
   sizes__opengraph__url: Image_sizes__opengraph__url_operator
   sizes__opengraph__width: Image_sizes__opengraph__width_operator
   sizes__opengraph__height: Image_sizes__opengraph__height_operator
@@ -934,6 +490,8 @@ input Image_where_and {
 }
 
 input Image_where_or {
+  createdBy: Image_createdBy_operator
+  updatedBy: Image_updatedBy_operator
   description: Image_description_operator
   updatedAt: Image_updatedAt_operator
   createdAt: Image_createdAt_operator
@@ -946,48 +504,12 @@ input Image_where_or {
   height: Image_height_operator
   focalX: Image_focalX_operator
   focalY: Image_focalY_operator
-  sizes__xs__url: Image_sizes__xs__url_operator
-  sizes__xs__width: Image_sizes__xs__width_operator
-  sizes__xs__height: Image_sizes__xs__height_operator
-  sizes__xs__mimeType: Image_sizes__xs__mimeType_operator
-  sizes__xs__filesize: Image_sizes__xs__filesize_operator
-  sizes__xs__filename: Image_sizes__xs__filename_operator
-  sizes__sm__url: Image_sizes__sm__url_operator
-  sizes__sm__width: Image_sizes__sm__width_operator
-  sizes__sm__height: Image_sizes__sm__height_operator
-  sizes__sm__mimeType: Image_sizes__sm__mimeType_operator
-  sizes__sm__filesize: Image_sizes__sm__filesize_operator
-  sizes__sm__filename: Image_sizes__sm__filename_operator
-  sizes__md__url: Image_sizes__md__url_operator
-  sizes__md__width: Image_sizes__md__width_operator
-  sizes__md__height: Image_sizes__md__height_operator
-  sizes__md__mimeType: Image_sizes__md__mimeType_operator
-  sizes__md__filesize: Image_sizes__md__filesize_operator
-  sizes__md__filename: Image_sizes__md__filename_operator
-  sizes__lg__url: Image_sizes__lg__url_operator
-  sizes__lg__width: Image_sizes__lg__width_operator
-  sizes__lg__height: Image_sizes__lg__height_operator
-  sizes__lg__mimeType: Image_sizes__lg__mimeType_operator
-  sizes__lg__filesize: Image_sizes__lg__filesize_operator
-  sizes__lg__filename: Image_sizes__lg__filename_operator
-  sizes__xl__url: Image_sizes__xl__url_operator
-  sizes__xl__width: Image_sizes__xl__width_operator
-  sizes__xl__height: Image_sizes__xl__height_operator
-  sizes__xl__mimeType: Image_sizes__xl__mimeType_operator
-  sizes__xl__filesize: Image_sizes__xl__filesize_operator
-  sizes__xl__filename: Image_sizes__xl__filename_operator
-  sizes__xxl__url: Image_sizes__xxl__url_operator
-  sizes__xxl__width: Image_sizes__xxl__width_operator
-  sizes__xxl__height: Image_sizes__xxl__height_operator
-  sizes__xxl__mimeType: Image_sizes__xxl__mimeType_operator
-  sizes__xxl__filesize: Image_sizes__xxl__filesize_operator
-  sizes__xxl__filename: Image_sizes__xxl__filename_operator
-  sizes__xxxl__url: Image_sizes__xxxl__url_operator
-  sizes__xxxl__width: Image_sizes__xxxl__width_operator
-  sizes__xxxl__height: Image_sizes__xxxl__height_operator
-  sizes__xxxl__mimeType: Image_sizes__xxxl__mimeType_operator
-  sizes__xxxl__filesize: Image_sizes__xxxl__filesize_operator
-  sizes__xxxl__filename: Image_sizes__xxxl__filename_operator
+  sizes__thumbnail__url: Image_sizes__thumbnail__url_operator
+  sizes__thumbnail__width: Image_sizes__thumbnail__width_operator
+  sizes__thumbnail__height: Image_sizes__thumbnail__height_operator
+  sizes__thumbnail__mimeType: Image_sizes__thumbnail__mimeType_operator
+  sizes__thumbnail__filesize: Image_sizes__thumbnail__filesize_operator
+  sizes__thumbnail__filename: Image_sizes__thumbnail__filename_operator
   sizes__opengraph__url: Image_sizes__opengraph__url_operator
   sizes__opengraph__width: Image_sizes__opengraph__width_operator
   sizes__opengraph__height: Image_sizes__opengraph__height_operator
@@ -1012,6 +534,8 @@ type imagesDocAccess {
 }
 
 type ImagesDocAccessFields {
+  createdBy: ImagesDocAccessFields_createdBy
+  updatedBy: ImagesDocAccessFields_updatedBy
   description: ImagesDocAccessFields_description
   updatedAt: ImagesDocAccessFields_updatedAt
   createdAt: ImagesDocAccessFields_createdAt
@@ -1025,6 +549,52 @@ type ImagesDocAccessFields {
   focalX: ImagesDocAccessFields_focalX
   focalY: ImagesDocAccessFields_focalY
   sizes: ImagesDocAccessFields_sizes
+}
+
+type ImagesDocAccessFields_createdBy {
+  create: ImagesDocAccessFields_createdBy_Create
+  read: ImagesDocAccessFields_createdBy_Read
+  update: ImagesDocAccessFields_createdBy_Update
+  delete: ImagesDocAccessFields_createdBy_Delete
+}
+
+type ImagesDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_updatedBy {
+  create: ImagesDocAccessFields_updatedBy_Create
+  read: ImagesDocAccessFields_updatedBy_Read
+  update: ImagesDocAccessFields_updatedBy_Update
+  delete: ImagesDocAccessFields_updatedBy_Delete
+}
+
+type ImagesDocAccessFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type ImagesDocAccessFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type ImagesDocAccessFields_description {
@@ -1328,1210 +898,178 @@ type ImagesDocAccessFields_sizes_Delete {
 }
 
 type ImagesDocAccessFields_sizes_Fields {
-  xs: ImagesDocAccessFields_sizes_xs
-  sm: ImagesDocAccessFields_sizes_sm
-  md: ImagesDocAccessFields_sizes_md
-  lg: ImagesDocAccessFields_sizes_lg
-  xl: ImagesDocAccessFields_sizes_xl
-  xxl: ImagesDocAccessFields_sizes_xxl
-  xxxl: ImagesDocAccessFields_sizes_xxxl
+  thumbnail: ImagesDocAccessFields_sizes_thumbnail
   opengraph: ImagesDocAccessFields_sizes_opengraph
 }
 
-type ImagesDocAccessFields_sizes_xs {
-  create: ImagesDocAccessFields_sizes_xs_Create
-  read: ImagesDocAccessFields_sizes_xs_Read
-  update: ImagesDocAccessFields_sizes_xs_Update
-  delete: ImagesDocAccessFields_sizes_xs_Delete
-  fields: ImagesDocAccessFields_sizes_xs_Fields
-}
-
-type ImagesDocAccessFields_sizes_xs_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_Fields {
-  url: ImagesDocAccessFields_sizes_xs_url
-  width: ImagesDocAccessFields_sizes_xs_width
-  height: ImagesDocAccessFields_sizes_xs_height
-  mimeType: ImagesDocAccessFields_sizes_xs_mimeType
-  filesize: ImagesDocAccessFields_sizes_xs_filesize
-  filename: ImagesDocAccessFields_sizes_xs_filename
-}
-
-type ImagesDocAccessFields_sizes_xs_url {
-  create: ImagesDocAccessFields_sizes_xs_url_Create
-  read: ImagesDocAccessFields_sizes_xs_url_Read
-  update: ImagesDocAccessFields_sizes_xs_url_Update
-  delete: ImagesDocAccessFields_sizes_xs_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_width {
-  create: ImagesDocAccessFields_sizes_xs_width_Create
-  read: ImagesDocAccessFields_sizes_xs_width_Read
-  update: ImagesDocAccessFields_sizes_xs_width_Update
-  delete: ImagesDocAccessFields_sizes_xs_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_height {
-  create: ImagesDocAccessFields_sizes_xs_height_Create
-  read: ImagesDocAccessFields_sizes_xs_height_Read
-  update: ImagesDocAccessFields_sizes_xs_height_Update
-  delete: ImagesDocAccessFields_sizes_xs_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_mimeType {
-  create: ImagesDocAccessFields_sizes_xs_mimeType_Create
-  read: ImagesDocAccessFields_sizes_xs_mimeType_Read
-  update: ImagesDocAccessFields_sizes_xs_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_xs_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filesize {
-  create: ImagesDocAccessFields_sizes_xs_filesize_Create
-  read: ImagesDocAccessFields_sizes_xs_filesize_Read
-  update: ImagesDocAccessFields_sizes_xs_filesize_Update
-  delete: ImagesDocAccessFields_sizes_xs_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filename {
-  create: ImagesDocAccessFields_sizes_xs_filename_Create
-  read: ImagesDocAccessFields_sizes_xs_filename_Read
-  update: ImagesDocAccessFields_sizes_xs_filename_Update
-  delete: ImagesDocAccessFields_sizes_xs_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_xs_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xs_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm {
-  create: ImagesDocAccessFields_sizes_sm_Create
-  read: ImagesDocAccessFields_sizes_sm_Read
-  update: ImagesDocAccessFields_sizes_sm_Update
-  delete: ImagesDocAccessFields_sizes_sm_Delete
-  fields: ImagesDocAccessFields_sizes_sm_Fields
-}
-
-type ImagesDocAccessFields_sizes_sm_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_Fields {
-  url: ImagesDocAccessFields_sizes_sm_url
-  width: ImagesDocAccessFields_sizes_sm_width
-  height: ImagesDocAccessFields_sizes_sm_height
-  mimeType: ImagesDocAccessFields_sizes_sm_mimeType
-  filesize: ImagesDocAccessFields_sizes_sm_filesize
-  filename: ImagesDocAccessFields_sizes_sm_filename
-}
-
-type ImagesDocAccessFields_sizes_sm_url {
-  create: ImagesDocAccessFields_sizes_sm_url_Create
-  read: ImagesDocAccessFields_sizes_sm_url_Read
-  update: ImagesDocAccessFields_sizes_sm_url_Update
-  delete: ImagesDocAccessFields_sizes_sm_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_width {
-  create: ImagesDocAccessFields_sizes_sm_width_Create
-  read: ImagesDocAccessFields_sizes_sm_width_Read
-  update: ImagesDocAccessFields_sizes_sm_width_Update
-  delete: ImagesDocAccessFields_sizes_sm_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_height {
-  create: ImagesDocAccessFields_sizes_sm_height_Create
-  read: ImagesDocAccessFields_sizes_sm_height_Read
-  update: ImagesDocAccessFields_sizes_sm_height_Update
-  delete: ImagesDocAccessFields_sizes_sm_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_mimeType {
-  create: ImagesDocAccessFields_sizes_sm_mimeType_Create
-  read: ImagesDocAccessFields_sizes_sm_mimeType_Read
-  update: ImagesDocAccessFields_sizes_sm_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_sm_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filesize {
-  create: ImagesDocAccessFields_sizes_sm_filesize_Create
-  read: ImagesDocAccessFields_sizes_sm_filesize_Read
-  update: ImagesDocAccessFields_sizes_sm_filesize_Update
-  delete: ImagesDocAccessFields_sizes_sm_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filename {
-  create: ImagesDocAccessFields_sizes_sm_filename_Create
-  read: ImagesDocAccessFields_sizes_sm_filename_Read
-  update: ImagesDocAccessFields_sizes_sm_filename_Update
-  delete: ImagesDocAccessFields_sizes_sm_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_sm_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_sm_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md {
-  create: ImagesDocAccessFields_sizes_md_Create
-  read: ImagesDocAccessFields_sizes_md_Read
-  update: ImagesDocAccessFields_sizes_md_Update
-  delete: ImagesDocAccessFields_sizes_md_Delete
-  fields: ImagesDocAccessFields_sizes_md_Fields
-}
-
-type ImagesDocAccessFields_sizes_md_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_Fields {
-  url: ImagesDocAccessFields_sizes_md_url
-  width: ImagesDocAccessFields_sizes_md_width
-  height: ImagesDocAccessFields_sizes_md_height
-  mimeType: ImagesDocAccessFields_sizes_md_mimeType
-  filesize: ImagesDocAccessFields_sizes_md_filesize
-  filename: ImagesDocAccessFields_sizes_md_filename
-}
-
-type ImagesDocAccessFields_sizes_md_url {
-  create: ImagesDocAccessFields_sizes_md_url_Create
-  read: ImagesDocAccessFields_sizes_md_url_Read
-  update: ImagesDocAccessFields_sizes_md_url_Update
-  delete: ImagesDocAccessFields_sizes_md_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_width {
-  create: ImagesDocAccessFields_sizes_md_width_Create
-  read: ImagesDocAccessFields_sizes_md_width_Read
-  update: ImagesDocAccessFields_sizes_md_width_Update
-  delete: ImagesDocAccessFields_sizes_md_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_height {
-  create: ImagesDocAccessFields_sizes_md_height_Create
-  read: ImagesDocAccessFields_sizes_md_height_Read
-  update: ImagesDocAccessFields_sizes_md_height_Update
-  delete: ImagesDocAccessFields_sizes_md_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_mimeType {
-  create: ImagesDocAccessFields_sizes_md_mimeType_Create
-  read: ImagesDocAccessFields_sizes_md_mimeType_Read
-  update: ImagesDocAccessFields_sizes_md_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_md_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filesize {
-  create: ImagesDocAccessFields_sizes_md_filesize_Create
-  read: ImagesDocAccessFields_sizes_md_filesize_Read
-  update: ImagesDocAccessFields_sizes_md_filesize_Update
-  delete: ImagesDocAccessFields_sizes_md_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filename {
-  create: ImagesDocAccessFields_sizes_md_filename_Create
-  read: ImagesDocAccessFields_sizes_md_filename_Read
-  update: ImagesDocAccessFields_sizes_md_filename_Update
-  delete: ImagesDocAccessFields_sizes_md_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_md_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_md_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg {
-  create: ImagesDocAccessFields_sizes_lg_Create
-  read: ImagesDocAccessFields_sizes_lg_Read
-  update: ImagesDocAccessFields_sizes_lg_Update
-  delete: ImagesDocAccessFields_sizes_lg_Delete
-  fields: ImagesDocAccessFields_sizes_lg_Fields
-}
-
-type ImagesDocAccessFields_sizes_lg_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_Fields {
-  url: ImagesDocAccessFields_sizes_lg_url
-  width: ImagesDocAccessFields_sizes_lg_width
-  height: ImagesDocAccessFields_sizes_lg_height
-  mimeType: ImagesDocAccessFields_sizes_lg_mimeType
-  filesize: ImagesDocAccessFields_sizes_lg_filesize
-  filename: ImagesDocAccessFields_sizes_lg_filename
-}
-
-type ImagesDocAccessFields_sizes_lg_url {
-  create: ImagesDocAccessFields_sizes_lg_url_Create
-  read: ImagesDocAccessFields_sizes_lg_url_Read
-  update: ImagesDocAccessFields_sizes_lg_url_Update
-  delete: ImagesDocAccessFields_sizes_lg_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_width {
-  create: ImagesDocAccessFields_sizes_lg_width_Create
-  read: ImagesDocAccessFields_sizes_lg_width_Read
-  update: ImagesDocAccessFields_sizes_lg_width_Update
-  delete: ImagesDocAccessFields_sizes_lg_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_height {
-  create: ImagesDocAccessFields_sizes_lg_height_Create
-  read: ImagesDocAccessFields_sizes_lg_height_Read
-  update: ImagesDocAccessFields_sizes_lg_height_Update
-  delete: ImagesDocAccessFields_sizes_lg_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_mimeType {
-  create: ImagesDocAccessFields_sizes_lg_mimeType_Create
-  read: ImagesDocAccessFields_sizes_lg_mimeType_Read
-  update: ImagesDocAccessFields_sizes_lg_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_lg_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filesize {
-  create: ImagesDocAccessFields_sizes_lg_filesize_Create
-  read: ImagesDocAccessFields_sizes_lg_filesize_Read
-  update: ImagesDocAccessFields_sizes_lg_filesize_Update
-  delete: ImagesDocAccessFields_sizes_lg_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filename {
-  create: ImagesDocAccessFields_sizes_lg_filename_Create
-  read: ImagesDocAccessFields_sizes_lg_filename_Read
-  update: ImagesDocAccessFields_sizes_lg_filename_Update
-  delete: ImagesDocAccessFields_sizes_lg_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_lg_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_lg_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl {
-  create: ImagesDocAccessFields_sizes_xl_Create
-  read: ImagesDocAccessFields_sizes_xl_Read
-  update: ImagesDocAccessFields_sizes_xl_Update
-  delete: ImagesDocAccessFields_sizes_xl_Delete
-  fields: ImagesDocAccessFields_sizes_xl_Fields
-}
-
-type ImagesDocAccessFields_sizes_xl_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_Fields {
-  url: ImagesDocAccessFields_sizes_xl_url
-  width: ImagesDocAccessFields_sizes_xl_width
-  height: ImagesDocAccessFields_sizes_xl_height
-  mimeType: ImagesDocAccessFields_sizes_xl_mimeType
-  filesize: ImagesDocAccessFields_sizes_xl_filesize
-  filename: ImagesDocAccessFields_sizes_xl_filename
-}
-
-type ImagesDocAccessFields_sizes_xl_url {
-  create: ImagesDocAccessFields_sizes_xl_url_Create
-  read: ImagesDocAccessFields_sizes_xl_url_Read
-  update: ImagesDocAccessFields_sizes_xl_url_Update
-  delete: ImagesDocAccessFields_sizes_xl_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_width {
-  create: ImagesDocAccessFields_sizes_xl_width_Create
-  read: ImagesDocAccessFields_sizes_xl_width_Read
-  update: ImagesDocAccessFields_sizes_xl_width_Update
-  delete: ImagesDocAccessFields_sizes_xl_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_height {
-  create: ImagesDocAccessFields_sizes_xl_height_Create
-  read: ImagesDocAccessFields_sizes_xl_height_Read
-  update: ImagesDocAccessFields_sizes_xl_height_Update
-  delete: ImagesDocAccessFields_sizes_xl_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_mimeType {
-  create: ImagesDocAccessFields_sizes_xl_mimeType_Create
-  read: ImagesDocAccessFields_sizes_xl_mimeType_Read
-  update: ImagesDocAccessFields_sizes_xl_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_xl_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filesize {
-  create: ImagesDocAccessFields_sizes_xl_filesize_Create
-  read: ImagesDocAccessFields_sizes_xl_filesize_Read
-  update: ImagesDocAccessFields_sizes_xl_filesize_Update
-  delete: ImagesDocAccessFields_sizes_xl_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filename {
-  create: ImagesDocAccessFields_sizes_xl_filename_Create
-  read: ImagesDocAccessFields_sizes_xl_filename_Read
-  update: ImagesDocAccessFields_sizes_xl_filename_Update
-  delete: ImagesDocAccessFields_sizes_xl_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_xl_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xl_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl {
-  create: ImagesDocAccessFields_sizes_xxl_Create
-  read: ImagesDocAccessFields_sizes_xxl_Read
-  update: ImagesDocAccessFields_sizes_xxl_Update
-  delete: ImagesDocAccessFields_sizes_xxl_Delete
-  fields: ImagesDocAccessFields_sizes_xxl_Fields
-}
-
-type ImagesDocAccessFields_sizes_xxl_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_Fields {
-  url: ImagesDocAccessFields_sizes_xxl_url
-  width: ImagesDocAccessFields_sizes_xxl_width
-  height: ImagesDocAccessFields_sizes_xxl_height
-  mimeType: ImagesDocAccessFields_sizes_xxl_mimeType
-  filesize: ImagesDocAccessFields_sizes_xxl_filesize
-  filename: ImagesDocAccessFields_sizes_xxl_filename
-}
-
-type ImagesDocAccessFields_sizes_xxl_url {
-  create: ImagesDocAccessFields_sizes_xxl_url_Create
-  read: ImagesDocAccessFields_sizes_xxl_url_Read
-  update: ImagesDocAccessFields_sizes_xxl_url_Update
-  delete: ImagesDocAccessFields_sizes_xxl_url_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_url_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_url_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_url_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_width {
-  create: ImagesDocAccessFields_sizes_xxl_width_Create
-  read: ImagesDocAccessFields_sizes_xxl_width_Read
-  update: ImagesDocAccessFields_sizes_xxl_width_Update
-  delete: ImagesDocAccessFields_sizes_xxl_width_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_width_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_width_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_width_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_height {
-  create: ImagesDocAccessFields_sizes_xxl_height_Create
-  read: ImagesDocAccessFields_sizes_xxl_height_Read
-  update: ImagesDocAccessFields_sizes_xxl_height_Update
-  delete: ImagesDocAccessFields_sizes_xxl_height_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_height_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_height_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_height_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_mimeType {
-  create: ImagesDocAccessFields_sizes_xxl_mimeType_Create
-  read: ImagesDocAccessFields_sizes_xxl_mimeType_Read
-  update: ImagesDocAccessFields_sizes_xxl_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_xxl_mimeType_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filesize {
-  create: ImagesDocAccessFields_sizes_xxl_filesize_Create
-  read: ImagesDocAccessFields_sizes_xxl_filesize_Read
-  update: ImagesDocAccessFields_sizes_xxl_filesize_Update
-  delete: ImagesDocAccessFields_sizes_xxl_filesize_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filename {
-  create: ImagesDocAccessFields_sizes_xxl_filename_Create
-  read: ImagesDocAccessFields_sizes_xxl_filename_Read
-  update: ImagesDocAccessFields_sizes_xxl_filename_Update
-  delete: ImagesDocAccessFields_sizes_xxl_filename_Delete
-}
-
-type ImagesDocAccessFields_sizes_xxl_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxl_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesDocAccessFields_sizes_xxxl {
-  create: ImagesDocAccessFields_sizes_xxxl_Create
-  read: ImagesDocAccessFields_sizes_xxxl_Read
-  update: ImagesDocAccessFields_sizes_xxxl_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_Delete
-  fields: ImagesDocAccessFields_sizes_xxxl_Fields
+type ImagesDocAccessFields_sizes_thumbnail {
+  create: ImagesDocAccessFields_sizes_thumbnail_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_Delete
+  fields: ImagesDocAccessFields_sizes_thumbnail_Fields
 }
 
-type ImagesDocAccessFields_sizes_xxxl_Create {
+type ImagesDocAccessFields_sizes_thumbnail_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_Read {
+type ImagesDocAccessFields_sizes_thumbnail_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_Update {
+type ImagesDocAccessFields_sizes_thumbnail_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_Fields {
-  url: ImagesDocAccessFields_sizes_xxxl_url
-  width: ImagesDocAccessFields_sizes_xxxl_width
-  height: ImagesDocAccessFields_sizes_xxxl_height
-  mimeType: ImagesDocAccessFields_sizes_xxxl_mimeType
-  filesize: ImagesDocAccessFields_sizes_xxxl_filesize
-  filename: ImagesDocAccessFields_sizes_xxxl_filename
+type ImagesDocAccessFields_sizes_thumbnail_Fields {
+  url: ImagesDocAccessFields_sizes_thumbnail_url
+  width: ImagesDocAccessFields_sizes_thumbnail_width
+  height: ImagesDocAccessFields_sizes_thumbnail_height
+  mimeType: ImagesDocAccessFields_sizes_thumbnail_mimeType
+  filesize: ImagesDocAccessFields_sizes_thumbnail_filesize
+  filename: ImagesDocAccessFields_sizes_thumbnail_filename
 }
 
-type ImagesDocAccessFields_sizes_xxxl_url {
-  create: ImagesDocAccessFields_sizes_xxxl_url_Create
-  read: ImagesDocAccessFields_sizes_xxxl_url_Read
-  update: ImagesDocAccessFields_sizes_xxxl_url_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_url_Delete
+type ImagesDocAccessFields_sizes_thumbnail_url {
+  create: ImagesDocAccessFields_sizes_thumbnail_url_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_url_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_url_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_url_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_url_Create {
+type ImagesDocAccessFields_sizes_thumbnail_url_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_url_Read {
+type ImagesDocAccessFields_sizes_thumbnail_url_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_url_Update {
+type ImagesDocAccessFields_sizes_thumbnail_url_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_url_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_url_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_width {
-  create: ImagesDocAccessFields_sizes_xxxl_width_Create
-  read: ImagesDocAccessFields_sizes_xxxl_width_Read
-  update: ImagesDocAccessFields_sizes_xxxl_width_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_width_Delete
+type ImagesDocAccessFields_sizes_thumbnail_width {
+  create: ImagesDocAccessFields_sizes_thumbnail_width_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_width_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_width_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_width_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_width_Create {
+type ImagesDocAccessFields_sizes_thumbnail_width_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_width_Read {
+type ImagesDocAccessFields_sizes_thumbnail_width_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_width_Update {
+type ImagesDocAccessFields_sizes_thumbnail_width_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_width_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_width_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_height {
-  create: ImagesDocAccessFields_sizes_xxxl_height_Create
-  read: ImagesDocAccessFields_sizes_xxxl_height_Read
-  update: ImagesDocAccessFields_sizes_xxxl_height_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_height_Delete
+type ImagesDocAccessFields_sizes_thumbnail_height {
+  create: ImagesDocAccessFields_sizes_thumbnail_height_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_height_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_height_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_height_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_height_Create {
+type ImagesDocAccessFields_sizes_thumbnail_height_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_height_Read {
+type ImagesDocAccessFields_sizes_thumbnail_height_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_height_Update {
+type ImagesDocAccessFields_sizes_thumbnail_height_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_height_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_height_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_mimeType {
-  create: ImagesDocAccessFields_sizes_xxxl_mimeType_Create
-  read: ImagesDocAccessFields_sizes_xxxl_mimeType_Read
-  update: ImagesDocAccessFields_sizes_xxxl_mimeType_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_mimeType_Delete
+type ImagesDocAccessFields_sizes_thumbnail_mimeType {
+  create: ImagesDocAccessFields_sizes_thumbnail_mimeType_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_mimeType_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_mimeType_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_mimeType_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_mimeType_Create {
+type ImagesDocAccessFields_sizes_thumbnail_mimeType_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_mimeType_Read {
+type ImagesDocAccessFields_sizes_thumbnail_mimeType_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_mimeType_Update {
+type ImagesDocAccessFields_sizes_thumbnail_mimeType_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_mimeType_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_mimeType_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filesize {
-  create: ImagesDocAccessFields_sizes_xxxl_filesize_Create
-  read: ImagesDocAccessFields_sizes_xxxl_filesize_Read
-  update: ImagesDocAccessFields_sizes_xxxl_filesize_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_filesize_Delete
+type ImagesDocAccessFields_sizes_thumbnail_filesize {
+  create: ImagesDocAccessFields_sizes_thumbnail_filesize_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_filesize_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_filesize_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_filesize_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filesize_Create {
+type ImagesDocAccessFields_sizes_thumbnail_filesize_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filesize_Read {
+type ImagesDocAccessFields_sizes_thumbnail_filesize_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filesize_Update {
+type ImagesDocAccessFields_sizes_thumbnail_filesize_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filesize_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_filesize_Delete {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filename {
-  create: ImagesDocAccessFields_sizes_xxxl_filename_Create
-  read: ImagesDocAccessFields_sizes_xxxl_filename_Read
-  update: ImagesDocAccessFields_sizes_xxxl_filename_Update
-  delete: ImagesDocAccessFields_sizes_xxxl_filename_Delete
+type ImagesDocAccessFields_sizes_thumbnail_filename {
+  create: ImagesDocAccessFields_sizes_thumbnail_filename_Create
+  read: ImagesDocAccessFields_sizes_thumbnail_filename_Read
+  update: ImagesDocAccessFields_sizes_thumbnail_filename_Update
+  delete: ImagesDocAccessFields_sizes_thumbnail_filename_Delete
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filename_Create {
+type ImagesDocAccessFields_sizes_thumbnail_filename_Create {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filename_Read {
+type ImagesDocAccessFields_sizes_thumbnail_filename_Read {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filename_Update {
+type ImagesDocAccessFields_sizes_thumbnail_filename_Update {
   permission: Boolean!
 }
 
-type ImagesDocAccessFields_sizes_xxxl_filename_Delete {
+type ImagesDocAccessFields_sizes_thumbnail_filename_Delete {
   permission: Boolean!
 }
 
@@ -2733,11 +1271,13 @@ type ImagesDeleteDocAccess {
 
 type KeyPage {
   id: String!
+  createdBy: Staff
+  updatedBy: Staff
   homeTemplateFields: KeyPage_HomeTemplateFields
-  meta: KeyPage_Meta
   template: KeyPage_template!
   keyPageTitle: String!
   keyPageUri: String
+  meta: KeyPage_Meta
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -2787,11 +1327,6 @@ type MuxVideo {
   height: Float
 }
 
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
 enum MuxVideo_status {
   preparing
   ready
@@ -2812,14 +1347,14 @@ enum MuxVideo_PlaybackOptions_playbackPolicy {
   public
 }
 
+enum KeyPage_template {
+  Home
+}
+
 type KeyPage_Meta {
   title: String
   description: String
   image: Image
-}
-
-enum KeyPage_template {
-  Home
 }
 
 type KeyPages {
@@ -2837,13 +1372,15 @@ type KeyPages {
 }
 
 input KeyPage_where {
+  createdBy: KeyPage_createdBy_operator
+  updatedBy: KeyPage_updatedBy_operator
   homeTemplateFields__myTextField: KeyPage_homeTemplateFields__myTextField_operator
-  meta__title: KeyPage_meta__title_operator
-  meta__description: KeyPage_meta__description_operator
-  meta__image: KeyPage_meta__image_operator
   template: KeyPage_template_operator
   keyPageTitle: KeyPage_keyPageTitle_operator
   keyPageUri: KeyPage_keyPageUri_operator
+  meta__title: KeyPage_meta__title_operator
+  meta__description: KeyPage_meta__description_operator
+  meta__image: KeyPage_meta__image_operator
   updatedAt: KeyPage_updatedAt_operator
   createdAt: KeyPage_createdAt_operator
   id: KeyPage_id_operator
@@ -2851,7 +1388,58 @@ input KeyPage_where {
   OR: [KeyPage_where_or]
 }
 
+input KeyPage_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input KeyPage_updatedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
 input KeyPage_homeTemplateFields__myTextField_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input KeyPage_template_operator {
+  equals: KeyPage_template_Input
+  not_equals: KeyPage_template_Input
+  in: [KeyPage_template_Input]
+  not_in: [KeyPage_template_Input]
+  all: [KeyPage_template_Input]
+}
+
+enum KeyPage_template_Input {
+  Home
+}
+
+input KeyPage_keyPageTitle_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input KeyPage_keyPageUri_operator {
   equals: String
   not_equals: String
   like: String
@@ -2890,39 +1478,6 @@ input KeyPage_meta__image_operator {
   exists: Boolean
 }
 
-input KeyPage_template_operator {
-  equals: KeyPage_template_Input
-  not_equals: KeyPage_template_Input
-  in: [KeyPage_template_Input]
-  not_in: [KeyPage_template_Input]
-  all: [KeyPage_template_Input]
-}
-
-enum KeyPage_template_Input {
-  Home
-}
-
-input KeyPage_keyPageTitle_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input KeyPage_keyPageUri_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
 input KeyPage_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -2957,13 +1512,15 @@ input KeyPage_id_operator {
 }
 
 input KeyPage_where_and {
+  createdBy: KeyPage_createdBy_operator
+  updatedBy: KeyPage_updatedBy_operator
   homeTemplateFields__myTextField: KeyPage_homeTemplateFields__myTextField_operator
-  meta__title: KeyPage_meta__title_operator
-  meta__description: KeyPage_meta__description_operator
-  meta__image: KeyPage_meta__image_operator
   template: KeyPage_template_operator
   keyPageTitle: KeyPage_keyPageTitle_operator
   keyPageUri: KeyPage_keyPageUri_operator
+  meta__title: KeyPage_meta__title_operator
+  meta__description: KeyPage_meta__description_operator
+  meta__image: KeyPage_meta__image_operator
   updatedAt: KeyPage_updatedAt_operator
   createdAt: KeyPage_createdAt_operator
   id: KeyPage_id_operator
@@ -2972,13 +1529,15 @@ input KeyPage_where_and {
 }
 
 input KeyPage_where_or {
+  createdBy: KeyPage_createdBy_operator
+  updatedBy: KeyPage_updatedBy_operator
   homeTemplateFields__myTextField: KeyPage_homeTemplateFields__myTextField_operator
-  meta__title: KeyPage_meta__title_operator
-  meta__description: KeyPage_meta__description_operator
-  meta__image: KeyPage_meta__image_operator
   template: KeyPage_template_operator
   keyPageTitle: KeyPage_keyPageTitle_operator
   keyPageUri: KeyPage_keyPageUri_operator
+  meta__title: KeyPage_meta__title_operator
+  meta__description: KeyPage_meta__description_operator
+  meta__image: KeyPage_meta__image_operator
   updatedAt: KeyPage_updatedAt_operator
   createdAt: KeyPage_createdAt_operator
   id: KeyPage_id_operator
@@ -3000,13 +1559,61 @@ type key_pagesDocAccess {
 }
 
 type KeyPagesDocAccessFields {
+  createdBy: KeyPagesDocAccessFields_createdBy
+  updatedBy: KeyPagesDocAccessFields_updatedBy
   homeTemplateFields: KeyPagesDocAccessFields_homeTemplateFields
-  meta: KeyPagesDocAccessFields_meta
   template: KeyPagesDocAccessFields_template
   keyPageTitle: KeyPagesDocAccessFields_keyPageTitle
   keyPageUri: KeyPagesDocAccessFields_keyPageUri
+  meta: KeyPagesDocAccessFields_meta
   updatedAt: KeyPagesDocAccessFields_updatedAt
   createdAt: KeyPagesDocAccessFields_createdAt
+}
+
+type KeyPagesDocAccessFields_createdBy {
+  create: KeyPagesDocAccessFields_createdBy_Create
+  read: KeyPagesDocAccessFields_createdBy_Read
+  update: KeyPagesDocAccessFields_createdBy_Update
+  delete: KeyPagesDocAccessFields_createdBy_Delete
+}
+
+type KeyPagesDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_updatedBy {
+  create: KeyPagesDocAccessFields_updatedBy_Create
+  read: KeyPagesDocAccessFields_updatedBy_Read
+  update: KeyPagesDocAccessFields_updatedBy_Update
+  delete: KeyPagesDocAccessFields_updatedBy_Delete
+}
+
+type KeyPagesDocAccessFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type KeyPagesDocAccessFields_homeTemplateFields {
@@ -3081,6 +1688,75 @@ type KeyPagesDocAccessFields_homeTemplateFields_media_Update {
 }
 
 type KeyPagesDocAccessFields_homeTemplateFields_media_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_template {
+  create: KeyPagesDocAccessFields_template_Create
+  read: KeyPagesDocAccessFields_template_Read
+  update: KeyPagesDocAccessFields_template_Update
+  delete: KeyPagesDocAccessFields_template_Delete
+}
+
+type KeyPagesDocAccessFields_template_Create {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_template_Read {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_template_Update {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_template_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageTitle {
+  create: KeyPagesDocAccessFields_keyPageTitle_Create
+  read: KeyPagesDocAccessFields_keyPageTitle_Read
+  update: KeyPagesDocAccessFields_keyPageTitle_Update
+  delete: KeyPagesDocAccessFields_keyPageTitle_Delete
+}
+
+type KeyPagesDocAccessFields_keyPageTitle_Create {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageTitle_Read {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageTitle_Update {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageTitle_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageUri {
+  create: KeyPagesDocAccessFields_keyPageUri_Create
+  read: KeyPagesDocAccessFields_keyPageUri_Read
+  update: KeyPagesDocAccessFields_keyPageUri_Update
+  delete: KeyPagesDocAccessFields_keyPageUri_Delete
+}
+
+type KeyPagesDocAccessFields_keyPageUri_Create {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageUri_Read {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageUri_Update {
+  permission: Boolean!
+}
+
+type KeyPagesDocAccessFields_keyPageUri_Delete {
   permission: Boolean!
 }
 
@@ -3183,75 +1859,6 @@ type KeyPagesDocAccessFields_meta_image_Delete {
   permission: Boolean!
 }
 
-type KeyPagesDocAccessFields_template {
-  create: KeyPagesDocAccessFields_template_Create
-  read: KeyPagesDocAccessFields_template_Read
-  update: KeyPagesDocAccessFields_template_Update
-  delete: KeyPagesDocAccessFields_template_Delete
-}
-
-type KeyPagesDocAccessFields_template_Create {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_template_Read {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_template_Update {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_template_Delete {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageTitle {
-  create: KeyPagesDocAccessFields_keyPageTitle_Create
-  read: KeyPagesDocAccessFields_keyPageTitle_Read
-  update: KeyPagesDocAccessFields_keyPageTitle_Update
-  delete: KeyPagesDocAccessFields_keyPageTitle_Delete
-}
-
-type KeyPagesDocAccessFields_keyPageTitle_Create {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageTitle_Read {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageTitle_Update {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageTitle_Delete {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageUri {
-  create: KeyPagesDocAccessFields_keyPageUri_Create
-  read: KeyPagesDocAccessFields_keyPageUri_Read
-  update: KeyPagesDocAccessFields_keyPageUri_Update
-  delete: KeyPagesDocAccessFields_keyPageUri_Delete
-}
-
-type KeyPagesDocAccessFields_keyPageUri_Create {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageUri_Read {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageUri_Update {
-  permission: Boolean!
-}
-
-type KeyPagesDocAccessFields_keyPageUri_Delete {
-  permission: Boolean!
-}
-
 type KeyPagesDocAccessFields_updatedAt {
   create: KeyPagesDocAccessFields_updatedAt_Create
   read: KeyPagesDocAccessFields_updatedAt_Read
@@ -3332,11 +1939,13 @@ type KeyPageVersion {
 }
 
 type KeyPageVersion_Version {
+  createdBy: Staff
+  updatedBy: Staff
   homeTemplateFields: KeyPageVersion_Version_HomeTemplateFields
-  meta: KeyPageVersion_Version_Meta
   template: KeyPageVersion_Version_template
   keyPageTitle: String
   keyPageUri: String
+  meta: KeyPageVersion_Version_Meta
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -3348,14 +1957,14 @@ type KeyPageVersion_Version_HomeTemplateFields {
 
 union KeyPageVersion_Version_HomeTemplateFields_Media = ImageBlock | VideoBlock
 
+enum KeyPageVersion_Version_template {
+  Home
+}
+
 type KeyPageVersion_Version_Meta {
   title: String
   description: String
   image: Image
-}
-
-enum KeyPageVersion_Version_template {
-  Home
 }
 
 type versionsKeyPages {
@@ -3374,13 +1983,15 @@ type versionsKeyPages {
 
 input versionsKeyPage_where {
   parent: versionsKeyPage_parent_operator
+  version__createdBy: versionsKeyPage_version__createdBy_operator
+  version__updatedBy: versionsKeyPage_version__updatedBy_operator
   version__homeTemplateFields__myTextField: versionsKeyPage_version__homeTemplateFields__myTextField_operator
-  version__meta__title: versionsKeyPage_version__meta__title_operator
-  version__meta__description: versionsKeyPage_version__meta__description_operator
-  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__template: versionsKeyPage_version__template_operator
   version__keyPageTitle: versionsKeyPage_version__keyPageTitle_operator
   version__keyPageUri: versionsKeyPage_version__keyPageUri_operator
+  version__meta__title: versionsKeyPage_version__meta__title_operator
+  version__meta__description: versionsKeyPage_version__meta__description_operator
+  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__updatedAt: versionsKeyPage_version__updatedAt_operator
   version__createdAt: versionsKeyPage_version__createdAt_operator
   createdAt: versionsKeyPage_createdAt_operator
@@ -3399,7 +2010,58 @@ input versionsKeyPage_parent_operator {
   exists: Boolean
 }
 
+input versionsKeyPage_version__createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input versionsKeyPage_version__updatedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
 input versionsKeyPage_version__homeTemplateFields__myTextField_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input versionsKeyPage_version__template_operator {
+  equals: versionsKeyPage_version__template_Input
+  not_equals: versionsKeyPage_version__template_Input
+  in: [versionsKeyPage_version__template_Input]
+  not_in: [versionsKeyPage_version__template_Input]
+  all: [versionsKeyPage_version__template_Input]
+}
+
+enum versionsKeyPage_version__template_Input {
+  Home
+}
+
+input versionsKeyPage_version__keyPageTitle_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input versionsKeyPage_version__keyPageUri_operator {
   equals: String
   not_equals: String
   like: String
@@ -3435,39 +2097,6 @@ input versionsKeyPage_version__meta__image_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
-}
-
-input versionsKeyPage_version__template_operator {
-  equals: versionsKeyPage_version__template_Input
-  not_equals: versionsKeyPage_version__template_Input
-  in: [versionsKeyPage_version__template_Input]
-  not_in: [versionsKeyPage_version__template_Input]
-  all: [versionsKeyPage_version__template_Input]
-}
-
-enum versionsKeyPage_version__template_Input {
-  Home
-}
-
-input versionsKeyPage_version__keyPageTitle_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input versionsKeyPage_version__keyPageUri_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
   exists: Boolean
 }
 
@@ -3528,13 +2157,15 @@ input versionsKeyPage_id_operator {
 
 input versionsKeyPage_where_and {
   parent: versionsKeyPage_parent_operator
+  version__createdBy: versionsKeyPage_version__createdBy_operator
+  version__updatedBy: versionsKeyPage_version__updatedBy_operator
   version__homeTemplateFields__myTextField: versionsKeyPage_version__homeTemplateFields__myTextField_operator
-  version__meta__title: versionsKeyPage_version__meta__title_operator
-  version__meta__description: versionsKeyPage_version__meta__description_operator
-  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__template: versionsKeyPage_version__template_operator
   version__keyPageTitle: versionsKeyPage_version__keyPageTitle_operator
   version__keyPageUri: versionsKeyPage_version__keyPageUri_operator
+  version__meta__title: versionsKeyPage_version__meta__title_operator
+  version__meta__description: versionsKeyPage_version__meta__description_operator
+  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__updatedAt: versionsKeyPage_version__updatedAt_operator
   version__createdAt: versionsKeyPage_version__createdAt_operator
   createdAt: versionsKeyPage_createdAt_operator
@@ -3546,13 +2177,15 @@ input versionsKeyPage_where_and {
 
 input versionsKeyPage_where_or {
   parent: versionsKeyPage_parent_operator
+  version__createdBy: versionsKeyPage_version__createdBy_operator
+  version__updatedBy: versionsKeyPage_version__updatedBy_operator
   version__homeTemplateFields__myTextField: versionsKeyPage_version__homeTemplateFields__myTextField_operator
-  version__meta__title: versionsKeyPage_version__meta__title_operator
-  version__meta__description: versionsKeyPage_version__meta__description_operator
-  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__template: versionsKeyPage_version__template_operator
   version__keyPageTitle: versionsKeyPage_version__keyPageTitle_operator
   version__keyPageUri: versionsKeyPage_version__keyPageUri_operator
+  version__meta__title: versionsKeyPage_version__meta__title_operator
+  version__meta__description: versionsKeyPage_version__meta__description_operator
+  version__meta__image: versionsKeyPage_version__meta__image_operator
   version__updatedAt: versionsKeyPage_version__updatedAt_operator
   version__createdAt: versionsKeyPage_version__createdAt_operator
   createdAt: versionsKeyPage_createdAt_operator
@@ -3564,6 +2197,8 @@ input versionsKeyPage_where_or {
 
 type SVG {
   id: String!
+  createdBy: Staff
+  updatedBy: Staff
   updatedAt: DateTime
   createdAt: DateTime
   url: String
@@ -3592,6 +2227,8 @@ type SVGs {
 }
 
 input SVG_where {
+  createdBy: SVG_createdBy_operator
+  updatedBy: SVG_updatedBy_operator
   updatedAt: SVG_updatedAt_operator
   createdAt: SVG_createdAt_operator
   url: SVG_url_operator
@@ -3606,6 +2243,24 @@ input SVG_where {
   id: SVG_id_operator
   AND: [SVG_where_and]
   OR: [SVG_where_or]
+}
+
+input SVG_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input SVG_updatedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
 }
 
 input SVG_updatedAt_operator {
@@ -3736,6 +2391,8 @@ input SVG_id_operator {
 }
 
 input SVG_where_and {
+  createdBy: SVG_createdBy_operator
+  updatedBy: SVG_updatedBy_operator
   updatedAt: SVG_updatedAt_operator
   createdAt: SVG_createdAt_operator
   url: SVG_url_operator
@@ -3753,6 +2410,8 @@ input SVG_where_and {
 }
 
 input SVG_where_or {
+  createdBy: SVG_createdBy_operator
+  updatedBy: SVG_updatedBy_operator
   updatedAt: SVG_updatedAt_operator
   createdAt: SVG_createdAt_operator
   url: SVG_url_operator
@@ -3782,6 +2441,8 @@ type svgsDocAccess {
 }
 
 type SvgsDocAccessFields {
+  createdBy: SvgsDocAccessFields_createdBy
+  updatedBy: SvgsDocAccessFields_updatedBy
   updatedAt: SvgsDocAccessFields_updatedAt
   createdAt: SvgsDocAccessFields_createdAt
   url: SvgsDocAccessFields_url
@@ -3793,6 +2454,52 @@ type SvgsDocAccessFields {
   height: SvgsDocAccessFields_height
   focalX: SvgsDocAccessFields_focalX
   focalY: SvgsDocAccessFields_focalY
+}
+
+type SvgsDocAccessFields_createdBy {
+  create: SvgsDocAccessFields_createdBy_Create
+  read: SvgsDocAccessFields_createdBy_Read
+  update: SvgsDocAccessFields_createdBy_Update
+  delete: SvgsDocAccessFields_createdBy_Delete
+}
+
+type SvgsDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_updatedBy {
+  create: SvgsDocAccessFields_updatedBy_Create
+  read: SvgsDocAccessFields_updatedBy_Read
+  update: SvgsDocAccessFields_updatedBy_Update
+  delete: SvgsDocAccessFields_updatedBy_Delete
+}
+
+type SvgsDocAccessFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type SvgsDocAccessFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type SvgsDocAccessFields_updatedAt {
@@ -4068,41 +2775,6 @@ type SvgsDeleteDocAccess {
   where: JSONObject
 }
 
-type Staff {
-  id: String!
-  firstName: String!
-  lastName: String!
-  fullName: String
-  role: Staff_role!
-  updatedAt: DateTime
-  createdAt: DateTime
-  email: EmailAddress!
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  salt: String
-  hash: String
-  resetPasswordRequestedAt: DateTime
-  loginAttempts: Float
-  lockUntil: DateTime
-  sessions: [Staff_Sessions!]
-}
-
-enum Staff_role {
-  super_admin
-  admin
-}
-
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
-
-type Staff_Sessions {
-  id: String
-  createdAt: DateTime
-  expiresAt: DateTime
-}
-
 type allStaff {
   docs: [Staff!]!
   hasNextPage: Boolean!
@@ -4118,6 +2790,8 @@ type allStaff {
 }
 
 input Staff_where {
+  createdBy: Staff_createdBy_operator
+  updatedBy: Staff_updatedBy_operator
   firstName: Staff_firstName_operator
   lastName: Staff_lastName_operator
   fullName: Staff_fullName_operator
@@ -4131,6 +2805,24 @@ input Staff_where {
   id: Staff_id_operator
   AND: [Staff_where_and]
   OR: [Staff_where_or]
+}
+
+input Staff_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Staff_updatedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
 }
 
 input Staff_firstName_operator {
@@ -4252,6 +2944,8 @@ input Staff_id_operator {
 }
 
 input Staff_where_and {
+  createdBy: Staff_createdBy_operator
+  updatedBy: Staff_updatedBy_operator
   firstName: Staff_firstName_operator
   lastName: Staff_lastName_operator
   fullName: Staff_fullName_operator
@@ -4268,6 +2962,8 @@ input Staff_where_and {
 }
 
 input Staff_where_or {
+  createdBy: Staff_createdBy_operator
+  updatedBy: Staff_updatedBy_operator
   firstName: Staff_firstName_operator
   lastName: Staff_lastName_operator
   fullName: Staff_fullName_operator
@@ -4297,6 +2993,8 @@ type staffDocAccess {
 }
 
 type StaffDocAccessFields {
+  createdBy: StaffDocAccessFields_createdBy
+  updatedBy: StaffDocAccessFields_updatedBy
   firstName: StaffDocAccessFields_firstName
   lastName: StaffDocAccessFields_lastName
   fullName: StaffDocAccessFields_fullName
@@ -4305,6 +3003,52 @@ type StaffDocAccessFields {
   createdAt: StaffDocAccessFields_createdAt
   email: StaffDocAccessFields_email
   sessions: StaffDocAccessFields_sessions
+}
+
+type StaffDocAccessFields_createdBy {
+  create: StaffDocAccessFields_createdBy_Create
+  read: StaffDocAccessFields_createdBy_Read
+  update: StaffDocAccessFields_createdBy_Update
+  delete: StaffDocAccessFields_createdBy_Delete
+}
+
+type StaffDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_updatedBy {
+  create: StaffDocAccessFields_updatedBy_Create
+  read: StaffDocAccessFields_updatedBy_Read
+  update: StaffDocAccessFields_updatedBy_Update
+  delete: StaffDocAccessFields_updatedBy_Delete
+}
+
+type StaffDocAccessFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type StaffDocAccessFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type StaffDocAccessFields_firstName {
@@ -6398,6 +5142,8 @@ type PayloadPreferencesDeleteDocAccess {
 }
 
 type SiteSettings {
+  createdBy: Staff
+  updatedBy: Staff
   meta: SiteSettings_Meta
   updatedAt: DateTime
   createdAt: DateTime
@@ -6416,9 +5162,57 @@ type site_settingsDocAccess {
 }
 
 type SiteSettingsDocAccessFields {
+  createdBy: SiteSettingsDocAccessFields_createdBy
+  updatedBy: SiteSettingsDocAccessFields_updatedBy
   meta: SiteSettingsDocAccessFields_meta
   updatedAt: SiteSettingsDocAccessFields_updatedAt
   createdAt: SiteSettingsDocAccessFields_createdAt
+}
+
+type SiteSettingsDocAccessFields_createdBy {
+  create: SiteSettingsDocAccessFields_createdBy_Create
+  read: SiteSettingsDocAccessFields_createdBy_Read
+  update: SiteSettingsDocAccessFields_createdBy_Update
+  delete: SiteSettingsDocAccessFields_createdBy_Delete
+}
+
+type SiteSettingsDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_updatedBy {
+  create: SiteSettingsDocAccessFields_updatedBy_Create
+  read: SiteSettingsDocAccessFields_updatedBy_Read
+  update: SiteSettingsDocAccessFields_updatedBy_Update
+  delete: SiteSettingsDocAccessFields_updatedBy_Delete
+}
+
+type SiteSettingsDocAccessFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type SiteSettingsDocAccessFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type SiteSettingsDocAccessFields_meta {
@@ -6598,6 +5392,8 @@ type imagesAccess {
 }
 
 type ImagesFields {
+  createdBy: ImagesFields_createdBy
+  updatedBy: ImagesFields_updatedBy
   description: ImagesFields_description
   updatedAt: ImagesFields_updatedAt
   createdAt: ImagesFields_createdAt
@@ -6611,6 +5407,52 @@ type ImagesFields {
   focalX: ImagesFields_focalX
   focalY: ImagesFields_focalY
   sizes: ImagesFields_sizes
+}
+
+type ImagesFields_createdBy {
+  create: ImagesFields_createdBy_Create
+  read: ImagesFields_createdBy_Read
+  update: ImagesFields_createdBy_Update
+  delete: ImagesFields_createdBy_Delete
+}
+
+type ImagesFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type ImagesFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type ImagesFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type ImagesFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type ImagesFields_updatedBy {
+  create: ImagesFields_updatedBy_Create
+  read: ImagesFields_updatedBy_Read
+  update: ImagesFields_updatedBy_Update
+  delete: ImagesFields_updatedBy_Delete
+}
+
+type ImagesFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type ImagesFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type ImagesFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type ImagesFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type ImagesFields_description {
@@ -6914,1210 +5756,178 @@ type ImagesFields_sizes_Delete {
 }
 
 type ImagesFields_sizes_Fields {
-  xs: ImagesFields_sizes_xs
-  sm: ImagesFields_sizes_sm
-  md: ImagesFields_sizes_md
-  lg: ImagesFields_sizes_lg
-  xl: ImagesFields_sizes_xl
-  xxl: ImagesFields_sizes_xxl
-  xxxl: ImagesFields_sizes_xxxl
+  thumbnail: ImagesFields_sizes_thumbnail
   opengraph: ImagesFields_sizes_opengraph
 }
 
-type ImagesFields_sizes_xs {
-  create: ImagesFields_sizes_xs_Create
-  read: ImagesFields_sizes_xs_Read
-  update: ImagesFields_sizes_xs_Update
-  delete: ImagesFields_sizes_xs_Delete
-  fields: ImagesFields_sizes_xs_Fields
-}
-
-type ImagesFields_sizes_xs_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_Fields {
-  url: ImagesFields_sizes_xs_url
-  width: ImagesFields_sizes_xs_width
-  height: ImagesFields_sizes_xs_height
-  mimeType: ImagesFields_sizes_xs_mimeType
-  filesize: ImagesFields_sizes_xs_filesize
-  filename: ImagesFields_sizes_xs_filename
-}
-
-type ImagesFields_sizes_xs_url {
-  create: ImagesFields_sizes_xs_url_Create
-  read: ImagesFields_sizes_xs_url_Read
-  update: ImagesFields_sizes_xs_url_Update
-  delete: ImagesFields_sizes_xs_url_Delete
-}
-
-type ImagesFields_sizes_xs_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_width {
-  create: ImagesFields_sizes_xs_width_Create
-  read: ImagesFields_sizes_xs_width_Read
-  update: ImagesFields_sizes_xs_width_Update
-  delete: ImagesFields_sizes_xs_width_Delete
-}
-
-type ImagesFields_sizes_xs_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_height {
-  create: ImagesFields_sizes_xs_height_Create
-  read: ImagesFields_sizes_xs_height_Read
-  update: ImagesFields_sizes_xs_height_Update
-  delete: ImagesFields_sizes_xs_height_Delete
-}
-
-type ImagesFields_sizes_xs_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_mimeType {
-  create: ImagesFields_sizes_xs_mimeType_Create
-  read: ImagesFields_sizes_xs_mimeType_Read
-  update: ImagesFields_sizes_xs_mimeType_Update
-  delete: ImagesFields_sizes_xs_mimeType_Delete
-}
-
-type ImagesFields_sizes_xs_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filesize {
-  create: ImagesFields_sizes_xs_filesize_Create
-  read: ImagesFields_sizes_xs_filesize_Read
-  update: ImagesFields_sizes_xs_filesize_Update
-  delete: ImagesFields_sizes_xs_filesize_Delete
-}
-
-type ImagesFields_sizes_xs_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filename {
-  create: ImagesFields_sizes_xs_filename_Create
-  read: ImagesFields_sizes_xs_filename_Read
-  update: ImagesFields_sizes_xs_filename_Update
-  delete: ImagesFields_sizes_xs_filename_Delete
-}
-
-type ImagesFields_sizes_xs_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xs_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm {
-  create: ImagesFields_sizes_sm_Create
-  read: ImagesFields_sizes_sm_Read
-  update: ImagesFields_sizes_sm_Update
-  delete: ImagesFields_sizes_sm_Delete
-  fields: ImagesFields_sizes_sm_Fields
-}
-
-type ImagesFields_sizes_sm_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_Fields {
-  url: ImagesFields_sizes_sm_url
-  width: ImagesFields_sizes_sm_width
-  height: ImagesFields_sizes_sm_height
-  mimeType: ImagesFields_sizes_sm_mimeType
-  filesize: ImagesFields_sizes_sm_filesize
-  filename: ImagesFields_sizes_sm_filename
-}
-
-type ImagesFields_sizes_sm_url {
-  create: ImagesFields_sizes_sm_url_Create
-  read: ImagesFields_sizes_sm_url_Read
-  update: ImagesFields_sizes_sm_url_Update
-  delete: ImagesFields_sizes_sm_url_Delete
-}
-
-type ImagesFields_sizes_sm_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_width {
-  create: ImagesFields_sizes_sm_width_Create
-  read: ImagesFields_sizes_sm_width_Read
-  update: ImagesFields_sizes_sm_width_Update
-  delete: ImagesFields_sizes_sm_width_Delete
-}
-
-type ImagesFields_sizes_sm_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_height {
-  create: ImagesFields_sizes_sm_height_Create
-  read: ImagesFields_sizes_sm_height_Read
-  update: ImagesFields_sizes_sm_height_Update
-  delete: ImagesFields_sizes_sm_height_Delete
-}
-
-type ImagesFields_sizes_sm_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_mimeType {
-  create: ImagesFields_sizes_sm_mimeType_Create
-  read: ImagesFields_sizes_sm_mimeType_Read
-  update: ImagesFields_sizes_sm_mimeType_Update
-  delete: ImagesFields_sizes_sm_mimeType_Delete
-}
-
-type ImagesFields_sizes_sm_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filesize {
-  create: ImagesFields_sizes_sm_filesize_Create
-  read: ImagesFields_sizes_sm_filesize_Read
-  update: ImagesFields_sizes_sm_filesize_Update
-  delete: ImagesFields_sizes_sm_filesize_Delete
-}
-
-type ImagesFields_sizes_sm_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filename {
-  create: ImagesFields_sizes_sm_filename_Create
-  read: ImagesFields_sizes_sm_filename_Read
-  update: ImagesFields_sizes_sm_filename_Update
-  delete: ImagesFields_sizes_sm_filename_Delete
-}
-
-type ImagesFields_sizes_sm_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_sm_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md {
-  create: ImagesFields_sizes_md_Create
-  read: ImagesFields_sizes_md_Read
-  update: ImagesFields_sizes_md_Update
-  delete: ImagesFields_sizes_md_Delete
-  fields: ImagesFields_sizes_md_Fields
-}
-
-type ImagesFields_sizes_md_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_Fields {
-  url: ImagesFields_sizes_md_url
-  width: ImagesFields_sizes_md_width
-  height: ImagesFields_sizes_md_height
-  mimeType: ImagesFields_sizes_md_mimeType
-  filesize: ImagesFields_sizes_md_filesize
-  filename: ImagesFields_sizes_md_filename
-}
-
-type ImagesFields_sizes_md_url {
-  create: ImagesFields_sizes_md_url_Create
-  read: ImagesFields_sizes_md_url_Read
-  update: ImagesFields_sizes_md_url_Update
-  delete: ImagesFields_sizes_md_url_Delete
-}
-
-type ImagesFields_sizes_md_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_width {
-  create: ImagesFields_sizes_md_width_Create
-  read: ImagesFields_sizes_md_width_Read
-  update: ImagesFields_sizes_md_width_Update
-  delete: ImagesFields_sizes_md_width_Delete
-}
-
-type ImagesFields_sizes_md_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_height {
-  create: ImagesFields_sizes_md_height_Create
-  read: ImagesFields_sizes_md_height_Read
-  update: ImagesFields_sizes_md_height_Update
-  delete: ImagesFields_sizes_md_height_Delete
-}
-
-type ImagesFields_sizes_md_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_mimeType {
-  create: ImagesFields_sizes_md_mimeType_Create
-  read: ImagesFields_sizes_md_mimeType_Read
-  update: ImagesFields_sizes_md_mimeType_Update
-  delete: ImagesFields_sizes_md_mimeType_Delete
-}
-
-type ImagesFields_sizes_md_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filesize {
-  create: ImagesFields_sizes_md_filesize_Create
-  read: ImagesFields_sizes_md_filesize_Read
-  update: ImagesFields_sizes_md_filesize_Update
-  delete: ImagesFields_sizes_md_filesize_Delete
-}
-
-type ImagesFields_sizes_md_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filename {
-  create: ImagesFields_sizes_md_filename_Create
-  read: ImagesFields_sizes_md_filename_Read
-  update: ImagesFields_sizes_md_filename_Update
-  delete: ImagesFields_sizes_md_filename_Delete
-}
-
-type ImagesFields_sizes_md_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_md_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg {
-  create: ImagesFields_sizes_lg_Create
-  read: ImagesFields_sizes_lg_Read
-  update: ImagesFields_sizes_lg_Update
-  delete: ImagesFields_sizes_lg_Delete
-  fields: ImagesFields_sizes_lg_Fields
-}
-
-type ImagesFields_sizes_lg_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_Fields {
-  url: ImagesFields_sizes_lg_url
-  width: ImagesFields_sizes_lg_width
-  height: ImagesFields_sizes_lg_height
-  mimeType: ImagesFields_sizes_lg_mimeType
-  filesize: ImagesFields_sizes_lg_filesize
-  filename: ImagesFields_sizes_lg_filename
-}
-
-type ImagesFields_sizes_lg_url {
-  create: ImagesFields_sizes_lg_url_Create
-  read: ImagesFields_sizes_lg_url_Read
-  update: ImagesFields_sizes_lg_url_Update
-  delete: ImagesFields_sizes_lg_url_Delete
-}
-
-type ImagesFields_sizes_lg_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_width {
-  create: ImagesFields_sizes_lg_width_Create
-  read: ImagesFields_sizes_lg_width_Read
-  update: ImagesFields_sizes_lg_width_Update
-  delete: ImagesFields_sizes_lg_width_Delete
-}
-
-type ImagesFields_sizes_lg_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_height {
-  create: ImagesFields_sizes_lg_height_Create
-  read: ImagesFields_sizes_lg_height_Read
-  update: ImagesFields_sizes_lg_height_Update
-  delete: ImagesFields_sizes_lg_height_Delete
-}
-
-type ImagesFields_sizes_lg_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_mimeType {
-  create: ImagesFields_sizes_lg_mimeType_Create
-  read: ImagesFields_sizes_lg_mimeType_Read
-  update: ImagesFields_sizes_lg_mimeType_Update
-  delete: ImagesFields_sizes_lg_mimeType_Delete
-}
-
-type ImagesFields_sizes_lg_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filesize {
-  create: ImagesFields_sizes_lg_filesize_Create
-  read: ImagesFields_sizes_lg_filesize_Read
-  update: ImagesFields_sizes_lg_filesize_Update
-  delete: ImagesFields_sizes_lg_filesize_Delete
-}
-
-type ImagesFields_sizes_lg_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filename {
-  create: ImagesFields_sizes_lg_filename_Create
-  read: ImagesFields_sizes_lg_filename_Read
-  update: ImagesFields_sizes_lg_filename_Update
-  delete: ImagesFields_sizes_lg_filename_Delete
-}
-
-type ImagesFields_sizes_lg_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_lg_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl {
-  create: ImagesFields_sizes_xl_Create
-  read: ImagesFields_sizes_xl_Read
-  update: ImagesFields_sizes_xl_Update
-  delete: ImagesFields_sizes_xl_Delete
-  fields: ImagesFields_sizes_xl_Fields
-}
-
-type ImagesFields_sizes_xl_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_Fields {
-  url: ImagesFields_sizes_xl_url
-  width: ImagesFields_sizes_xl_width
-  height: ImagesFields_sizes_xl_height
-  mimeType: ImagesFields_sizes_xl_mimeType
-  filesize: ImagesFields_sizes_xl_filesize
-  filename: ImagesFields_sizes_xl_filename
-}
-
-type ImagesFields_sizes_xl_url {
-  create: ImagesFields_sizes_xl_url_Create
-  read: ImagesFields_sizes_xl_url_Read
-  update: ImagesFields_sizes_xl_url_Update
-  delete: ImagesFields_sizes_xl_url_Delete
-}
-
-type ImagesFields_sizes_xl_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_width {
-  create: ImagesFields_sizes_xl_width_Create
-  read: ImagesFields_sizes_xl_width_Read
-  update: ImagesFields_sizes_xl_width_Update
-  delete: ImagesFields_sizes_xl_width_Delete
-}
-
-type ImagesFields_sizes_xl_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_height {
-  create: ImagesFields_sizes_xl_height_Create
-  read: ImagesFields_sizes_xl_height_Read
-  update: ImagesFields_sizes_xl_height_Update
-  delete: ImagesFields_sizes_xl_height_Delete
-}
-
-type ImagesFields_sizes_xl_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_mimeType {
-  create: ImagesFields_sizes_xl_mimeType_Create
-  read: ImagesFields_sizes_xl_mimeType_Read
-  update: ImagesFields_sizes_xl_mimeType_Update
-  delete: ImagesFields_sizes_xl_mimeType_Delete
-}
-
-type ImagesFields_sizes_xl_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filesize {
-  create: ImagesFields_sizes_xl_filesize_Create
-  read: ImagesFields_sizes_xl_filesize_Read
-  update: ImagesFields_sizes_xl_filesize_Update
-  delete: ImagesFields_sizes_xl_filesize_Delete
-}
-
-type ImagesFields_sizes_xl_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filename {
-  create: ImagesFields_sizes_xl_filename_Create
-  read: ImagesFields_sizes_xl_filename_Read
-  update: ImagesFields_sizes_xl_filename_Update
-  delete: ImagesFields_sizes_xl_filename_Delete
-}
-
-type ImagesFields_sizes_xl_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xl_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl {
-  create: ImagesFields_sizes_xxl_Create
-  read: ImagesFields_sizes_xxl_Read
-  update: ImagesFields_sizes_xxl_Update
-  delete: ImagesFields_sizes_xxl_Delete
-  fields: ImagesFields_sizes_xxl_Fields
-}
-
-type ImagesFields_sizes_xxl_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_Fields {
-  url: ImagesFields_sizes_xxl_url
-  width: ImagesFields_sizes_xxl_width
-  height: ImagesFields_sizes_xxl_height
-  mimeType: ImagesFields_sizes_xxl_mimeType
-  filesize: ImagesFields_sizes_xxl_filesize
-  filename: ImagesFields_sizes_xxl_filename
-}
-
-type ImagesFields_sizes_xxl_url {
-  create: ImagesFields_sizes_xxl_url_Create
-  read: ImagesFields_sizes_xxl_url_Read
-  update: ImagesFields_sizes_xxl_url_Update
-  delete: ImagesFields_sizes_xxl_url_Delete
-}
-
-type ImagesFields_sizes_xxl_url_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_url_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_url_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_url_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_width {
-  create: ImagesFields_sizes_xxl_width_Create
-  read: ImagesFields_sizes_xxl_width_Read
-  update: ImagesFields_sizes_xxl_width_Update
-  delete: ImagesFields_sizes_xxl_width_Delete
-}
-
-type ImagesFields_sizes_xxl_width_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_width_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_width_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_width_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_height {
-  create: ImagesFields_sizes_xxl_height_Create
-  read: ImagesFields_sizes_xxl_height_Read
-  update: ImagesFields_sizes_xxl_height_Update
-  delete: ImagesFields_sizes_xxl_height_Delete
-}
-
-type ImagesFields_sizes_xxl_height_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_height_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_height_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_height_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_mimeType {
-  create: ImagesFields_sizes_xxl_mimeType_Create
-  read: ImagesFields_sizes_xxl_mimeType_Read
-  update: ImagesFields_sizes_xxl_mimeType_Update
-  delete: ImagesFields_sizes_xxl_mimeType_Delete
-}
-
-type ImagesFields_sizes_xxl_mimeType_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_mimeType_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_mimeType_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_mimeType_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filesize {
-  create: ImagesFields_sizes_xxl_filesize_Create
-  read: ImagesFields_sizes_xxl_filesize_Read
-  update: ImagesFields_sizes_xxl_filesize_Update
-  delete: ImagesFields_sizes_xxl_filesize_Delete
-}
-
-type ImagesFields_sizes_xxl_filesize_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filesize_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filesize_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filesize_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filename {
-  create: ImagesFields_sizes_xxl_filename_Create
-  read: ImagesFields_sizes_xxl_filename_Read
-  update: ImagesFields_sizes_xxl_filename_Update
-  delete: ImagesFields_sizes_xxl_filename_Delete
-}
-
-type ImagesFields_sizes_xxl_filename_Create {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filename_Read {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filename_Update {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxl_filename_Delete {
-  permission: Boolean!
-}
-
-type ImagesFields_sizes_xxxl {
-  create: ImagesFields_sizes_xxxl_Create
-  read: ImagesFields_sizes_xxxl_Read
-  update: ImagesFields_sizes_xxxl_Update
-  delete: ImagesFields_sizes_xxxl_Delete
-  fields: ImagesFields_sizes_xxxl_Fields
+type ImagesFields_sizes_thumbnail {
+  create: ImagesFields_sizes_thumbnail_Create
+  read: ImagesFields_sizes_thumbnail_Read
+  update: ImagesFields_sizes_thumbnail_Update
+  delete: ImagesFields_sizes_thumbnail_Delete
+  fields: ImagesFields_sizes_thumbnail_Fields
 }
 
-type ImagesFields_sizes_xxxl_Create {
+type ImagesFields_sizes_thumbnail_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_Read {
+type ImagesFields_sizes_thumbnail_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_Update {
+type ImagesFields_sizes_thumbnail_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_Delete {
+type ImagesFields_sizes_thumbnail_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_Fields {
-  url: ImagesFields_sizes_xxxl_url
-  width: ImagesFields_sizes_xxxl_width
-  height: ImagesFields_sizes_xxxl_height
-  mimeType: ImagesFields_sizes_xxxl_mimeType
-  filesize: ImagesFields_sizes_xxxl_filesize
-  filename: ImagesFields_sizes_xxxl_filename
+type ImagesFields_sizes_thumbnail_Fields {
+  url: ImagesFields_sizes_thumbnail_url
+  width: ImagesFields_sizes_thumbnail_width
+  height: ImagesFields_sizes_thumbnail_height
+  mimeType: ImagesFields_sizes_thumbnail_mimeType
+  filesize: ImagesFields_sizes_thumbnail_filesize
+  filename: ImagesFields_sizes_thumbnail_filename
 }
 
-type ImagesFields_sizes_xxxl_url {
-  create: ImagesFields_sizes_xxxl_url_Create
-  read: ImagesFields_sizes_xxxl_url_Read
-  update: ImagesFields_sizes_xxxl_url_Update
-  delete: ImagesFields_sizes_xxxl_url_Delete
+type ImagesFields_sizes_thumbnail_url {
+  create: ImagesFields_sizes_thumbnail_url_Create
+  read: ImagesFields_sizes_thumbnail_url_Read
+  update: ImagesFields_sizes_thumbnail_url_Update
+  delete: ImagesFields_sizes_thumbnail_url_Delete
 }
 
-type ImagesFields_sizes_xxxl_url_Create {
+type ImagesFields_sizes_thumbnail_url_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_url_Read {
+type ImagesFields_sizes_thumbnail_url_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_url_Update {
+type ImagesFields_sizes_thumbnail_url_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_url_Delete {
+type ImagesFields_sizes_thumbnail_url_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_width {
-  create: ImagesFields_sizes_xxxl_width_Create
-  read: ImagesFields_sizes_xxxl_width_Read
-  update: ImagesFields_sizes_xxxl_width_Update
-  delete: ImagesFields_sizes_xxxl_width_Delete
+type ImagesFields_sizes_thumbnail_width {
+  create: ImagesFields_sizes_thumbnail_width_Create
+  read: ImagesFields_sizes_thumbnail_width_Read
+  update: ImagesFields_sizes_thumbnail_width_Update
+  delete: ImagesFields_sizes_thumbnail_width_Delete
 }
 
-type ImagesFields_sizes_xxxl_width_Create {
+type ImagesFields_sizes_thumbnail_width_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_width_Read {
+type ImagesFields_sizes_thumbnail_width_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_width_Update {
+type ImagesFields_sizes_thumbnail_width_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_width_Delete {
+type ImagesFields_sizes_thumbnail_width_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_height {
-  create: ImagesFields_sizes_xxxl_height_Create
-  read: ImagesFields_sizes_xxxl_height_Read
-  update: ImagesFields_sizes_xxxl_height_Update
-  delete: ImagesFields_sizes_xxxl_height_Delete
+type ImagesFields_sizes_thumbnail_height {
+  create: ImagesFields_sizes_thumbnail_height_Create
+  read: ImagesFields_sizes_thumbnail_height_Read
+  update: ImagesFields_sizes_thumbnail_height_Update
+  delete: ImagesFields_sizes_thumbnail_height_Delete
 }
 
-type ImagesFields_sizes_xxxl_height_Create {
+type ImagesFields_sizes_thumbnail_height_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_height_Read {
+type ImagesFields_sizes_thumbnail_height_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_height_Update {
+type ImagesFields_sizes_thumbnail_height_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_height_Delete {
+type ImagesFields_sizes_thumbnail_height_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_mimeType {
-  create: ImagesFields_sizes_xxxl_mimeType_Create
-  read: ImagesFields_sizes_xxxl_mimeType_Read
-  update: ImagesFields_sizes_xxxl_mimeType_Update
-  delete: ImagesFields_sizes_xxxl_mimeType_Delete
+type ImagesFields_sizes_thumbnail_mimeType {
+  create: ImagesFields_sizes_thumbnail_mimeType_Create
+  read: ImagesFields_sizes_thumbnail_mimeType_Read
+  update: ImagesFields_sizes_thumbnail_mimeType_Update
+  delete: ImagesFields_sizes_thumbnail_mimeType_Delete
 }
 
-type ImagesFields_sizes_xxxl_mimeType_Create {
+type ImagesFields_sizes_thumbnail_mimeType_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_mimeType_Read {
+type ImagesFields_sizes_thumbnail_mimeType_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_mimeType_Update {
+type ImagesFields_sizes_thumbnail_mimeType_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_mimeType_Delete {
+type ImagesFields_sizes_thumbnail_mimeType_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filesize {
-  create: ImagesFields_sizes_xxxl_filesize_Create
-  read: ImagesFields_sizes_xxxl_filesize_Read
-  update: ImagesFields_sizes_xxxl_filesize_Update
-  delete: ImagesFields_sizes_xxxl_filesize_Delete
+type ImagesFields_sizes_thumbnail_filesize {
+  create: ImagesFields_sizes_thumbnail_filesize_Create
+  read: ImagesFields_sizes_thumbnail_filesize_Read
+  update: ImagesFields_sizes_thumbnail_filesize_Update
+  delete: ImagesFields_sizes_thumbnail_filesize_Delete
 }
 
-type ImagesFields_sizes_xxxl_filesize_Create {
+type ImagesFields_sizes_thumbnail_filesize_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filesize_Read {
+type ImagesFields_sizes_thumbnail_filesize_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filesize_Update {
+type ImagesFields_sizes_thumbnail_filesize_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filesize_Delete {
+type ImagesFields_sizes_thumbnail_filesize_Delete {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filename {
-  create: ImagesFields_sizes_xxxl_filename_Create
-  read: ImagesFields_sizes_xxxl_filename_Read
-  update: ImagesFields_sizes_xxxl_filename_Update
-  delete: ImagesFields_sizes_xxxl_filename_Delete
+type ImagesFields_sizes_thumbnail_filename {
+  create: ImagesFields_sizes_thumbnail_filename_Create
+  read: ImagesFields_sizes_thumbnail_filename_Read
+  update: ImagesFields_sizes_thumbnail_filename_Update
+  delete: ImagesFields_sizes_thumbnail_filename_Delete
 }
 
-type ImagesFields_sizes_xxxl_filename_Create {
+type ImagesFields_sizes_thumbnail_filename_Create {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filename_Read {
+type ImagesFields_sizes_thumbnail_filename_Read {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filename_Update {
+type ImagesFields_sizes_thumbnail_filename_Update {
   permission: Boolean!
 }
 
-type ImagesFields_sizes_xxxl_filename_Delete {
+type ImagesFields_sizes_thumbnail_filename_Delete {
   permission: Boolean!
 }
 
@@ -8322,13 +6132,61 @@ type key_pagesAccess {
 }
 
 type KeyPagesFields {
+  createdBy: KeyPagesFields_createdBy
+  updatedBy: KeyPagesFields_updatedBy
   homeTemplateFields: KeyPagesFields_homeTemplateFields
-  meta: KeyPagesFields_meta
   template: KeyPagesFields_template
   keyPageTitle: KeyPagesFields_keyPageTitle
   keyPageUri: KeyPagesFields_keyPageUri
+  meta: KeyPagesFields_meta
   updatedAt: KeyPagesFields_updatedAt
   createdAt: KeyPagesFields_createdAt
+}
+
+type KeyPagesFields_createdBy {
+  create: KeyPagesFields_createdBy_Create
+  read: KeyPagesFields_createdBy_Read
+  update: KeyPagesFields_createdBy_Update
+  delete: KeyPagesFields_createdBy_Delete
+}
+
+type KeyPagesFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type KeyPagesFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type KeyPagesFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type KeyPagesFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesFields_updatedBy {
+  create: KeyPagesFields_updatedBy_Create
+  read: KeyPagesFields_updatedBy_Read
+  update: KeyPagesFields_updatedBy_Update
+  delete: KeyPagesFields_updatedBy_Delete
+}
+
+type KeyPagesFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type KeyPagesFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type KeyPagesFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type KeyPagesFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type KeyPagesFields_homeTemplateFields {
@@ -8403,6 +6261,75 @@ type KeyPagesFields_homeTemplateFields_media_Update {
 }
 
 type KeyPagesFields_homeTemplateFields_media_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesFields_template {
+  create: KeyPagesFields_template_Create
+  read: KeyPagesFields_template_Read
+  update: KeyPagesFields_template_Update
+  delete: KeyPagesFields_template_Delete
+}
+
+type KeyPagesFields_template_Create {
+  permission: Boolean!
+}
+
+type KeyPagesFields_template_Read {
+  permission: Boolean!
+}
+
+type KeyPagesFields_template_Update {
+  permission: Boolean!
+}
+
+type KeyPagesFields_template_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageTitle {
+  create: KeyPagesFields_keyPageTitle_Create
+  read: KeyPagesFields_keyPageTitle_Read
+  update: KeyPagesFields_keyPageTitle_Update
+  delete: KeyPagesFields_keyPageTitle_Delete
+}
+
+type KeyPagesFields_keyPageTitle_Create {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageTitle_Read {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageTitle_Update {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageTitle_Delete {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageUri {
+  create: KeyPagesFields_keyPageUri_Create
+  read: KeyPagesFields_keyPageUri_Read
+  update: KeyPagesFields_keyPageUri_Update
+  delete: KeyPagesFields_keyPageUri_Delete
+}
+
+type KeyPagesFields_keyPageUri_Create {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageUri_Read {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageUri_Update {
+  permission: Boolean!
+}
+
+type KeyPagesFields_keyPageUri_Delete {
   permission: Boolean!
 }
 
@@ -8505,75 +6432,6 @@ type KeyPagesFields_meta_image_Delete {
   permission: Boolean!
 }
 
-type KeyPagesFields_template {
-  create: KeyPagesFields_template_Create
-  read: KeyPagesFields_template_Read
-  update: KeyPagesFields_template_Update
-  delete: KeyPagesFields_template_Delete
-}
-
-type KeyPagesFields_template_Create {
-  permission: Boolean!
-}
-
-type KeyPagesFields_template_Read {
-  permission: Boolean!
-}
-
-type KeyPagesFields_template_Update {
-  permission: Boolean!
-}
-
-type KeyPagesFields_template_Delete {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageTitle {
-  create: KeyPagesFields_keyPageTitle_Create
-  read: KeyPagesFields_keyPageTitle_Read
-  update: KeyPagesFields_keyPageTitle_Update
-  delete: KeyPagesFields_keyPageTitle_Delete
-}
-
-type KeyPagesFields_keyPageTitle_Create {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageTitle_Read {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageTitle_Update {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageTitle_Delete {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageUri {
-  create: KeyPagesFields_keyPageUri_Create
-  read: KeyPagesFields_keyPageUri_Read
-  update: KeyPagesFields_keyPageUri_Update
-  delete: KeyPagesFields_keyPageUri_Delete
-}
-
-type KeyPagesFields_keyPageUri_Create {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageUri_Read {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageUri_Update {
-  permission: Boolean!
-}
-
-type KeyPagesFields_keyPageUri_Delete {
-  permission: Boolean!
-}
-
 type KeyPagesFields_updatedAt {
   create: KeyPagesFields_updatedAt_Create
   read: KeyPagesFields_updatedAt_Read
@@ -8654,6 +6512,8 @@ type svgsAccess {
 }
 
 type SvgsFields {
+  createdBy: SvgsFields_createdBy
+  updatedBy: SvgsFields_updatedBy
   updatedAt: SvgsFields_updatedAt
   createdAt: SvgsFields_createdAt
   url: SvgsFields_url
@@ -8665,6 +6525,52 @@ type SvgsFields {
   height: SvgsFields_height
   focalX: SvgsFields_focalX
   focalY: SvgsFields_focalY
+}
+
+type SvgsFields_createdBy {
+  create: SvgsFields_createdBy_Create
+  read: SvgsFields_createdBy_Read
+  update: SvgsFields_createdBy_Update
+  delete: SvgsFields_createdBy_Delete
+}
+
+type SvgsFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type SvgsFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type SvgsFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type SvgsFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type SvgsFields_updatedBy {
+  create: SvgsFields_updatedBy_Create
+  read: SvgsFields_updatedBy_Read
+  update: SvgsFields_updatedBy_Update
+  delete: SvgsFields_updatedBy_Delete
+}
+
+type SvgsFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type SvgsFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type SvgsFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type SvgsFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type SvgsFields_updatedAt {
@@ -8950,6 +6856,8 @@ type staffAccess {
 }
 
 type StaffFields {
+  createdBy: StaffFields_createdBy
+  updatedBy: StaffFields_updatedBy
   firstName: StaffFields_firstName
   lastName: StaffFields_lastName
   fullName: StaffFields_fullName
@@ -8958,6 +6866,52 @@ type StaffFields {
   createdAt: StaffFields_createdAt
   email: StaffFields_email
   sessions: StaffFields_sessions
+}
+
+type StaffFields_createdBy {
+  create: StaffFields_createdBy_Create
+  read: StaffFields_createdBy_Read
+  update: StaffFields_createdBy_Update
+  delete: StaffFields_createdBy_Delete
+}
+
+type StaffFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type StaffFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type StaffFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type StaffFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type StaffFields_updatedBy {
+  create: StaffFields_updatedBy_Create
+  read: StaffFields_updatedBy_Read
+  update: StaffFields_updatedBy_Update
+  delete: StaffFields_updatedBy_Delete
+}
+
+type StaffFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type StaffFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type StaffFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type StaffFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type StaffFields_firstName {
@@ -10292,9 +8246,57 @@ type site_settingsAccess {
 }
 
 type SiteSettingsFields {
+  createdBy: SiteSettingsFields_createdBy
+  updatedBy: SiteSettingsFields_updatedBy
   meta: SiteSettingsFields_meta
   updatedAt: SiteSettingsFields_updatedAt
   createdAt: SiteSettingsFields_createdAt
+}
+
+type SiteSettingsFields_createdBy {
+  create: SiteSettingsFields_createdBy_Create
+  read: SiteSettingsFields_createdBy_Read
+  update: SiteSettingsFields_createdBy_Update
+  delete: SiteSettingsFields_createdBy_Delete
+}
+
+type SiteSettingsFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_updatedBy {
+  create: SiteSettingsFields_updatedBy_Create
+  read: SiteSettingsFields_updatedBy_Read
+  update: SiteSettingsFields_updatedBy_Update
+  delete: SiteSettingsFields_updatedBy_Delete
+}
+
+type SiteSettingsFields_updatedBy_Create {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_updatedBy_Read {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_updatedBy_Update {
+  permission: Boolean!
+}
+
+type SiteSettingsFields_updatedBy_Delete {
+  permission: Boolean!
 }
 
 type SiteSettingsFields_meta {
@@ -10496,6 +8498,8 @@ type Mutation {
 }
 
 input mutationImageInput {
+  createdBy: String
+  updatedBy: String
   description: String
   updatedAt: String
   createdAt: String
@@ -10512,71 +8516,11 @@ input mutationImageInput {
 }
 
 input mutationImage_SizesInput {
-  xs: mutationImage_Sizes_XsInput
-  sm: mutationImage_Sizes_SmInput
-  md: mutationImage_Sizes_MdInput
-  lg: mutationImage_Sizes_LgInput
-  xl: mutationImage_Sizes_XlInput
-  xxl: mutationImage_Sizes_XxlInput
-  xxxl: mutationImage_Sizes_XxxlInput
+  thumbnail: mutationImage_Sizes_ThumbnailInput
   opengraph: mutationImage_Sizes_OpengraphInput
 }
 
-input mutationImage_Sizes_XsInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_SmInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_MdInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_LgInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_XlInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_XxlInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImage_Sizes_XxxlInput {
+input mutationImage_Sizes_ThumbnailInput {
   url: String
   width: Float
   height: Float
@@ -10595,6 +8539,8 @@ input mutationImage_Sizes_OpengraphInput {
 }
 
 input mutationImageUpdateInput {
+  createdBy: String
+  updatedBy: String
   description: String
   updatedAt: String
   createdAt: String
@@ -10611,71 +8557,11 @@ input mutationImageUpdateInput {
 }
 
 input mutationImageUpdate_SizesInput {
-  xs: mutationImageUpdate_Sizes_XsInput
-  sm: mutationImageUpdate_Sizes_SmInput
-  md: mutationImageUpdate_Sizes_MdInput
-  lg: mutationImageUpdate_Sizes_LgInput
-  xl: mutationImageUpdate_Sizes_XlInput
-  xxl: mutationImageUpdate_Sizes_XxlInput
-  xxxl: mutationImageUpdate_Sizes_XxxlInput
+  thumbnail: mutationImageUpdate_Sizes_ThumbnailInput
   opengraph: mutationImageUpdate_Sizes_OpengraphInput
 }
 
-input mutationImageUpdate_Sizes_XsInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_SmInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_MdInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_LgInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_XlInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_XxlInput {
-  url: String
-  width: Float
-  height: Float
-  mimeType: String
-  filesize: Float
-  filename: String
-}
-
-input mutationImageUpdate_Sizes_XxxlInput {
+input mutationImageUpdate_Sizes_ThumbnailInput {
   url: String
   width: Float
   height: Float
@@ -10694,11 +8580,13 @@ input mutationImageUpdate_Sizes_OpengraphInput {
 }
 
 input mutationKeyPageInput {
+  createdBy: String
+  updatedBy: String
   homeTemplateFields: mutationKeyPage_HomeTemplateFieldsInput
-  meta: mutationKeyPage_MetaInput
   template: KeyPage_template_MutationInput!
   keyPageTitle: String!
   keyPageUri: String
+  meta: mutationKeyPage_MetaInput
   updatedAt: String
   createdAt: String
 }
@@ -10708,22 +8596,24 @@ input mutationKeyPage_HomeTemplateFieldsInput {
   media: JSON
 }
 
+enum KeyPage_template_MutationInput {
+  Home
+}
+
 input mutationKeyPage_MetaInput {
   title: String
   description: String
   image: String
 }
 
-enum KeyPage_template_MutationInput {
-  Home
-}
-
 input mutationKeyPageUpdateInput {
+  createdBy: String
+  updatedBy: String
   homeTemplateFields: mutationKeyPageUpdate_HomeTemplateFieldsInput
-  meta: mutationKeyPageUpdate_MetaInput
   template: KeyPageUpdate_template_MutationInput
   keyPageTitle: String
   keyPageUri: String
+  meta: mutationKeyPageUpdate_MetaInput
   updatedAt: String
   createdAt: String
 }
@@ -10733,17 +8623,19 @@ input mutationKeyPageUpdate_HomeTemplateFieldsInput {
   media: JSON
 }
 
+enum KeyPageUpdate_template_MutationInput {
+  Home
+}
+
 input mutationKeyPageUpdate_MetaInput {
   title: String
   description: String
   image: String
 }
 
-enum KeyPageUpdate_template_MutationInput {
-  Home
-}
-
 input mutationSVGInput {
+  createdBy: String
+  updatedBy: String
   updatedAt: String
   createdAt: String
   url: String
@@ -10758,6 +8650,8 @@ input mutationSVGInput {
 }
 
 input mutationSVGUpdateInput {
+  createdBy: String
+  updatedBy: String
   updatedAt: String
   createdAt: String
   url: String
@@ -10772,6 +8666,8 @@ input mutationSVGUpdateInput {
 }
 
 input mutationStaffInput {
+  createdBy: String
+  updatedBy: String
   firstName: String!
   lastName: String!
   fullName: String
@@ -10802,6 +8698,8 @@ input mutationStaff_SessionsInput {
 }
 
 input mutationStaffUpdateInput {
+  createdBy: String
+  updatedBy: String
   firstName: String
   lastName: String
   fullName: String
@@ -11051,6 +8949,8 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
 }
 
 input mutationSiteSettingsInput {
+  createdBy: String
+  updatedBy: String
   meta: mutationSiteSettings_MetaInput
   updatedAt: String
   createdAt: String

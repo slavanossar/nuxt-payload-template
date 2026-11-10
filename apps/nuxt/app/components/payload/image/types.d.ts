@@ -1,15 +1,11 @@
 import type { ImageFragment } from '#graphql/exports'
 
-export interface SrcsetSizes {
-  default: string
-  md?: string
-  lg?: string
-  xl?: string
-  '2xl'?: string
-}
-
 export interface PayloadImageProps {
-  image: ImageFragment
+  image: ImageFragment | null
   lazy?: boolean
-  sizes?: SrcsetSizes
+  priority?: boolean
+  /**
+   * @nuxt/image `sizes` value, for example `100vw md:50vw xl:400px`.
+   */
+  sizes: string
 }

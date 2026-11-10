@@ -10,10 +10,27 @@ const {
   SITE_NAME,
   NEXT_PUBLIC_SITE_URL,
   NEXT_PUBLIC_PAYLOAD_API_ROUTE,
+  BLOB_STORE_ID,
+  VERCEL_URL,
+  VERCEL_BRANCH_URL,
 } = process.env
 
 const isDev = NODE_ENV !== 'production'
 const siteUrl = NEXT_PUBLIC_SITE_URL
+
+const blobHostname = BLOB_STORE_ID
+  ? `${BLOB_STORE_ID.replace(/^store_/, '')}.public.blob.vercel-storage.com`
+  : undefined
+
+const getHostname = (value: string | undefined): string | undefined => {
+  if (!value) return undefined
+
+  try {
+    return new URL(value).hostname
+  } catch {
+    return undefined
+  }
+}
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
@@ -32,6 +49,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
   modules: [
+    '@nuxt/image',
     '@nuxtjs/apollo',
     '@pinia/nuxt',
     '@nuxtjs/seo',
@@ -64,6 +82,22 @@ export default defineNuxtConfig({
         connectToDevTools: isDev,
         tokenName: 'payload-token',
       },
+    },
+  },
+  image: {
+    provider: process.env.VERCEL ? 'vercel' : 'ipx',
+    domains: [
+      getHostname(NEXT_PUBLIC_SITE_URL),
+      getHostname(VERCEL_URL && `https://${VERCEL_URL}`),
+      getHostname(VERCEL_BRANCH_URL && `https://${VERCEL_BRANCH_URL}`),
+      blobHostname,
+    ].filter((hostname): hostname is string => Boolean(hostname)),
+    densities: [1, 2],
+    quality: 75,
+    screens: tailwindBreakpoints,
+    vercel: {
+      formats: ['image/webp'],
+      minimumCacheTTL: 60 * 60 * 24 * 30,
     },
   },
   robots: {

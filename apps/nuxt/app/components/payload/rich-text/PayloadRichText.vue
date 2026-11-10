@@ -12,7 +12,6 @@ import {
 
 import type { SerializedLexicalNode } from 'lexical'
 import type { VNodeChild } from 'vue'
-import type { SrcsetSizes } from '~/components/payload/image/types'
 import type { LexicalElementNode, LexicalInternalLinkNode } from './types'
 
 export default defineComponent({
@@ -30,7 +29,7 @@ export default defineComponent({
       default: undefined,
     },
     imageSizes: {
-      type: Object as PropType<SrcsetSizes>,
+      type: String,
       default: undefined,
     },
   },
@@ -82,7 +81,7 @@ export default defineComponent({
         const children: VNodeChild[] = [
           h(PayloadImage, {
             image: node.value,
-            sizes: props.imageSizes,
+            sizes: props.imageSizes ?? '100vw',
           }),
         ]
 

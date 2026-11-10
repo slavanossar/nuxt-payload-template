@@ -1,12 +1,20 @@
 <template>
-  <img
-    v-if="image"
-    ref="root"
-    class="block w-full transition-opacity duration-500"
-    :class="hasLoaded || !props.lazy ? '' : 'opacity-0'"
-    :srcset="isPreloading ? srcset : ''"
+  <NuxtImg
+    v-if="src"
+    ref="imageEl"
+    :alt="alt"
+    class="block w-full"
+    :class="{
+      'transition-opacity duration-500': fadeIn,
+      'opacity-0': fadeIn && !hasLoaded,
+    }"
+    :height="height"
+    :loading="loading"
+    :preload="props.priority ? { fetchPriority: 'high' } : undefined"
     :sizes="sizes"
-    :alt="image.description || ''"
+    :src="src"
+    :width="width"
+    @error="onError"
     @load="onLoad"
   />
 </template>
@@ -15,36 +23,93 @@
 import type { PayloadImageProps } from './types'
 
 const props = withDefaults(defineProps<PayloadImageProps>(), {
+  image: null,
   lazy: false,
-  sizes: () => ({
-    default: '100vw',
-  }),
+  priority: false,
 })
 
-const srcset = useSrcset(toRef(props, 'image'))
-const sizes = srcsetSizesToAttribute(props.sizes)
+const emit = defineEmits<{
+  load: []
+}>()
 
-const root = ref<HTMLImageElement | null>(null)
-const emit = defineEmits(['load'])
+const imageEl = useTemplateRef<{
+  imgEl: HTMLImageElement | { value: HTMLImageElement | null } | null
+}>('imageEl')
+
 const hasLoaded = ref(false)
-const isPreloading = ref(!props.lazy)
 
-const onLoad = () => {
+const positiveDimension = (value: unknown): number | undefined =>
+  typeof value === 'number' && Number.isFinite(value) && value > 0
+    ? Math.round(value)
+    : undefined
+
+const src = computed(() => {
+  const url = props.image?.url
+
+  return typeof url === 'string' && url.length > 0 ? url : undefined
+})
+
+const alt = computed(() => props.image?.description || '')
+
+const width = computed(() => positiveDimension(props.image?.width))
+const height = computed(() => positiveDimension(props.image?.height))
+
+const loading = computed(() =>
+  props.priority || !props.lazy ? 'eager' : 'lazy',
+)
+
+const fadeIn = computed(() => props.lazy && !props.priority)
+
+const imageElement = (): HTMLImageElement | null => {
+  const exposed = imageEl.value?.imgEl
+
+  if (exposed instanceof HTMLImageElement) return exposed
+
+  if (
+    exposed &&
+    typeof exposed === 'object' &&
+    'value' in exposed &&
+    exposed.value instanceof HTMLImageElement
+  ) {
+    return exposed.value
+  }
+
+  return null
+}
+
+const markLoaded = () => {
+  if (hasLoaded.value) return
+
   hasLoaded.value = true
   emit('load')
 }
 
-onMounted(() => {
-  const { top } = useElementBounding(root.value)
+const revealIfComplete = () => {
+  const element = imageElement()
 
-  watchEffect(() => {
-    if (props.lazy && !isPreloading.value && top.value) {
-      isPreloading.value = hasLoaded.value || top.value < window.innerHeight * 2
-    }
-  })
+  if (!element?.complete) return
 
-  if (!props.lazy && root.value?.complete) {
-    onLoad()
+  if (element.naturalWidth > 0) {
+    markLoaded()
+    return
   }
+
+  hasLoaded.value = true
+}
+
+const onLoad = () => {
+  markLoaded()
+}
+
+const onError = () => {
+  hasLoaded.value = true
+}
+
+onMounted(revealIfComplete)
+
+watch(src, async () => {
+  hasLoaded.value = false
+  await nextTick()
+  revealIfComplete()
 })
 </script>

@@ -1,14 +1,37 @@
 import type { CollectionConfig, ImageSize } from 'payload'
-import type { Image } from '#payload-types'
 
-const sizes = {
-  xs: 320,
-  sm: 640,
-  md: 960,
-  lg: 1200,
-  xl: 1600,
-  xxl: 2000,
-  xxxl: 2400,
+const thumbnailSize: ImageSize = {
+  name: 'thumbnail',
+  width: 320,
+  withoutEnlargement: false,
+  formatOptions: {
+    format: 'webp',
+    options: {
+      quality: 80,
+    },
+  },
+  admin: {
+    disableListColumn: true,
+    disableListFilter: true,
+  },
+}
+
+const opengraphSize: ImageSize = {
+  name: 'opengraph',
+  width: 1200,
+  height: 630,
+  withoutEnlargement: false,
+  formatOptions: {
+    format: 'jpeg',
+    options: {
+      quality: 90,
+      force: true,
+    },
+  },
+  admin: {
+    disableListColumn: true,
+    disableListFilter: true,
+  },
 }
 
 const Images: CollectionConfig = {
@@ -23,40 +46,10 @@ const Images: CollectionConfig = {
   upload: {
     staticDir: 'uploads/images',
     mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-    adminThumbnail: ({ doc }) =>
-      (doc as unknown as Image).sizes?.xs?.url || null,
-    imageSizes: [
-      ...Object.entries(sizes).map<ImageSize>(([name, width]) => {
-        return {
-          name,
-          width,
-          formatOptions: {
-            format: 'jpeg',
-          },
-          admin: {
-            disableListColumn: true,
-            disableListFilter: true,
-          },
-        }
-      }),
-      {
-        name: 'opengraph',
-        width: 1200,
-        height: 630,
-        withoutEnlargement: false,
-        formatOptions: {
-          format: 'jpeg',
-          options: {
-            quality: 90,
-            force: true,
-          },
-        },
-        admin: {
-          disableListColumn: true,
-          disableListFilter: true,
-        },
-      },
-    ],
+    crop: true,
+    focalPoint: true,
+    adminThumbnail: 'thumbnail',
+    imageSizes: [thumbnailSize, opengraphSize],
   },
   fields: [
     {

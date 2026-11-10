@@ -1,37 +1,10 @@
 fragment Image on Image {
   id
   description
+  url
   width
   height
   sizes {
-    xs {
-      url
-      width
-    }
-    sm {
-      url
-      width
-    }
-    md {
-      url
-      width
-    }
-    lg {
-      url
-      width
-    }
-    xl {
-      url
-      width
-    }
-    xxl {
-      url
-      width
-    }
-    xxxl {
-      url
-      width
-    }
     opengraph {
       url
       width

@@ -5,7 +5,6 @@ import type {
 } from 'lexical'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import type { ImageFragment, KeyPageFragment } from '#graphql/exports'
-import type { SrcsetSizes } from '~/components/payload/image/types'
 
 export type LexicalRichTextField = DefaultTypedEditorState
 
@@ -83,7 +82,7 @@ export interface PayloadRichTextProps {
   content?: unknown
   linkClass?: string
   nestedContent?: SerializedLexicalNode[]
-  imageSizes?: SrcsetSizes
+  imageSizes?: string
 }
 
 export function isLexicalRichTextField(

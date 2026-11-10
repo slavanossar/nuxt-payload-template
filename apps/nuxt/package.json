@@ -34,6 +34,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1"
   },
   "dependencies": {
+    "@nuxt/image": "^2.2.1",
     "@mux/mux-player": "^3.14.1",
     "@nuxtjs/apollo": "5.0.0-alpha.16",
     "@nuxtjs/seo": "^6.0.1",

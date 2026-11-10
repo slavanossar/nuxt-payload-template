@@ -16,7 +16,6 @@ type KeyPageDoc<T extends KeyPage['template']> = NonNullable<
   NonNullable<KeyPageQuery<T>['KeyPages']>['docs'][number]
 >
 
-/** Load a required page document; query updates remain reactive. Sets reactive page SEO. */
 export const usePayloadKeyPage = async <T extends KeyPage['template']>(
   template: T,
   options: { livePreview?: { depth?: number } } = {},
@@ -26,33 +25,34 @@ export const usePayloadKeyPage = async <T extends KeyPage['template']>(
     keyPageQueries[template],
   )
 
-  const doc = computed(() => {
-    if (error.value) {
-      throw createError({
-        statusCode: 502,
-        message: 'Unable to load page.',
-        cause: error.value,
-        fatal: true,
-      })
-    }
+  if (error.value) {
+    throw createError({
+      statusCode: 502,
+      message: 'Unable to load page.',
+      cause: error.value,
+      fatal: true,
+    })
+  }
 
-    // Manually preserve the generic template/result correlation
+  const readDocument = () => {
+    // Preserve the generic template/result correlation
     const result = data.value as KeyPageQuery<T> | null
-    const page = result?.KeyPages?.docs[0] as KeyPageDoc<T> | undefined
+    return result?.KeyPages?.docs[0] as KeyPageDoc<T> | undefined
+  }
+  const initialDocument = readDocument()
 
-    if (!page) {
-      throw createError({
-        statusCode: 404,
-        message: 'Page not found.',
-        fatal: true,
-      })
-    }
+  if (!initialDocument) {
+    throw createError({
+      statusCode: 404,
+      message: 'Page not found.',
+      fatal: true,
+    })
+  }
 
-    return page
-  })
-
-  // Validate the initial response before handing the document to the page.
-  void doc.value
+  // Nuxt clears query data on unmount; keep the last document for remaining consumers
+  const doc = computed<NonNullable<typeof initialDocument>>(
+    (previous) => readDocument() ?? previous ?? initialDocument,
+  )
 
   return nuxtApp.runWithContext(() => {
     const page = options.livePreview

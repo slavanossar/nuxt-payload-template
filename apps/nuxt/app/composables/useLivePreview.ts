@@ -2,7 +2,7 @@ import { ready, subscribe, unsubscribe } from '@payloadcms/live-preview'
 
 export const useLivePreview = <T extends Record<string, any>>(props: {
   depth?: number
-  initialData: MaybeRef<T>
+  initialData: MaybeRefOrGetter<T>
 }): {
   data: Ref<T>
   isLoading: Ref<boolean>
@@ -13,7 +13,13 @@ export const useLivePreview = <T extends Record<string, any>>(props: {
   const apiRoute = runtimeConfig.public.payloadApiRoute
 
   const { depth = 0, initialData } = props
-  const data = ref(unref(initialData)) as Ref<T>
+  const data = ref(toValue(initialData)) as Ref<T>
+  watch(
+    () => toValue(initialData),
+    (value) => {
+      data.value = value
+    },
+  )
   const isLoading = ref(true)
   const hasSentReadyMessage = ref(false)
 
@@ -34,7 +40,7 @@ export const useLivePreview = <T extends Record<string, any>>(props: {
       apiRoute,
       callback: onChange,
       depth,
-      initialData: unref(initialData),
+      initialData: toValue(initialData),
       serverURL,
     })
 

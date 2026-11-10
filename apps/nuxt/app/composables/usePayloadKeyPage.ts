@@ -1,67 +1,65 @@
 import { GetHomePageDocument } from '#graphql/exports'
 
-import type { UseSeoMetaInput } from '@unhead/vue'
+import type { ResultOf } from '@graphql-typed-document-node/core'
 import type { DocumentNode } from 'graphql'
 import type { KeyPage } from '#payload-types'
-import type { GetHomePageQuery, GetHomePageQueryVariables } from '#graphql/exports'
 
-type KeyPageQueryByTemplate = {
-  Home: GetHomePageQuery
-}
+const keyPageQueries = {
+  Home: GetHomePageDocument,
+} satisfies Record<KeyPage['template'], DocumentNode>
 
-type KeyPageQueryVariablesByTemplate = {
-  Home: GetHomePageQueryVariables
-}
-
-type KeyPageDoc<T extends KeyPage['template']> = NonNullable<
-  NonNullable<KeyPageQueryByTemplate[T]['KeyPages']>['docs'][number]
+type KeyPageQuery<T extends KeyPage['template']> = ResultOf<
+  (typeof keyPageQueries)[T]
 >
 
-const keyPageQueries: Record<KeyPage['template'], DocumentNode> = {
-  Home: GetHomePageDocument,
-}
+type KeyPageDoc<T extends KeyPage['template']> = NonNullable<
+  NonNullable<KeyPageQuery<T>['KeyPages']>['docs'][number]
+>
 
+/** Load a required page document; query updates remain reactive. Sets reactive page SEO. */
 export const usePayloadKeyPage = async <T extends KeyPage['template']>(
   template: T,
-): Promise<Ref<KeyPageDoc<T>>> => {
+  options: { livePreview?: { depth?: number } } = {},
+): Promise<ComputedRef<KeyPageDoc<T>>> => {
   const nuxtApp = useNuxtApp()
-  const config = useRuntimeConfig()
-  const globalsStore = useGlobalsStore()
+  const { data, error } = await useAsyncQuery<KeyPageQuery<T>>(
+    keyPageQueries[template],
+  )
 
-  const { data } = await useAsyncQuery<
-    KeyPageQueryByTemplate[T],
-    KeyPageQueryVariablesByTemplate[T]
-  >(keyPageQueries[template])
+  const doc = computed(() => {
+    if (error.value) {
+      throw createError({
+        statusCode: 502,
+        message: 'Unable to load page.',
+        cause: error.value,
+        fatal: true,
+      })
+    }
 
-  const result = data.value as KeyPageQueryByTemplate[T] | null
-  const page = result?.KeyPages?.docs[0] as KeyPageDoc<T> | undefined
+    // Manually preserve the generic template/result correlation
+    const result = data.value as KeyPageQuery<T> | null
+    const page = result?.KeyPages?.docs[0] as KeyPageDoc<T> | undefined
 
-  if (!page) {
-    throw createError({
-      statusCode: 404,
-      message: 'Page not found.',
-      fatal: true,
-    })
-  }
+    if (!page) {
+      throw createError({
+        statusCode: 404,
+        message: 'Page not found.',
+        fatal: true,
+      })
+    }
 
-  const docMeta = page.meta
-  const seoMeta: UseSeoMetaInput = { title: page.keyPageTitle }
+    return page
+  })
 
-  seoMeta.title = docMeta?.title || seoMeta.title
+  // Validate the initial response before handing the document to the page.
+  void doc.value
 
-  seoMeta.ogTitle = `${seoMeta.title} | ${
-    globalsStore.siteSettings?.meta?.title || config.public.siteName
-  }`
+  return nuxtApp.runWithContext(() => {
+    const page = options.livePreview
+      ? useLivePreview({ initialData: doc, ...options.livePreview }).data
+      : doc
 
-  if (docMeta?.description) {
-    seoMeta.description = seoMeta.ogDescription = docMeta.description
-  }
-
-  if (docMeta?.image) {
-    seoMeta.ogImage = docMeta.image.sizes?.opengraph?.url || ''
-  }
-
-  nuxtApp.runWithContext(() => useSeoMeta(seoMeta))
-
-  return ref(page)
+    usePayloadSeo(page, () => page.value.keyPageTitle)
+    return computed(() => page.value)
+  })
 }
